@@ -1,0 +1,9 @@
+numpy==2.4.6
+scipy==1.17.1
+astropy==8.0.2
+astroquery==0.4.11
+photutils==3.0.0
+reproject==0.21.0
+pyvo==1.10.0
+requests==2.34.2
+Pillow==13.0.0

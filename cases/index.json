@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.3.0",
+  "cases": [
+    {
+      "case_id": "synthetic-ui-demo",
+      "title": "Synthetic moving-source interface fixture",
+      "kind": "other",
+      "is_synthetic": true,
+      "case_path": "synthetic-ui-demo.json"
+    }
+  ]
+}

@@ -1,0 +1,935 @@
+{
+  "offline": true,
+  "gaia_sources_cached": 12,
+  "thresholds_unchanged": {
+    "minimum_distinct_obs_ids": 10,
+    "minimum_detectors": 3,
+    "minimum_wavelength_span_um": 0.5
+  },
+  "candidates": [
+    {
+      "source_id": "2257879430089407744",
+      "ra_j2016_deg": 271.8734394647988,
+      "dec_j2016_deg": 66.92394074609744,
+      "pmra_mas_yr": -1.2984038308593902,
+      "pmdec_mas_yr": -1.2235323246746648,
+      "pm_total_mas_yr": 1.784063860267936,
+      "gmag": 13.310772895812988,
+      "ruwe": 1.0677399635314941,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5040,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-18T08:50:55.680"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 8114,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 4089,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T23:11:42.490"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9129,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "2257958938524212096",
+      "ra_j2016_deg": 271.2076387069309,
+      "dec_j2016_deg": 67.3272023762573,
+      "pmra_mas_yr": 0.2547760043482391,
+      "pmdec_mas_yr": 1.3901551395458291,
+      "pm_total_mas_yr": 1.4133089274455666,
+      "gmag": 11.05006217956543,
+      "ruwe": 0.9944666028022766,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5048,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-20T13:00:20.419"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 8068,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 4063,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T21:34:11.741"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9111,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "2257932515885332992",
+      "ra_j2016_deg": 271.2302814247016,
+      "dec_j2016_deg": 67.14207561611155,
+      "pmra_mas_yr": -0.4154325268433319,
+      "pmdec_mas_yr": -0.3657577136091509,
+      "pm_total_mas_yr": 0.5535005776185146,
+      "gmag": 13.164783477783203,
+      "ruwe": 0.9894669055938721,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5046,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-20T14:35:57.898"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 8048,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 4055,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T21:34:11.741"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9101,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "2257752402137936896",
+      "ra_j2016_deg": 272.128462746616,
+      "dec_j2016_deg": 66.31061619591037,
+      "pmra_mas_yr": -1.0204065906493311,
+      "pmdec_mas_yr": 1.0800661410674444,
+      "pm_total_mas_yr": 1.485857489573247,
+      "gmag": 12.458340644836426,
+      "ruwe": 0.9843809604644775,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5045,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-25T05:14:42.547",
+            "2025-10-15T12:22:01.574"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 8025,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 4050,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T17:35:06.058",
+            "2026-10-04T23:18:10.771"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9095,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "2257926365492000768",
+      "ra_j2016_deg": 271.0162201814762,
+      "dec_j2016_deg": 66.92883821570538,
+      "pmra_mas_yr": -0.3682469503473958,
+      "pmdec_mas_yr": 0.49026422402386327,
+      "pm_total_mas_yr": 0.6131597066000652,
+      "gmag": 13.314197540283203,
+      "ruwe": 1.0260263681411743,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5048,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-21T03:37:59.491"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7973,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 4020,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T23:11:42.490"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9068,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "1633394243270175104",
+      "ra_j2016_deg": 269.80598342978504,
+      "dec_j2016_deg": 67.02661701296338,
+      "pmra_mas_yr": -0.23198764712130068,
+      "pmdec_mas_yr": -0.37653396680087375,
+      "pm_total_mas_yr": 0.44226247474964303,
+      "gmag": 13.181665420532227,
+      "ruwe": 0.9697330594062805,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5036,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-24T19:34:30.691"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7902,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3977,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T21:34:11.741"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9013,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "1633328135133208576",
+      "ra_j2016_deg": 269.71640148359666,
+      "dec_j2016_deg": 66.72291703437753,
+      "pmra_mas_yr": -0.31252550329510687,
+      "pmdec_mas_yr": 0.2505988000698609,
+      "pm_total_mas_yr": 0.4005895016176959,
+      "gmag": 12.863240242004395,
+      "ruwe": 1.133326530456543,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5036,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-24T01:49:51.542"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7880,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3967,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T23:11:42.490"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 9003,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "1633323084251692288",
+      "ra_j2016_deg": 269.94230890000006,
+      "dec_j2016_deg": 66.62965778785579,
+      "pmra_mas_yr": -0.4864951441031378,
+      "pmdec_mas_yr": 0.10243913765511779,
+      "pm_total_mas_yr": 0.4971632550374746,
+      "gmag": 11.47958755493164,
+      "ruwe": 0.8622904419898987,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5031,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-23T20:51:19.440"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7873,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3962,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T23:11:42.490"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 8993,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "1633306316700113024",
+      "ra_j2016_deg": 269.77410473768515,
+      "dec_j2016_deg": 66.46748335101324,
+      "pmra_mas_yr": -0.73472499763585,
+      "pmdec_mas_yr": 0.14843822698086714,
+      "pm_total_mas_yr": 0.7495696961458775,
+      "gmag": 12.614988327026367,
+      "ruwe": 0.9890246987342834,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5041,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-23T15:55:46.790"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7828,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3939,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T23:13:51.398"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 8980,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "1633621189339915264",
+      "ra_j2016_deg": 268.0465555762346,
+      "dec_j2016_deg": 67.1498569860195,
+      "pmra_mas_yr": -1.0942727784994648,
+      "pmdec_mas_yr": 0.48629675065919975,
+      "pm_total_mas_yr": 1.1974629194537234,
+      "gmag": 13.584580421447754,
+      "ruwe": 1.122154712677002,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5039,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-10-31T12:56:14.698"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7790,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3919,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T21:34:11.741"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 8958,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "1633565870160996096",
+      "ra_j2016_deg": 267.67011745309435,
+      "dec_j2016_deg": 66.91582102726557,
+      "pmra_mas_yr": 0.7691315070276542,
+      "pmdec_mas_yr": -0.5215504311905548,
+      "pm_total_mas_yr": 0.9292890440426402,
+      "gmag": 13.699381828308105,
+      "ruwe": 1.0349098443984985,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5043,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T21:06:38.390",
+            "2025-11-03T01:16:52.378"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7774,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3911,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T12:47:04.762",
+            "2026-10-04T21:34:11.741"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 8954,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    },
+    {
+      "source_id": "2161582513804280448",
+      "ra_j2016_deg": 270.35366777221384,
+      "dec_j2016_deg": 65.5743699525218,
+      "pmra_mas_yr": 1.5788306614358272,
+      "pmdec_mas_yr": 0.7129255868616492,
+      "pm_total_mas_yr": 1.7323305544531387,
+      "gmag": 12.114523887634277,
+      "ruwe": 0.9875452518463135,
+      "per_release": {
+        "spherex_dr1_deep": {
+          "rows_returned": 10000,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": true,
+          "distinct_obs_id_count": 5044,
+          "distinct_obs_id_count_is_lower_bound": true,
+          "utc_time_range": [
+            "2025-04-24T19:30:16.502",
+            "2025-10-16T22:35:05.770"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        },
+        "spherex_qr3_deep": {
+          "rows_returned": 7740,
+          "maxrec_cap": 10000,
+          "row_count_is_lower_bound": false,
+          "distinct_obs_id_count": 3900,
+          "distinct_obs_id_count_is_lower_bound": false,
+          "utc_time_range": [
+            "2026-05-14T17:35:06.058",
+            "2026-10-04T23:18:10.771"
+          ],
+          "detectors": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "wavelength_range_um": [
+            0.7455,
+            5.009600000000001
+          ]
+        }
+      },
+      "distinct_obs_id_union": 8944,
+      "detectors_union": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "wavelength_bounds_um": [
+        0.7455,
+        5.009600000000001
+      ],
+      "wavelength_span_um": 4.264100000000001,
+      "suitable_by_unchanged_criteria_per_release": {
+        "spherex_dr1_deep": true,
+        "spherex_qr3_deep": true
+      },
+      "suitable_in_any_single_release": true
+    }
+  ]
+}

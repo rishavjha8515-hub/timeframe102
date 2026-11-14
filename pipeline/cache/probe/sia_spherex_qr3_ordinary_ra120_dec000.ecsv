@@ -1,0 +1,403 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - name: s_ra
+#   unit: deg
+#   datatype: float64
+#   description: Central Spatial Position in ICRS Right ascension
+#   meta: !!omap
+#   - {ucd: pos.eq.ra}
+#   - {utype: 'obscore:char.spatialaxis.coverage.location.coord.position2d.value2.c1'}
+# - name: s_dec
+#   unit: deg
+#   datatype: float64
+#   description: Central Spatial Position in ICRS Declination
+#   meta: !!omap
+#   - {ucd: pos.eq.dec}
+#   - {utype: 'obscore:char.spatialaxis.coverage.location.coord.position2d.value2.c2'}
+# - name: facility_name
+#   datatype: string
+#   description: Name of telescope used to acquire observation
+#   meta: !!omap
+#   - {ucd: meta.id;instr.tel}
+#   - {utype: 'obscore:provenance.obsconfig.facility.name'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: instrument_name
+#   datatype: string
+#   description: Name of instrument used to acquire observation
+#   meta: !!omap
+#   - {ucd: meta.id;instr}
+#   - {utype: 'obscore:provenance.obsconfig.instrument.name'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: dataproduct_subtype
+#   datatype: string
+#   description: Product type (e.g. science, calibration, auxiliary, preview, info)
+#   meta: !!omap
+#   - {ucd: meta.code}
+#   - {utype: 'caom2:artifact.producttype'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: calib_level
+#   datatype: int16
+#   description: 'Calibration level of the observation: in {0, 1, 2, 3, 4}'
+#   meta: !!omap
+#   - {ucd: meta.code;obs.calib}
+#   - {utype: 'obscore:obsdataset.caliblevel'}
+# - name: dataproduct_type
+#   datatype: string
+#   description: Data product (file content) primary type
+#   meta: !!omap
+#   - {ucd: meta.id}
+#   - {utype: 'obscore:obsdataset.dataproducttype'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: energy_bandpassname
+#   datatype: string
+#   description: Collection-specific name for energy band (e.g. filter name)
+#   meta: !!omap
+#   - {utype: 'caom2:Energy.bandpassName'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: energy_emband
+#   datatype: string
+#   description: Generic name for energy band (Radio,Millimeter,Infrared,Optical,...)
+#   meta: !!omap
+#   - {utype: 'caom2:Energy.emBand'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: obs_id
+#   datatype: string
+#   description: Internal ID given by the ObsTAP service
+#   meta: !!omap
+#   - {ucd: meta.id}
+#   - {utype: 'obscore:dataid.observationid'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: s_resolution
+#   unit: arcsec
+#   datatype: float64
+#   format: '{:.6f}'
+#   description: Spatial resolution (FWHM)
+#   meta: !!omap
+#   - {ucd: pos.angResolution}
+#   - {precision: F6}
+#   - {utype: 'obscore:char.spatialaxis.resolution.refval.value'}
+# - name: em_min
+#   unit: m
+#   datatype: float64
+#   format: '{:.5g}'
+#   description: Lower bound on energy axis (barycentric wavelength)
+#   meta: !!omap
+#   - {ucd: em.wl;stat.min}
+#   - {precision: E5}
+#   - {utype: 'obscore:char.spectralaxis.coverage.bounds.limits.lolimit'}
+# - name: em_max
+#   unit: m
+#   datatype: float64
+#   format: '{:.5g}'
+#   description: Upper bound on energy axis (barycentric wavelength)
+#   meta: !!omap
+#   - {ucd: em.wl;stat.max}
+#   - {precision: E5}
+#   - {utype: 'obscore:char.spectralaxis.coverage.bounds.limits.hilimit'}
+# - name: em_res_power
+#   datatype: float64
+#   format: '{:.6f}'
+#   description: Spectral resolving power (R)
+#   meta: !!omap
+#   - {ucd: spect.resolution}
+#   - {precision: F6}
+#   - {utype: 'obscore:char.spectralaxis.resolution.resolpower.refval'}
+# - name: proposal_title
+#   datatype: string
+#   description: Proposal title
+#   meta: !!omap
+#   - {utype: 'caom2:Proposal.title'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: access_url
+#   datatype: string
+#   description: URI for the physical artifact
+#   meta: !!omap
+#   - {ucd: meta.ref.url}
+#   - {utype: 'obscore:access.reference'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: access_format
+#   datatype: string
+#   description: Content-Type of the representation at uri
+#   meta: !!omap
+#   - {ucd: meta.code.mime}
+#   - {utype: 'obscore:access.format'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: access_estsize
+#   unit: kbyte
+#   datatype: int64
+#   description: Estimated size of the download at uri
+#   meta: !!omap
+#   - {ucd: phys.size;meta.file}
+#   - {utype: 'obscore:access.size'}
+# - name: t_exptime
+#   unit: s
+#   datatype: float64
+#   format: '{:.6f}'
+#   description: Exposure time per pixel
+#   meta: !!omap
+#   - {ucd: time.duration;obs.exposure}
+#   - {precision: F6}
+#   - {utype: 'obscore:char.timeaxis.coverage.support.extent'}
+# - name: s_region
+#   unit: deg
+#   datatype: string
+#   description: AstroCoordArea Region covered in STC
+#   meta: !!omap
+#   - {ucd: pos.outline;obs.field}
+#   - {utype: 'obscore:char.spatialaxis.coverage.support.area'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: obs_collection
+#   datatype: string
+#   description: Data collection this observation belongs to
+#   meta: !!omap
+#   - {ucd: meta.id}
+#   - {utype: 'obscore:dataid.collection'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: obs_intent
+#   datatype: string
+#   description: 'Intended purpose of data (one of: science, calibration)'
+#   meta: !!omap
+#   - {utype: 'caom2:ObservationIntentType'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: algorithm_name
+#   datatype: string
+#   description: Algorithm that defines the observation
+#   meta: !!omap
+#   - {utype: 'caom2:Algorithm'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: facility_keywords
+#   datatype: string
+#   description: Telescope keywords formatted as a JSON string
+#   meta: !!omap
+#   - {utype: 'caom2:Telescope.keywords'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: instrument_keywords
+#   datatype: string
+#   description: Instrument keywords formatted as a JSON string
+#   meta: !!omap
+#   - {utype: 'caom2:Instrument.keywords'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: environment_photometric
+#   datatype: bool
+#   description: Conditions were photometric (0=false, 1=true)
+#   meta: !!omap
+#   - {utype: 'caom2:Environment.photometric'}
+# - name: proposal_id
+#   datatype: string
+#   description: Collection-specific unique proposal identifier
+#   meta: !!omap
+#   - {ucd: meta.id;obs.proposal}
+#   - {utype: 'obscore:provenance.proposal.identifier'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: proposal_pi
+#   datatype: string
+#   description: Proposal principal investigator
+#   meta: !!omap
+#   - {utype: 'caom2:Proposal.pi'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: proposal_project
+#   datatype: string
+#   description: Project that created/acquired the observation
+#   meta: !!omap
+#   - {utype: 'caom2:Proposal.project'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: target_name
+#   datatype: string
+#   description: Name of intended target
+#   meta: !!omap
+#   - {ucd: meta.id;src}
+#   - {utype: 'obscore:target.name'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: target_type
+#   datatype: string
+#   description: Classification of intended target ('object' or 'field')
+#   meta: !!omap
+#   - {utype: 'caom2:Target.type'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: target_standard
+#   datatype: bool
+#   description: Intended target is a standard (0=false, 1=true)
+#   meta: !!omap
+#   - {utype: 'caom2:Target.standard'}
+# - name: target_moving
+#   datatype: bool
+#   description: Intended target is moving (0=false, 1=true)
+#   meta: !!omap
+#   - {utype: 'caom2:Target.moving'}
+# - name: target_keywords
+#   datatype: string
+#   description: Target keywords formatted as a JSON string
+#   meta: !!omap
+#   - {utype: 'caom2:Target.keywords'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: obs_release_date
+#   datatype: string
+#   description: Timestamp of date the data becomes publicly available
+#   meta: !!omap
+#   - {ucd: time.release}
+#   - {utype: 'obscore:Curation.releaseDate'}
+#   - {xtype: timestamp}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: s_xel1
+#   datatype: int64
+#   description: Dimensions (number of pixels) along first spatial axis
+#   meta: !!omap
+#   - {ucd: meta.number}
+#   - {utype: 'obscore:char.spatialaxis.numbins1'}
+# - name: s_xel2
+#   datatype: int64
+#   description: Dimensions (number of pixels) along second spatial axis
+#   meta: !!omap
+#   - {ucd: meta.number}
+#   - {utype: 'obscore:char.spatialaxis.numbins2'}
+# - name: s_pixel_scale
+#   unit: arcsec
+#   datatype: float64
+#   format: '{:.3f}'
+#   description: Sample (pixel) size on spatial axes
+#   meta: !!omap
+#   - {precision: F3}
+#   - {utype: phys.angSize;instr.pixel}
+# - name: position_timedependent
+#   datatype: bool
+#   description: Position is time-dependent (0=false, 1=true)
+#   meta: !!omap
+#   - {utype: 'caom2:Position.timeDependent'}
+# - name: t_min
+#   unit: d
+#   datatype: float64
+#   format: '{:.6f}'
+#   description: Lower bound on time axis (Modified Julian Day)
+#   meta: !!omap
+#   - {ucd: time.start;obs.exposure}
+#   - {precision: F6}
+#   - {utype: 'obscore:char.timeaxis.coverage.bounds.limits.starttime'}
+# - name: t_max
+#   unit: d
+#   datatype: float64
+#   format: '{:.6f}'
+#   description: Upper bound on time axis (Modified Julian Day)
+#   meta: !!omap
+#   - {ucd: time.end;obs.exposure}
+#   - {precision: F6}
+#   - {utype: 'obscore:char.timeaxis.coverage.bounds.limits.stoptime'}
+# - name: t_resolution
+#   unit: s
+#   datatype: float64
+#   format: '{:.6f}'
+#   description: Resolution on the time axis
+#   meta: !!omap
+#   - {ucd: time.resolution}
+#   - {precision: F6}
+#   - {utype: 'obscore:char.timeaxis.resolution.refval.value'}
+# - name: t_xel
+#   datatype: int64
+#   description: Dimensions (number of pixels) along the time axis
+#   meta: !!omap
+#   - {ucd: meta.number}
+#   - {utype: 'obscore:char.timeaxis.numbins'}
+# - name: obs_publisher_did
+#   datatype: string
+#   description: IVOA Dataset ID given by the publisher
+#   meta: !!omap
+#   - {ucd: meta.ref.uri;meta.curation}
+#   - {utype: 'obscore:curation.publisherdid'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: s_fov
+#   unit: deg
+#   datatype: float64
+#   format: '{:.3g}'
+#   description: Estimated size of the covered region as the diameter of a containing circle
+#   meta: !!omap
+#   - {ucd: phys.angSize;instr.fov}
+#   - {precision: E3}
+#   - {utype: 'obscore:char.spatialaxis.coverage.bounds.extent.diameter'}
+# - name: em_xel
+#   datatype: int64
+#   description: Dimensions (number of pixels) along the energy axis
+#   meta: !!omap
+#   - {ucd: meta.number}
+#   - {utype: 'obscore:char.spectralaxis.numbins'}
+# - name: pol_states
+#   datatype: string
+#   description: List of polarization states present in the data file
+#   meta: !!omap
+#   - {ucd: meta.code;phys.polarization}
+#   - {utype: 'obscore:char.polarizationaxis.statelist'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: pol_xel
+#   datatype: int64
+#   description: Dimensions (number of pixels) along the polarization axis
+#   meta: !!omap
+#   - {ucd: meta.number}
+#   - {utype: 'obscore:char.polarizationaxis.numbins'}
+# - name: cloud_access
+#   datatype: string
+#   description: URI for the enclouded artifact
+#   meta: !!omap
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - name: o_ucd
+#   datatype: string
+#   description: UCD describing the observable axis (pixel values)
+#   meta: !!omap
+#   - {ucd: meta.ucd}
+#   - {utype: 'obscore:char.observableaxis.ucd'}
+#   - {_votable_string_dtype: char}
+#   - {_votable_arraysize: '*'}
+#   subtype: json
+# - {name: upload_row_id, datatype: int64}
+# schema: astropy-2.0
+s_ra s_dec facility_name instrument_name dataproduct_subtype calib_level dataproduct_type energy_bandpassname energy_emband obs_id s_resolution em_min em_max em_res_power proposal_title access_url access_format access_estsize t_exptime s_region obs_collection obs_intent algorithm_name facility_keywords instrument_keywords environment_photometric proposal_id proposal_pi proposal_project target_name target_type target_standard target_moving target_keywords obs_release_date s_xel1 s_xel2 s_pixel_scale position_timedependent t_min t_max t_resolution t_xel obs_publisher_did s_fov em_xel pol_states pol_xel cloud_access o_ucd upload_row_id

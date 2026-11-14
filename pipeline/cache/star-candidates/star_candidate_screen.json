@@ -1,0 +1,775 @@
+{
+  "overflow_results": [
+    {
+      "source_id": "1633621189339915264",
+      "obs_id": "2025W17_4B_0021_1",
+      "detector": 1,
+      "utc_night": "2025-04-24",
+      "bytes": 4000320,
+      "sha256": "c363e81ef83c3a4c02b05ff605f00235cff7f24b8f82f4cb7e5fca69ba0dd98d",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.177537870697996,
+        29.2560117297257
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.41335033087894,
+        63.4388786415325
+      ],
+      "association": "associated",
+      "peak_snr": 71.613513433572,
+      "effective_wavelength_um": 1.1145044565200806,
+      "wavelength_uncertainty_um": 0.004584098936700531,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633621189339915264_2025-04-24_D1_2025W17_4B_0021_1_northup.png"
+    },
+    {
+      "source_id": "1633621189339915264",
+      "obs_id": "2025W44_1A_0143_4",
+      "detector": 3,
+      "utc_night": "2025-10-27",
+      "bytes": 4083840,
+      "sha256": "3e28c2f9c79d5f56624e5248bde0e338ef8d3fdab80bec9b1564626083b7f41c",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "HALO",
+        "SOURCE",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.66357461840408,
+        28.818760769383093
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.440405835901885,
+        63.46282058488739
+      ],
+      "association": "associated",
+      "peak_snr": 57.87429400654791,
+      "effective_wavelength_um": 2.4241607189178467,
+      "wavelength_uncertainty_um": 0.000989238764521172,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633621189339915264_2025-10-27_D3_2025W44_1A_0143_4_northup.png"
+    },
+    {
+      "source_id": "1633621189339915264",
+      "obs_id": "2026W22_1A_0480_4",
+      "detector": 5,
+      "utc_night": "2026-05-28",
+      "bytes": 3997440,
+      "sha256": "e77a16820c90338a51930d20eaf0added6da6e729951317777b4563bf384f322",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.70534860683902,
+        28.991681396776055
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.56200524168136,
+        63.464974765498
+      ],
+      "association": "associated",
+      "peak_snr": 18.451081761332706,
+      "effective_wavelength_um": 4.4202375411987305,
+      "wavelength_uncertainty_um": 0.012168959417528491,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633621189339915264_2026-05-28_D5_2026W22_1A_0480_4_northup.png"
+    },
+    {
+      "source_id": "1633621189339915264",
+      "obs_id": "2026W40_2A_0930_4",
+      "detector": 4,
+      "utc_night": "2026-10-04",
+      "bytes": 3997440,
+      "sha256": "966299cfef6e3a165449ae73f958568ba3f469ce892a4690a358926220148097",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.246839778601796,
+        28.067909064621148
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": null,
+      "association": "unresolved",
+      "peak_snr": 103.54110927658029,
+      "effective_wavelength_um": 3.8227715492248535,
+      "wavelength_uncertainty_um": 0.014608761319144126,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633621189339915264_2026-10-04_D4_2026W40_2A_0930_4_northup.png"
+    },
+    {
+      "source_id": "1633306316700113024",
+      "obs_id": "2025W17_4B_0021_1",
+      "detector": 1,
+      "utc_night": "2025-04-24",
+      "bytes": 4000320,
+      "sha256": "04ffad93db40a0593eb48a6bde0b183241cacd32206292cdd1503a37da29941f",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.5781911384525,
+        28.594747850346867
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.454396056866536,
+        63.55836909789332
+      ],
+      "association": "associated",
+      "peak_snr": 124.54688280972692,
+      "effective_wavelength_um": 1.1145044565200806,
+      "wavelength_uncertainty_um": 0.00469487585674333,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633306316700113024_2025-04-24_D1_2025W17_4B_0021_1_northup.png"
+    },
+    {
+      "source_id": "1633306316700113024",
+      "obs_id": "2025W41_2B_0558_4",
+      "detector": 3,
+      "utc_night": "2025-10-12",
+      "bytes": 4083840,
+      "sha256": "fd6d912eb99b54c975459cb0cb25d1639dccd3df61cc7e54893ba457caf7092f",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.7552959723945,
+        29.336546810340796
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.53974021108183,
+        63.618966222685
+      ],
+      "association": "associated",
+      "peak_snr": 118.74912336863724,
+      "effective_wavelength_um": 2.4241607189178467,
+      "wavelength_uncertainty_um": 0.0009080619329746575,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633306316700113024_2025-10-12_D3_2025W41_2B_0558_4_northup.png"
+    },
+    {
+      "source_id": "1633306316700113024",
+      "obs_id": "2026W22_2A_0186_3",
+      "detector": 5,
+      "utc_night": "2026-05-29",
+      "bytes": 3997440,
+      "sha256": "3ae2051803a545041c3bbe0e37a7f76aab2237b791a71591107490224b23a6e8",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.779634766992906,
+        28.78476715765008
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.54215304413702,
+        63.52905606372516
+      ],
+      "association": "associated",
+      "peak_snr": 36.96293623760803,
+      "effective_wavelength_um": 4.4202375411987305,
+      "wavelength_uncertainty_um": 0.012226133574169573,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633306316700113024_2026-05-29_D5_2026W22_2A_0186_3_northup.png"
+    },
+    {
+      "source_id": "1633306316700113024",
+      "obs_id": "2026W40_2A_0952_2",
+      "detector": 6,
+      "utc_night": "2026-10-04",
+      "bytes": 3997440,
+      "sha256": "16675fc18fda1d3b8743330e25b9c6f5e9fee6a473b530da5537e97c8c854aad",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.807910026349163,
+        24.246128658998433
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.413905047986724,
+        63.521422891764786
+      ],
+      "association": "associated",
+      "peak_snr": 22.159352040994403,
+      "effective_wavelength_um": 5.001075744628906,
+      "wavelength_uncertainty_um": 0.01489028667334047,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633306316700113024_2026-10-04_D6_2026W40_2A_0952_2_northup.png"
+    },
+    {
+      "source_id": "1633323084251692288",
+      "obs_id": "2025W17_4B_0021_1",
+      "detector": 1,
+      "utc_night": "2025-04-24",
+      "bytes": 4000320,
+      "sha256": "9e7ba353446b5b4883c8b36aa1dff30d66c0d87c291cf968b56c552430ac1bb0",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.397989609642682,
+        29.11231103711442
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.41763273927464,
+        63.46431546825568
+      ],
+      "association": "associated",
+      "peak_snr": 193.72476037905204,
+      "effective_wavelength_um": 1.1145044565200806,
+      "wavelength_uncertainty_um": 0.004605514221708296,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633323084251692288_2025-04-24_D1_2025W17_4B_0021_1_northup.png"
+    },
+    {
+      "source_id": "1633323084251692288",
+      "obs_id": "2025W41_2B_0558_2",
+      "detector": 3,
+      "utc_night": "2025-10-12",
+      "bytes": 4083840,
+      "sha256": "6616ddaa7446b48e546e1140274f392294d13979e41af0ae90e4ff620e2543a1",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "HALO",
+        "SOURCE",
+        "SUR_ERROR",
+        "TRANSIENT"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.460844037947155,
+        28.479581689832692
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.43998142637601,
+        63.41237122076007
+      ],
+      "association": "associated",
+      "peak_snr": 159.83126160822485,
+      "effective_wavelength_um": 2.4241607189178467,
+      "wavelength_uncertainty_um": 0.0010667173784453254,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633323084251692288_2025-10-12_D3_2025W41_2B_0558_2_northup.png"
+    },
+    {
+      "source_id": "1633323084251692288",
+      "obs_id": "2026W22_2A_0543_4",
+      "detector": 5,
+      "utc_night": "2026-05-31",
+      "bytes": 3997440,
+      "sha256": "04963cde0310aa2da0127d2c8df5976057db92089eb713932f6c61cc40bf650e",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.745590443141246,
+        28.154707028939978
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": [
+        63.532607189160736,
+        63.48901650787115
+      ],
+      "association": "associated",
+      "peak_snr": 52.394698138988815,
+      "effective_wavelength_um": 4.4202375411987305,
+      "wavelength_uncertainty_um": 0.012438748055876303,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633323084251692288_2026-05-31_D5_2026W22_2A_0543_4_northup.png"
+    },
+    {
+      "source_id": "1633323084251692288",
+      "obs_id": "2026W40_2A_0952_1",
+      "detector": 6,
+      "utc_night": "2026-10-04",
+      "bytes": 3997440,
+      "sha256": "5e345a3c4a2e8d7106f8cb0f3001735bae2ecd05dff8a4bd533b5f0be9493908",
+      "flags_at_star_pixel": [
+        {
+          "bit": 21,
+          "name": "SOURCE",
+          "description": "Pixel mapped to a known source"
+        }
+      ],
+      "flags_within_2_pixel_radius_box": [
+        "SOURCE"
+      ],
+      "overflow_at_star_pixel": false,
+      "overflow_within_2px": false,
+      "input_pixel_position_xy_0based": [
+        28.48361413915967,
+        28.65767314259001
+      ],
+      "predicted_xy": [
+        63.5,
+        63.4999999999979
+      ],
+      "measured_source_xy": null,
+      "association": "unresolved",
+      "peak_snr": 69.236759557986,
+      "effective_wavelength_um": 5.001075744628906,
+      "wavelength_uncertainty_um": 0.013515512238749139,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "preview_path": "pipeline\\cache\\star-candidates\\northup\\1633323084251692288_2026-10-04_D6_2026W40_2A_0952_1_northup.png"
+    }
+  ],
+  "download_failures": [],
+  "processing_failures": [],
+  "var_flg_use": "not used as evidence; AllWISE var_flg is a four-character W1/W2/W3/W4 likelihood indicator derived from historical single-exposure flux distributions, not the SPHEREx-epoch light curve",
+  "assumed": [
+    "catalog association is nearest positional match within the queried 5 arcsec radius",
+    "SPHEREx cutout size 0.1 deg"
+  ],
+  "hdu_inspections": {
+    "1633621189339915264": [
+      {
+        "index": 0,
+        "name": "PRIMARY",
+        "shape": null,
+        "key_header_cards": {
+          "NAXIS": 0
+        }
+      },
+      {
+        "index": 1,
+        "name": "IMAGE",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy / sr",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -525.5,
+          "CRPIX2": 435.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "FLAGS",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -525.5,
+          "CRPIX2": 435.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "VARIANCE",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy2 / sr2",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -525.5,
+          "CRPIX2": 435.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "ZODI",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy / sr",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -525.5,
+          "CRPIX2": 435.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "EPSF",
+        "shape": [
+          441
+        ],
+        "key_header_cards": {
+          "NAXIS": 2
+        }
+      },
+      {
+        "index": 6,
+        "name": "WCS-WAVE",
+        "shape": [
+          1
+        ],
+        "key_header_cards": {
+          "NAXIS": 2
+        }
+      }
+    ],
+    "1633306316700113024": [
+      {
+        "index": 0,
+        "name": "PRIMARY",
+        "shape": null,
+        "key_header_cards": {
+          "NAXIS": 0
+        }
+      },
+      {
+        "index": 1,
+        "name": "IMAGE",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy / sr",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -197.5,
+          "CRPIX2": 905.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "FLAGS",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -197.5,
+          "CRPIX2": 905.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "VARIANCE",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy2 / sr2",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -197.5,
+          "CRPIX2": 905.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "ZODI",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy / sr",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -197.5,
+          "CRPIX2": 905.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "EPSF",
+        "shape": [
+          441
+        ],
+        "key_header_cards": {
+          "NAXIS": 2
+        }
+      },
+      {
+        "index": 6,
+        "name": "WCS-WAVE",
+        "shape": [
+          1
+        ],
+        "key_header_cards": {
+          "NAXIS": 2
+        }
+      }
+    ],
+    "1633323084251692288": [
+      {
+        "index": 0,
+        "name": "PRIMARY",
+        "shape": null,
+        "key_header_cards": {
+          "NAXIS": 0
+        }
+      },
+      {
+        "index": 1,
+        "name": "IMAGE",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy / sr",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -144.5,
+          "CRPIX2": 819.5
+        }
+      },
+      {
+        "index": 2,
+        "name": "FLAGS",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -144.5,
+          "CRPIX2": 819.5
+        }
+      },
+      {
+        "index": 3,
+        "name": "VARIANCE",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy2 / sr2",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -144.5,
+          "CRPIX2": 819.5
+        }
+      },
+      {
+        "index": 4,
+        "name": "ZODI",
+        "shape": [
+          59,
+          58
+        ],
+        "key_header_cards": {
+          "BUNIT": "MJy / sr",
+          "NAXIS": 2,
+          "CTYPE1": "RA---TAN-SIP",
+          "CTYPE2": "DEC--TAN-SIP",
+          "CRVAL1": 270.192293684,
+          "CRVAL2": 68.0175762647,
+          "CRPIX1": -144.5,
+          "CRPIX2": 819.5
+        }
+      },
+      {
+        "index": 5,
+        "name": "EPSF",
+        "shape": [
+          441
+        ],
+        "key_header_cards": {
+          "NAXIS": 2
+        }
+      },
+      {
+        "index": 6,
+        "name": "WCS-WAVE",
+        "shape": [
+          1
+        ],
+        "key_header_cards": {
+          "NAXIS": 2
+        }
+      }
+    ]
+  }
+}

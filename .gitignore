@@ -1,0 +1,6 @@
+.venv/
+*.fits
+*.fits.gz
+*.fz
+__pycache__/
+pipeline/cache/fits-inspection/

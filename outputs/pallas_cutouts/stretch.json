@@ -1,0 +1,12 @@
+{
+  "type": "asinh",
+  "vmin": -0.6,
+  "vmax": 50.0,
+  "width_px": 128,
+  "height_px": 128,
+  "pixel_scale_arcsec": 6.0,
+  "projection": "TAN",
+  "orientation": "north up; x increases west and y increases north",
+  "predicted_position_marker": "cyan cross",
+  "measured_candidate_marker": "red circle when available"
+}

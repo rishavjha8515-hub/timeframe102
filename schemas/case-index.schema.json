@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:timeframe102:schemas:case-index:1.3.0",
+  "title": "TIMEFRAME/102 case index",
+  "description": "Index of case records. Each case_path is relative to this index.json file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "cases"],
+  "properties": {
+    "schema_version": { "const": "1.3.0" },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["case_id", "title", "kind", "is_synthetic", "case_path"],
+        "properties": {
+          "case_id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["asteroid", "star", "comet", "other", "unknown"] },
+          "is_synthetic": { "type": "boolean" },
+          "case_path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$)).+",
+            "description": "Path to the case JSON relative to this index file."
+          }
+        }
+      }
+    }
+  }
+}

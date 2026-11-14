@@ -1,0 +1,149 @@
+{
+  "confirmed_catalog_matches": {
+    "2mass_designation": "17590579+6628028",
+    "2mass_separation_arcsec": 0.09587044371623532,
+    "2mass_ph_qual": "AAA",
+    "allwise_designation": "J175905.79+662802.9",
+    "allwise_separation_arcsec": 0.0645034197135193,
+    "allwise_var_flg": "00nn",
+    "allwise_ph_qual": "AAAC",
+    "allwise_cc_flags": "00OD",
+    "allwise_ext_flg": 0
+  },
+  "catalog_flux_points": [
+    {
+      "band": "J",
+      "wavelength_um": 1.235,
+      "flux_jy": 0.07299422265620714,
+      "uncertainty_jy": 0.0019010329317854832,
+      "magnitude": 10.847999572753906,
+      "magnitude_uncertainty": 0.020999999716877937,
+      "zero_point_jy": 1594.0,
+      "zero_point_uncertainty_jy": 27.8
+    },
+    {
+      "band": "H",
+      "wavelength_um": 1.662,
+      "flux_jy": 0.08493758900609868,
+      "uncertainty_jy": 0.00203201186239683,
+      "magnitude": 10.20300006866455,
+      "magnitude_uncertainty": 0.014999999664723873,
+      "zero_point_jy": 1024.0,
+      "zero_point_uncertainty_jy": 20.0
+    },
+    {
+      "band": "Ks",
+      "wavelength_um": 2.159,
+      "flux_jy": 0.060747795498124535,
+      "uncertainty_jy": 0.0016427491173828066,
+      "magnitude": 10.10099983215332,
+      "magnitude_uncertainty": 0.020999999716877937,
+      "zero_point_jy": 666.7,
+      "zero_point_uncertainty_jy": 12.6
+    },
+    {
+      "band": "W1",
+      "wavelength_um": 3.4,
+      "flux_jy": 0.030110424970228138,
+      "uncertainty_jy": 0.0006378527054972491,
+      "magnitude": 10.029999732971191,
+      "magnitude_uncertainty": 0.023000000044703484,
+      "zero_point_jy": 309.54,
+      "zero_point_uncertainty_jy": null
+    },
+    {
+      "band": "W2",
+      "wavelength_um": 4.6,
+      "flux_jy": 0.015254500646435687,
+      "uncertainty_jy": 0.0002809982800356056,
+      "magnitude": 10.128999710083008,
+      "magnitude_uncertainty": 0.019999999552965164,
+      "zero_point_jy": 171.79,
+      "zero_point_uncertainty_jy": null
+    },
+    {
+      "band": "W3",
+      "wavelength_um": 12.0,
+      "flux_jy": 0.0031939658188784893,
+      "uncertainty_jy": 0.00010001954735192013,
+      "magnitude": 9.991000175476074,
+      "magnitude_uncertainty": 0.03400000184774399,
+      "zero_point_jy": 31.676,
+      "zero_point_uncertainty_jy": null
+    },
+    {
+      "band": "W4",
+      "wavelength_um": 22.0,
+      "flux_jy": 0.0011748657280154322,
+      "uncertainty_jy": 0.00045231418737268,
+      "magnitude": 9.630999565124512,
+      "magnitude_uncertainty": 0.4180000126361847,
+      "zero_point_jy": 8.3635,
+      "zero_point_uncertainty_jy": null
+    }
+  ],
+  "comparisons": [
+    {
+      "observation_id": "2025W17_4B_0021_1",
+      "wavelength_um": 1.0824133157730103,
+      "catalog_interpolation_bands": [
+        "J",
+        "H"
+      ],
+      "catalog_interpolated_flux_jy": 0.06824348108697,
+      "catalog_interpolated_uncertainty_jy": 0.002667068757088774,
+      "spherex_flux_jy": 0.06476221285635263,
+      "spherex_uncertainty_jy": 0.0003321244374431429,
+      "flux_ratio_spherex_to_catalog": 0.9489875344110771,
+      "flux_ratio_uncertainty": 0.037405960920033184
+    },
+    {
+      "observation_id": "2025W41_2B_0558_4",
+      "wavelength_um": 2.303366184234619,
+      "catalog_interpolation_bands": [
+        "Ks",
+        "W1"
+      ],
+      "catalog_interpolated_flux_jy": 0.054964960964033666,
+      "catalog_interpolated_uncertainty_jy": 0.0012852783300988826,
+      "spherex_flux_jy": 0.052037856707412976,
+      "spherex_uncertainty_jy": 0.00023206686840562913,
+      "flux_ratio_spherex_to_catalog": 0.9467459958984408,
+      "flux_ratio_uncertainty": 0.02253733369222578
+    },
+    {
+      "observation_id": "2026W22_2A_0186_3",
+      "wavelength_um": 4.186532974243164,
+      "catalog_interpolation_bands": [
+        "W1",
+        "W2"
+      ],
+      "catalog_interpolated_flux_jy": 0.018854376528971283,
+      "catalog_interpolated_uncertainty_jy": 0.00026954413511536717,
+      "spherex_flux_jy": 0.020404757655537006,
+      "spherex_uncertainty_jy": 0.0002948885129444838,
+      "flux_ratio_spherex_to_catalog": 1.0822292439202874,
+      "flux_ratio_uncertainty": 0.021999818027224005
+    },
+    {
+      "observation_id": "2026W40_2A_0952_2",
+      "wavelength_um": 4.986695289611816,
+      "catalog_interpolation_bands": [
+        "W2",
+        "W3"
+      ],
+      "catalog_interpolated_flux_jy": 0.013373137079877443,
+      "catalog_interpolated_uncertainty_jy": 0.0002283426953575095,
+      "spherex_flux_jy": 0.012774407916324412,
+      "spherex_uncertainty_jy": 0.0004197544588416495,
+      "flux_ratio_spherex_to_catalog": 0.955228966847731,
+      "flux_ratio_uncertainty": 0.03537264887010087
+    }
+  ],
+  "assumptions": [
+    "Fluxes are converted with catalog magnitude zero points; 2MASS zero-point errors and catalog magnitude errors are propagated.",
+    "AllWISE catalog magnitude errors are propagated; separate AllWISE zero-point uncertainty is not included.",
+    "Catalog SED is interpolated linearly in log flux versus log wavelength, with end-segment extrapolation where needed.",
+    "No bandpass color correction, aperture correction, or catalog epoch adjustment is applied."
+  ]
+}

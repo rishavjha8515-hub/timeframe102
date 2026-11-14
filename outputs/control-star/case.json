@@ -1,0 +1,392 @@
+{
+  "schema_version": "1.3.0",
+  "case_id": "gaia-dr3-1633306316700113024-control",
+  "is_synthetic": false,
+  "time_definition": "midpoint",
+  "target": {
+    "name": "Gaia DR3 1633306316700113024",
+    "kind": "star",
+    "designation": null,
+    "catalog_id": "1633306316700113024",
+    "coordinates": {
+      "ra_deg": 269.77410473768515,
+      "dec_deg": 66.46748335101324,
+      "frame": "ICRS",
+      "epoch": "J2016.0"
+    },
+    "proper_motion": {
+      "pm_ra_cosdec_mas_yr": -0.73472499763585,
+      "pm_dec_mas_yr": 0.14843822698086714,
+      "reference_epoch": "J2016.0"
+    }
+  },
+  "observations": [
+    {
+      "observation_id": "2025W17_4B_0021_1",
+      "time_utc": "2025-04-24T21:07:35.933Z",
+      "ra_deg": 269.77429510253,
+      "dec_deg": 66.46758063272732,
+      "detector": 1,
+      "effective_wavelength_um": 1.0824133157730103,
+      "wavelength_width_um": 0.02930026315152645,
+      "wavelength_uncertainty_um": 0.0008399865821773211,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.525383734913728,
+        28.64276566888035
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.028475875034928322,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.77429510253,
+        "dec_deg": 66.46758063272732,
+        "uncertainty_ra_arcsec": 0.06179491982006351,
+        "uncertainty_dec_arcsec": 0.024191353192267763,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740999775279,
+        "dec_deg": 66.46748373499292,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        0.280466828774878,
+        0.3488318438201077
+      ],
+      "flux": {
+        "value": 0.06476221285635263,
+        "uncertainty": 0.0003321244374431429,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "images/1633306316700113024_2025-04-24_D1_2025W17_4B_0021_1_northup.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.454396056866536,
+          63.55836909789332
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    },
+    {
+      "observation_id": "2025W41_2B_0558_4",
+      "time_utc": "2025-10-12T02:52:03.331Z",
+      "ra_deg": 269.7739388491848,
+      "dec_deg": 66.46768162796315,
+      "detector": 3,
+      "effective_wavelength_um": 2.303366184234619,
+      "wavelength_width_um": 0.056139104068279266,
+      "wavelength_uncertainty_um": 0.007060661271180546,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.784195904445713,
+        29.21638116360186
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.031329069286584854,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.7739388491848,
+        "dec_deg": 66.46768162796315,
+        "uncertainty_ra_arcsec": 0.051298049852817516,
+        "uncertainty_dec_arcsec": 0.018689000263649926,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740997392819,
+        "dec_deg": 66.46748375421113,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        -0.2312586024060444,
+        0.712345507253076
+      ],
+      "flux": {
+        "value": 0.052037856707412976,
+        "uncertainty": 0.00023206686840562913,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "images/1633306316700113024_2025-10-12_D3_2025W41_2B_0558_4_northup.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.53974021108183,
+          63.618966222685
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    },
+    {
+      "observation_id": "2026W22_2A_0186_3",
+      "time_utc": "2026-05-29T14:28:24.082Z",
+      "ra_deg": 269.77392877829556,
+      "dec_deg": 66.46753177768721,
+      "detector": 5,
+      "effective_wavelength_um": 4.186532974243164,
+      "wavelength_width_um": 0.03719733655452728,
+      "wavelength_uncertainty_um": 2.0622263998681944e-05,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.787286067105207,
+        28.834154316838593
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.03732024505734444,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.77392877829556,
+        "dec_deg": 66.46753177768721,
+        "uncertainty_ra_arcsec": 0.18411645019900458,
+        "uncertainty_dec_arcsec": 0.07394381597339995,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740994181247,
+        "dec_deg": 66.46748378011736,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        -0.24527257471317487,
+        0.17279125146387742
+      ],
+      "flux": {
+        "value": 0.020404757655537006,
+        "uncertainty": 0.0002948885129444838,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "images/1633306316700113024_2026-05-29_D5_2026W22_2A_0186_3_northup.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.54215304413702,
+          63.52905606372516
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    },
+    {
+      "observation_id": "2026W40_2A_0952_2",
+      "time_utc": "2026-10-04T23:12:53.813Z",
+      "ra_deg": 269.77446412353225,
+      "dec_deg": 66.46751905542025,
+      "detector": 6,
+      "effective_wavelength_um": 4.986695289611816,
+      "wavelength_width_um": 0.03662911802530289,
+      "wavelength_uncertainty_um": 0.014730082945487943,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.892643755889402,
+        24.26247432386535
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.03815477341413498,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.77446412353225,
+        "dec_deg": 66.46751905542025,
+        "uncertainty_ra_arcsec": 0.4496237657387382,
+        "uncertainty_dec_arcsec": 0.17827859321430892,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740992384818,
+        "dec_deg": 66.46748379460831,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        0.5244748320898831,
+        0.1269389229889839
+      ],
+      "flux": {
+        "value": 0.012774407916324412,
+        "uncertainty": 0.0004197544588416495,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "images/1633306316700113024_2026-10-04_D6_2026W40_2A_0952_2_northup.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.413905047986724,
+          63.521422891764786
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    }
+  ],
+  "verdict": {
+    "label": "insufficient evidence",
+    "evidence": {
+      "summary": "Four cached observations span different detector wavelength ranges; insufficient same-wavelength repeats for a stationary-control variability test.",
+      "n_observations": 4,
+      "n_usable": 4,
+      "baseline_days": 528.0870125000001
+    },
+    "threshold_policy": {
+      "id": "control-star-variability-pending-systematic-floor",
+      "minimum_usable_epochs": 3,
+      "moving_significance_sigma": 5.0,
+      "minimum_displacement_uncertainty_ratio": 3.0,
+      "no_motion_confidence_level": 0.95,
+      "no_motion_max_displacement_arcsec": 6.15
+    }
+  },
+  "confirmed_versus_assumed": {
+    "confirmed": [
+      "Four cached real IRSA SPHEREx cutouts processed.",
+      "Wavelengths sampled after full-detector coordinate mapping.",
+      "Aperture fluxes integrate IMAGE-ZODI with VARIANCE and a local annulus."
+    ],
+    "assumed": [
+      "Aperture correction is not applied.",
+      "Pixel covariance after reprojection is ignored in the formal variance."
+    ],
+    "unverified": [
+      "Approximately 40 observations not yet downloaded or measured.",
+      "spherex_dr1_cal wavelength maps not queried/compared.",
+      "Nearby Gaia/2MASS matched non-variable stars and systematic floor not established.",
+      "No variability inference made."
+    ]
+  },
+  "provenance": {
+    "products": [
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2025W17_4B_0021_1",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/1/level2_2025W17_4B_0021_1D1_spx_l2b-v27-2026-196.fits",
+        "retrieved_utc": "2026-11-14T15:03:10.462Z",
+        "sha256": "04ffad93db40a0593eb48a6bde0b183241cacd32206292cdd1503a37da29941f"
+      },
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2025W41_2B_0558_4",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W41_2B/l2b-v27-2026-242/3/level2_2025W41_2B_0558_4D3_spx_l2b-v27-2026-242.fits",
+        "retrieved_utc": "2026-11-14T15:03:30.127Z",
+        "sha256": "fd6d912eb99b54c975459cb0cb25d1639dccd3df61cc7e54893ba457caf7092f"
+      },
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2026W22_2A_0186_3",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_qr3_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W22_2A/l2b-v27-2026-270/5/level2_2026W22_2A_0186_3D5_spx_l2b-v27-2026-270.fits",
+        "retrieved_utc": "2026-11-14T15:03:52.032Z",
+        "sha256": "3ae2051803a545041c3bbe0e37a7f76aab2237b791a71591107490224b23a6e8"
+      },
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2026W40_2A_0952_2",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_qr3_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W40_2A/l2b-v27-2026-285/6/level2_2026W40_2A_0952_2D6_spx_l2b-v27-2026-285.fits",
+        "retrieved_utc": "2026-11-14T15:04:25.742Z",
+        "sha256": "16675fc18fda1d3b8743330e25b9c6f5e9fee6a473b530da5537e97c8c854aad"
+      }
+    ],
+    "software": {
+      "pipeline_version": "0.1.0",
+      "environment_lock": "requirements-dev.txt",
+      "git_commit": null
+    }
+  }
+}

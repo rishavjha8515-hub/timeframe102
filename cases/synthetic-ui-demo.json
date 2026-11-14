@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.3.0",
+  "case_id": "synthetic-ui-demo",
+  "is_synthetic": true,
+  "time_definition": "midpoint",
+  "target": {
+    "name": "Synthetic point source (moving-object fixture)",
+    "kind": "other",
+    "designation": null,
+    "catalog_id": null,
+    "coordinates": {
+      "ra_deg": 120.0,
+      "dec_deg": 20.0,
+      "frame": "ICRS",
+      "epoch": "J2000"
+    },
+    "proper_motion": null
+  },
+  "observations": [
+    {
+      "observation_id": "synthetic-epoch-001",
+      "time_utc": "2026-01-01T00:00:00Z",
+      "ra_deg": 120.0,
+      "dec_deg": 20.0,
+      "detector": 1,
+      "effective_wavelength_um": 1.0,
+      "wavelength_width_um": 0.04,
+      "wavelength_source": "synthetic fixture value",
+      "wavelength_pixel_xy": [55.0, 64.0],
+      "quality_flags": {
+        "raw_value": 0,
+        "flag_names": ["SYNTHETIC_ZERO_FLAGS"],
+        "accepted_for_science": true,
+        "variance_value": 1.0,
+        "variance_unit": "synthetic flux_unit^2"
+      },
+      "measured_position": {
+        "ra_deg": 120.0,
+        "dec_deg": 20.0,
+        "uncertainty_ra_arcsec": 0.4,
+        "uncertainty_dec_arcsec": 0.4,
+        "method": "synthetic fixture coordinates"
+      },
+      "predicted_position": {
+        "ra_deg": 119.9995,
+        "dec_deg": 20.0,
+        "uncertainty_ra_arcsec": 0.1,
+        "uncertainty_dec_arcsec": 0.1,
+        "method": "synthetic prediction fixture; not Horizons output"
+      },
+      "position_residual_arcsec": [1.7, 0.0],
+      "flux": {
+        "value": 100.0,
+        "uncertainty": 5.0,
+        "unit": "synthetic_flux_unit",
+        "method": "synthetic fixture value"
+      },
+      "image": {
+        "path": "images/synthetic-epoch-001.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": { "type": "linear", "vmin": 0.0, "vmax": 255.0 },
+        "pixel_scale_arcsec": 6.15,
+        "source_xy": [55.0, 64.0],
+        "predicted_xy": [53.0, 64.0]
+      },
+      "registration": {
+        "n_reference_stars": 12,
+        "rms_arcsec": 0.15,
+        "method": "synthetic fixture values; registration not measured"
+      },
+      "usable": true,
+      "metadata_status": "assumed"
+    },
+    {
+      "observation_id": "synthetic-epoch-002",
+      "time_utc": "2026-01-02T00:00:00Z",
+      "ra_deg": 120.001,
+      "dec_deg": 20.0,
+      "detector": 2,
+      "effective_wavelength_um": 2.0,
+      "wavelength_width_um": 0.06,
+      "wavelength_source": "synthetic fixture value",
+      "wavelength_pixel_xy": [64.0, 64.0],
+      "quality_flags": {
+        "raw_value": 0,
+        "flag_names": ["SYNTHETIC_ZERO_FLAGS"],
+        "accepted_for_science": true,
+        "variance_value": 1.0,
+        "variance_unit": "synthetic flux_unit^2"
+      },
+      "measured_position": {
+        "ra_deg": 120.001,
+        "dec_deg": 20.0,
+        "uncertainty_ra_arcsec": 0.4,
+        "uncertainty_dec_arcsec": 0.4,
+        "method": "synthetic fixture coordinates"
+      },
+      "predicted_position": {
+        "ra_deg": 120.0005,
+        "dec_deg": 20.0,
+        "uncertainty_ra_arcsec": 0.1,
+        "uncertainty_dec_arcsec": 0.1,
+        "method": "synthetic prediction fixture; not Horizons output"
+      },
+      "position_residual_arcsec": [1.7, 0.0],
+      "flux": {
+        "value": 98.0,
+        "uncertainty": 5.0,
+        "unit": "synthetic_flux_unit",
+        "method": "synthetic fixture value"
+      },
+      "image": {
+        "path": "images/synthetic-epoch-002.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": { "type": "linear", "vmin": 0.0, "vmax": 255.0 },
+        "pixel_scale_arcsec": 6.15,
+        "source_xy": [64.0, 64.0],
+        "predicted_xy": [62.0, 64.0]
+      },
+      "registration": {
+        "n_reference_stars": 12,
+        "rms_arcsec": 0.15,
+        "method": "synthetic fixture values; registration not measured"
+      },
+      "usable": true,
+      "metadata_status": "assumed"
+    },
+    {
+      "observation_id": "synthetic-epoch-003",
+      "time_utc": "2026-01-03T00:00:00Z",
+      "ra_deg": 120.002,
+      "dec_deg": 20.0,
+      "detector": 3,
+      "effective_wavelength_um": 3.0,
+      "wavelength_width_um": 0.08,
+      "wavelength_source": "synthetic fixture value",
+      "wavelength_pixel_xy": [73.0, 64.0],
+      "quality_flags": {
+        "raw_value": 0,
+        "flag_names": ["SYNTHETIC_ZERO_FLAGS"],
+        "accepted_for_science": true,
+        "variance_value": 1.0,
+        "variance_unit": "synthetic flux_unit^2"
+      },
+      "measured_position": {
+        "ra_deg": 120.002,
+        "dec_deg": 20.0,
+        "uncertainty_ra_arcsec": 0.4,
+        "uncertainty_dec_arcsec": 0.4,
+        "method": "synthetic fixture coordinates"
+      },
+      "predicted_position": {
+        "ra_deg": 120.0015,
+        "dec_deg": 20.0,
+        "uncertainty_ra_arcsec": 0.1,
+        "uncertainty_dec_arcsec": 0.1,
+        "method": "synthetic prediction fixture; not Horizons output"
+      },
+      "position_residual_arcsec": [1.7, 0.0],
+      "flux": {
+        "value": 101.0,
+        "uncertainty": 5.0,
+        "unit": "synthetic_flux_unit",
+        "method": "synthetic fixture value"
+      },
+      "image": {
+        "path": "images/synthetic-epoch-003.png",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": { "type": "linear", "vmin": 0.0, "vmax": 255.0 },
+        "pixel_scale_arcsec": 6.15,
+        "source_xy": [73.0, 64.0],
+        "predicted_xy": [71.0, 64.0]
+      },
+      "registration": {
+        "n_reference_stars": 12,
+        "rms_arcsec": 0.15,
+        "method": "synthetic fixture values; registration not measured"
+      },
+      "usable": true,
+      "metadata_status": "assumed"
+    }
+  ],
+  "spectral_analysis": {
+    "model": "constant",
+    "parameters": { "flux": 99.67 },
+    "chi2": 0.2,
+    "dof": 2,
+    "model_curve": [[0.75, 99.67], [5.0, 99.67]],
+    "per_observation": [
+      { "observation_id": "synthetic-epoch-001", "model_flux": 99.67, "normalized_residual": 0.066 },
+      { "observation_id": "synthetic-epoch-002", "model_flux": 99.67, "normalized_residual": -0.334 },
+      { "observation_id": "synthetic-epoch-003", "model_flux": 99.67, "normalized_residual": 0.266 }
+    ]
+  },
+  "spectral_verdict": {
+    "label": "insufficient evidence",
+    "evidence": {
+      "summary": "Synthetic UI fixture only; no astrophysical conclusion is represented.",
+      "n_observations": 3,
+      "n_usable": 3,
+      "wavelength_range_um": [1.0, 3.0],
+      "reasons": ["All values in this case are generated for interface development."]
+    }
+  },
+  "verdict": {
+    "label": "insufficient evidence",
+    "evidence": {
+      "summary": "Synthetic UI fixture only; no astrophysical conclusion is represented.",
+      "n_observations": 3,
+      "n_usable": 3,
+      "baseline_days": 2.0,
+      "residual_rms_arcsec": null,
+      "motion_significance_sigma": null,
+      "reasons": ["Positions and uncertainties are generated fixture values, not astronomical measurements."]
+    },
+    "threshold_policy": {
+      "id": "demo-motion-policy-v1",
+      "minimum_usable_epochs": 3,
+      "moving_significance_sigma": 5.0,
+      "minimum_displacement_uncertainty_ratio": 3.0,
+      "no_motion_confidence_level": 0.95,
+      "no_motion_max_displacement_arcsec": 6.15
+    }
+  },
+  "confirmed_versus_assumed": {
+    "confirmed": ["is_synthetic is true; all example values and preview images are generated."],
+    "assumed": ["The fixture demonstrates a point-source record with three synthetic epochs."],
+    "unverified": ["No IRSA or Horizons data are used by this case."]
+  },
+  "provenance": {
+    "products": [],
+    "software": {
+      "pipeline_version": "synthetic-fixture-1.3.0",
+      "environment_lock": "not-applicable-synthetic",
+      "git_commit": null
+    },
+    "horizons": null
+  }
+}

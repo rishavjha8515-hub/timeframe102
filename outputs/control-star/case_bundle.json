@@ -1,0 +1,392 @@
+{
+  "schema_version": "1.3.0",
+  "case_id": "gaia-dr3-1633306316700113024-control",
+  "is_synthetic": false,
+  "time_definition": "midpoint",
+  "target": {
+    "name": "Gaia DR3 1633306316700113024",
+    "kind": "star",
+    "designation": null,
+    "catalog_id": "1633306316700113024",
+    "coordinates": {
+      "ra_deg": 269.77410473768515,
+      "dec_deg": 66.46748335101324,
+      "frame": "ICRS",
+      "epoch": "J2016.0"
+    },
+    "proper_motion": {
+      "pm_ra_cosdec_mas_yr": -0.73472499763585,
+      "pm_dec_mas_yr": 0.14843822698086714,
+      "reference_epoch": "J2016.0"
+    }
+  },
+  "observations": [
+    {
+      "observation_id": "2025W17_4B_0021_1",
+      "time_utc": "2025-04-24T21:07:35.933Z",
+      "ra_deg": 269.77429510253,
+      "dec_deg": 66.46758063272732,
+      "detector": 1,
+      "effective_wavelength_um": 1.0824133157730103,
+      "wavelength_width_um": 0.02930026315152645,
+      "wavelength_uncertainty_um": 0.0008399865821773211,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.525383734913728,
+        28.64276566888035
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.028475875034928322,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.77429510253,
+        "dec_deg": 66.46758063272732,
+        "uncertainty_ra_arcsec": 0.06179491982006351,
+        "uncertainty_dec_arcsec": 0.024191353192267763,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740999775279,
+        "dec_deg": 66.46748373499292,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        0.280466828774878,
+        0.3488318438201077
+      ],
+      "flux": {
+        "value": 0.06476221285635263,
+        "uncertainty": 0.0003321244374431429,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "data:image/png;base64,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",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.454396056866536,
+          63.55836909789332
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    },
+    {
+      "observation_id": "2025W41_2B_0558_4",
+      "time_utc": "2025-10-12T02:52:03.331Z",
+      "ra_deg": 269.7739388491848,
+      "dec_deg": 66.46768162796315,
+      "detector": 3,
+      "effective_wavelength_um": 2.303366184234619,
+      "wavelength_width_um": 0.056139104068279266,
+      "wavelength_uncertainty_um": 0.007060661271180546,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.784195904445713,
+        29.21638116360186
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.031329069286584854,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.7739388491848,
+        "dec_deg": 66.46768162796315,
+        "uncertainty_ra_arcsec": 0.051298049852817516,
+        "uncertainty_dec_arcsec": 0.018689000263649926,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740997392819,
+        "dec_deg": 66.46748375421113,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        -0.2312586024060444,
+        0.712345507253076
+      ],
+      "flux": {
+        "value": 0.052037856707412976,
+        "uncertainty": 0.00023206686840562913,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "data:image/png;base64,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",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.53974021108183,
+          63.618966222685
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    },
+    {
+      "observation_id": "2026W22_2A_0186_3",
+      "time_utc": "2026-05-29T14:28:24.082Z",
+      "ra_deg": 269.77392877829556,
+      "dec_deg": 66.46753177768721,
+      "detector": 5,
+      "effective_wavelength_um": 4.186532974243164,
+      "wavelength_width_um": 0.03719733655452728,
+      "wavelength_uncertainty_um": 2.0622263998681944e-05,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.787286067105207,
+        28.834154316838593
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.03732024505734444,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.77392877829556,
+        "dec_deg": 66.46753177768721,
+        "uncertainty_ra_arcsec": 0.18411645019900458,
+        "uncertainty_dec_arcsec": 0.07394381597339995,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740994181247,
+        "dec_deg": 66.46748378011736,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        -0.24527257471317487,
+        0.17279125146387742
+      ],
+      "flux": {
+        "value": 0.020404757655537006,
+        "uncertainty": 0.0002948885129444838,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "data:image/png;base64,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",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.54215304413702,
+          63.52905606372516
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    },
+    {
+      "observation_id": "2026W40_2A_0952_2",
+      "time_utc": "2026-10-04T23:12:53.813Z",
+      "ra_deg": 269.77446412353225,
+      "dec_deg": 66.46751905542025,
+      "detector": 6,
+      "effective_wavelength_um": 4.986695289611816,
+      "wavelength_width_um": 0.03662911802530289,
+      "wavelength_uncertainty_um": 0.014730082945487943,
+      "wavelength_source": "EPSF.CWAVE/CBAND nearest detector zone (CWAVESRC=spectral_wcs CWAVE; CBANDSRC=spectral_wcs CBAND); WCS-WAVE bilinear cross-check",
+      "wavelength_pixel_xy": [
+        28.892643755889402,
+        24.26247432386535
+      ],
+      "wavelength_sample_basis": "measured_source_centroid",
+      "quality_flags": {
+        "raw_value": 2097152,
+        "flag_names": [
+          "SOURCE"
+        ],
+        "accepted_for_science": true,
+        "variance_value": 0.03815477341413498,
+        "variance_unit": "MJy2 / sr2"
+      },
+      "measured_position": {
+        "ra_deg": 269.77446412353225,
+        "dec_deg": 66.46751905542025,
+        "uncertainty_ra_arcsec": 0.4496237657387382,
+        "uncertainty_dec_arcsec": 0.17827859321430892,
+        "method": "formal diagonal VARIANCE propagation on reprojected pixels; assumes independent pixels and excludes interpolation covariance, PSF and astrometric systematics"
+      },
+      "predicted_position": {
+        "ra_deg": 269.7740992384818,
+        "dec_deg": 66.46748379460831,
+        "uncertainty_ra_arcsec": null,
+        "uncertainty_dec_arcsec": null,
+        "method": "Gaia DR3 position propagated linearly from J2016.0 using pm_ra_cosdec and pm_dec; Gaia coordinate uncertainties not propagated"
+      },
+      "position_residual_arcsec": [
+        0.5244748320898831,
+        0.1269389229889839
+      ],
+      "flux": {
+        "value": 0.012774407916324412,
+        "uncertainty": 0.0004197544588416495,
+        "unit": "Jy",
+        "method": "IMAGE-ZODI circular aperture (r=3 px), local median annulus (6-10 px), VARIANCE propagation plus annulus background uncertainty; no aperture correction; assumes independent pixels"
+      },
+      "image": {
+        "path": "data:image/png;base64,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",
+        "width_px": 128,
+        "height_px": 128,
+        "stretch": {
+          "type": "asinh",
+          "vmin": -0.6,
+          "vmax": 50.0
+        },
+        "pixel_scale_arcsec": 6.0,
+        "source_xy": [
+          63.413905047986724,
+          63.521422891764786
+        ],
+        "predicted_xy": null
+      },
+      "registration": {
+        "n_reference_stars": 0,
+        "rms_arcsec": null,
+        "method": "north-up TAN WCS reprojection; no Gaia/reference-star astrometric refinement"
+      },
+      "usable": true,
+      "metadata_status": "confirmed"
+    }
+  ],
+  "verdict": {
+    "label": "insufficient evidence",
+    "evidence": {
+      "summary": "Four cached observations span different detector wavelength ranges; insufficient same-wavelength repeats for a stationary-control variability test.",
+      "n_observations": 4,
+      "n_usable": 4,
+      "baseline_days": 528.0870125000001
+    },
+    "threshold_policy": {
+      "id": "control-star-variability-pending-systematic-floor",
+      "minimum_usable_epochs": 3,
+      "moving_significance_sigma": 5.0,
+      "minimum_displacement_uncertainty_ratio": 3.0,
+      "no_motion_confidence_level": 0.95,
+      "no_motion_max_displacement_arcsec": 6.15
+    }
+  },
+  "confirmed_versus_assumed": {
+    "confirmed": [
+      "Four cached real IRSA SPHEREx cutouts processed.",
+      "Wavelengths sampled after full-detector coordinate mapping.",
+      "Aperture fluxes integrate IMAGE-ZODI with VARIANCE and a local annulus."
+    ],
+    "assumed": [
+      "Aperture correction is not applied.",
+      "Pixel covariance after reprojection is ignored in the formal variance."
+    ],
+    "unverified": [
+      "Approximately 40 observations not yet downloaded or measured.",
+      "spherex_dr1_cal wavelength maps not queried/compared.",
+      "Nearby Gaia/2MASS matched non-variable stars and systematic floor not established.",
+      "No variability inference made."
+    ]
+  },
+  "provenance": {
+    "products": [
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2025W17_4B_0021_1",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/1/level2_2025W17_4B_0021_1D1_spx_l2b-v27-2026-196.fits",
+        "retrieved_utc": "2026-11-14T15:03:10.462Z",
+        "sha256": "04ffad93db40a0593eb48a6bde0b183241cacd32206292cdd1503a37da29941f"
+      },
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2025W41_2B_0558_4",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W41_2B/l2b-v27-2026-242/3/level2_2025W41_2B_0558_4D3_spx_l2b-v27-2026-242.fits",
+        "retrieved_utc": "2026-11-14T15:03:30.127Z",
+        "sha256": "fd6d912eb99b54c975459cb0cb25d1639dccd3df61cc7e54893ba457caf7092f"
+      },
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2026W22_2A_0186_3",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_qr3_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W22_2A/l2b-v27-2026-270/5/level2_2026W22_2A_0186_3D5_spx_l2b-v27-2026-270.fits",
+        "retrieved_utc": "2026-11-14T15:03:52.032Z",
+        "sha256": "3ae2051803a545041c3bbe0e37a7f76aab2237b791a71591107490224b23a6e8"
+      },
+      {
+        "archive": "NASA/IPAC IRSA SPHEREx",
+        "product_id": "2026W40_2A_0952_2",
+        "product_type": "SPHEREx L2 spectral image server-side cutout",
+        "release": "spherex_qr3_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W40_2A/l2b-v27-2026-285/6/level2_2026W40_2A_0952_2D6_spx_l2b-v27-2026-285.fits",
+        "retrieved_utc": "2026-11-14T15:04:25.742Z",
+        "sha256": "16675fc18fda1d3b8743330e25b9c6f5e9fee6a473b530da5537e97c8c854aad"
+      }
+    ],
+    "software": {
+      "pipeline_version": "0.1.0",
+      "environment_lock": "requirements-dev.txt",
+      "git_commit": null
+    }
+  }
+}

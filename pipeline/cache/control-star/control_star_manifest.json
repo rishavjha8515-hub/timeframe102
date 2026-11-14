@@ -1,0 +1,29 @@
+{
+  "candidate": {
+    "source_id": "2257879430089407744",
+    "ra": 271.8734394647988,
+    "dec": 66.92394074609744,
+    "pmra": -1.2984038308593902,
+    "pmdec": -1.2235323246746648,
+    "pm_total": 1.784063860267936,
+    "gmag": 13.310772895812988,
+    "ruwe": 1.0677399635314941,
+    "pole": "north"
+  },
+  "distinct_obs_id_union": 9129,
+  "detectors": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "wavelength_bounds_um": [
+    7.455e-07,
+    5.0096e-06
+  ],
+  "wavelength_span_um": 4.2641e-06,
+  "suitable_by_declared_screen": false,
+  "cutouts": []
+}

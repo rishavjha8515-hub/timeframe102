@@ -1,0 +1,332 @@
+[
+  {
+    "source_id": "1633306316700113024",
+    "obs_id": "2025W17_4B_0021_1",
+    "detector": 1,
+    "utc_night": "2025-04-24",
+    "effective_wavelength_um": 1.0824133157730103,
+    "wavelength_uncertainty_um": 0.0008399865821773211,
+    "epsf_cwave_um": 1.0824133157730103,
+    "wcs_wave_um": 1.0832533023551876,
+    "detector_pixel_xy_fits": [
+      1247.5253837349137,
+      144.64276566888043
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633306316700113024_2025-04-24_D1_2025W17_4B_0021_1_northup.png"
+  },
+  {
+    "source_id": "1633306316700113024",
+    "obs_id": "2025W41_2B_0558_4",
+    "detector": 3,
+    "utc_night": "2025-10-12",
+    "effective_wavelength_um": 2.303366184234619,
+    "wavelength_uncertainty_um": 0.007060661271180546,
+    "epsf_cwave_um": 2.303366184234619,
+    "wcs_wave_um": 2.3104268455057997,
+    "detector_pixel_xy_fits": [
+      709.7841959044458,
+      258.2163811636019
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633306316700113024_2025-10-12_D3_2025W41_2B_0558_4_northup.png"
+  },
+  {
+    "source_id": "1633306316700113024",
+    "obs_id": "2026W22_2A_0186_3",
+    "detector": 5,
+    "utc_night": "2026-05-29",
+    "effective_wavelength_um": 4.186532974243164,
+    "wavelength_uncertainty_um": 2.0622263998681944e-05,
+    "epsf_cwave_um": 4.186532974243164,
+    "wcs_wave_um": 4.186512351979165,
+    "detector_pixel_xy_fits": [
+      1068.7872860671052,
+      749.8341543168385
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633306316700113024_2026-05-29_D5_2026W22_2A_0186_3_northup.png"
+  },
+  {
+    "source_id": "1633306316700113024",
+    "obs_id": "2026W40_2A_0952_2",
+    "detector": 6,
+    "utc_night": "2026-10-04",
+    "effective_wavelength_um": 4.986695289611816,
+    "wavelength_uncertainty_um": 0.014730082945487943,
+    "epsf_cwave_um": 4.986695289611816,
+    "wcs_wave_um": 5.001425372557304,
+    "detector_pixel_xy_fits": [
+      705.8926437558894,
+      25.262474323865263
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633306316700113024_2026-10-04_D6_2026W40_2A_0952_2_northup.png"
+  },
+  {
+    "source_id": "1633323084251692288",
+    "obs_id": "2025W17_4B_0021_1",
+    "detector": 1,
+    "utc_night": "2025-04-24",
+    "effective_wavelength_um": 1.061043381690979,
+    "wavelength_uncertainty_um": 0.002873857575047545,
+    "epsf_cwave_um": 1.061043381690979,
+    "wcs_wave_um": 1.0639172392660265,
+    "detector_pixel_xy_fits": [
+      1194.3234749469946,
+      231.063357748091
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633323084251692288_2025-04-24_D1_2025W17_4B_0021_1_northup.png"
+  },
+  {
+    "source_id": "1633323084251692288",
+    "obs_id": "2025W41_2B_0558_2",
+    "detector": 3,
+    "utc_night": "2025-10-12",
+    "effective_wavelength_um": 2.2341511249542236,
+    "wavelength_uncertainty_um": 0.0007424098367856402,
+    "epsf_cwave_um": 2.2341511249542236,
+    "wcs_wave_um": 2.233408715117438,
+    "detector_pixel_xy_fits": [
+      793.4653029582623,
+      426.583171809664
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "HALO",
+      "SOURCE",
+      "SUR_ERROR",
+      "TRANSIENT"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633323084251692288_2025-10-12_D3_2025W41_2B_0558_2_northup.png"
+  },
+  {
+    "source_id": "1633323084251692288",
+    "obs_id": "2026W22_2A_0543_4",
+    "detector": 5,
+    "utc_night": "2026-05-31",
+    "effective_wavelength_um": 4.247638702392578,
+    "wavelength_uncertainty_um": 0.0007212701270553623,
+    "epsf_cwave_um": 4.247638702392578,
+    "wcs_wave_um": 4.2483599725196335,
+    "detector_pixel_xy_fits": [
+      965.7743379063108,
+      553.1722510741561
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633323084251692288_2026-05-31_D5_2026W22_2A_0543_4_northup.png"
+  },
+  {
+    "source_id": "1633323084251692288",
+    "obs_id": "2026W40_2A_0952_1",
+    "detector": 6,
+    "utc_night": "2026-10-04",
+    "effective_wavelength_um": null,
+    "wavelength_uncertainty_um": null,
+    "epsf_cwave_um": null,
+    "wcs_wave_um": null,
+    "detector_pixel_xy_fits": [
+      781.1836141391598,
+      -44.44232685740985
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633323084251692288_2026-10-04_D6_2026W40_2A_0952_1_northup.png"
+  },
+  {
+    "source_id": "1633621189339915264",
+    "obs_id": "2025W17_4B_0021_1",
+    "detector": 1,
+    "utc_night": "2025-04-24",
+    "effective_wavelength_um": 0.9831485748291016,
+    "wavelength_uncertainty_um": 0.0035797109201587407,
+    "epsf_cwave_um": 0.9831485748291016,
+    "wcs_wave_um": 0.9867282857492603,
+    "detector_pixel_xy_fits": [
+      1575.1048807670086,
+      615.1800571766282
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633621189339915264_2025-04-24_D1_2025W17_4B_0021_1_northup.png"
+  },
+  {
+    "source_id": "1633621189339915264",
+    "obs_id": "2025W44_1A_0143_4",
+    "detector": 3,
+    "utc_night": "2025-10-27",
+    "effective_wavelength_um": 2.214477062225342,
+    "wavelength_uncertainty_um": 0.0033419434316077634,
+    "epsf_cwave_um": 2.214477062225342,
+    "wcs_wave_um": 2.211135118793734,
+    "detector_pixel_xy_fits": [
+      736.6756048193913,
+      478.8859662171353
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "HALO",
+      "SOURCE",
+      "SUR_ERROR",
+      "TRANSIENT"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633621189339915264_2025-10-27_D3_2025W44_1A_0143_4_northup.png"
+  },
+  {
+    "source_id": "1633621189339915264",
+    "obs_id": "2026W22_1A_0480_4",
+    "detector": 5,
+    "utc_night": "2026-05-28",
+    "effective_wavelength_um": 4.065909385681152,
+    "wavelength_uncertainty_um": 0.017491825905534775,
+    "epsf_cwave_um": 4.065909385681152,
+    "wcs_wave_um": 4.083401211586687,
+    "detector_pixel_xy_fits": [
+      1039.7712399776287,
+      1082.013966340333
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633621189339915264_2026-05-28_D5_2026W22_1A_0480_4_northup.png"
+  },
+  {
+    "source_id": "1633621189339915264",
+    "obs_id": "2026W40_2A_0930_4",
+    "detector": 4,
+    "utc_night": "2026-10-04",
+    "effective_wavelength_um": 2.6857492923736572,
+    "wavelength_uncertainty_um": 0.021374700512899913,
+    "epsf_cwave_um": 2.6857492923736572,
+    "wcs_wave_um": 2.707123992886557,
+    "detector_pixel_xy_fits": [
+      1055.2468397786017,
+      1473.067909064621
+    ],
+    "flags_at_star_pixel": [
+      {
+        "bit": 21,
+        "name": "SOURCE",
+        "description": "Pixel mapped to a known source"
+      }
+    ],
+    "flags_5x5": [
+      "SOURCE"
+    ],
+    "overflow_5x5": false,
+    "saturated_5x5": false,
+    "preview_path": "pipeline\\cache\\star-candidates\\northup_rechecked\\1633621189339915264_2026-10-04_D4_2026W40_2A_0930_4_northup.png"
+  }
+]

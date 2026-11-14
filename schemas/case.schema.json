@@ -1,0 +1,391 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:timeframe102:schemas:case:1.3.0",
+  "title": "TIMEFRAME/102 scientific case record",
+  "description": "Versioned machine-readable record for one real or synthetic astronomical case. The example domain in $id is a stable project identifier, not a data endpoint.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "is_synthetic",
+    "time_definition",
+    "target",
+    "observations",
+    "verdict",
+    "confirmed_versus_assumed",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.3.0" },
+    "case_id": { "type": "string", "minLength": 1 },
+    "is_synthetic": { "type": "boolean" },
+    "time_definition": {
+      "enum": ["start", "midpoint"],
+      "description": "Defines what each observation time_utc represents. Horizons predictions must use epochs with this same definition."
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "kind"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["asteroid", "star", "comet", "other", "unknown"] },
+        "designation": { "type": ["string", "null"] },
+        "catalog_id": { "type": ["string", "null"] },
+        "coordinates": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["ra_deg", "dec_deg", "frame", "epoch"],
+          "properties": {
+            "ra_deg": { "type": "number", "minimum": 0, "exclusiveMaximum": 360 },
+            "dec_deg": { "type": "number", "minimum": -90, "maximum": 90 },
+            "frame": { "type": "string" },
+            "epoch": { "type": "string" }
+          }
+        },
+        "proper_motion": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["pm_ra_cosdec_mas_yr", "pm_dec_mas_yr", "reference_epoch"],
+          "properties": {
+            "pm_ra_cosdec_mas_yr": { "type": ["number", "null"] },
+            "pm_dec_mas_yr": { "type": ["number", "null"] },
+            "reference_epoch": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/observation" }
+    },
+    "spectral_analysis": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["model", "parameters", "chi2", "dof", "per_observation"],
+      "properties": {
+        "model": { "type": "string" },
+        "parameters": {
+          "type": "object",
+          "description": "Model-specific fit parameters as named numeric values. Convention: a constant-flux model uses flux; a linear_wavelength model uses intercept_flux and slope_flux_per_um. Other model identifiers must document their parameter names and units in model.",
+          "additionalProperties": { "type": ["number", "null"] }
+        },
+        "chi2": { "type": ["number", "null"], "minimum": 0 },
+        "dof": { "type": ["integer", "null"], "minimum": 0 },
+        "model_curve": {
+          "type": "array",
+          "description": "Optional model samples as [wavelength_um, flux] pairs.",
+          "items": {
+            "type": "array",
+            "prefixItems": [
+              { "type": "number", "exclusiveMinimum": 0 },
+              { "type": "number" }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "per_observation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["observation_id", "model_flux", "normalized_residual"],
+            "properties": {
+              "observation_id": { "type": "string", "minLength": 1 },
+              "model_flux": { "type": ["number", "null"] },
+              "normalized_residual": { "type": ["number", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "spectral_verdict": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["label", "evidence"],
+      "properties": {
+        "label": { "enum": ["consistent", "inconsistent", "insufficient evidence"] },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["summary", "n_observations", "n_usable", "wavelength_range_um", "reasons"],
+          "properties": {
+            "summary": { "type": "string" },
+            "n_observations": { "type": "integer", "minimum": 0 },
+            "n_usable": { "type": "integer", "minimum": 0 },
+            "wavelength_range_um": {
+              "type": ["array", "null"],
+              "prefixItems": [{ "type": "number", "exclusiveMinimum": 0 }, { "type": "number", "exclusiveMinimum": 0 }],
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "reasons": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "evidence", "threshold_policy"],
+      "properties": {
+        "label": { "enum": ["moving", "no significant motion detected", "insufficient evidence"] },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["summary", "n_observations", "n_usable", "baseline_days"],
+          "properties": {
+            "summary": { "type": "string" },
+            "n_observations": { "type": "integer", "minimum": 0 },
+            "n_usable": { "type": "integer", "minimum": 0 },
+            "baseline_days": { "type": ["number", "null"], "minimum": 0 },
+            "residual_rms_arcsec": { "type": ["number", "null"], "minimum": 0 },
+            "motion_significance_sigma": { "type": ["number", "null"], "minimum": 0 },
+            "reasons": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "threshold_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id", "minimum_usable_epochs", "moving_significance_sigma",
+            "minimum_displacement_uncertainty_ratio", "no_motion_confidence_level",
+            "no_motion_max_displacement_arcsec"
+          ],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "minimum_usable_epochs": { "type": "integer", "minimum": 1 },
+            "moving_significance_sigma": { "type": "number", "exclusiveMinimum": 0 },
+            "minimum_displacement_uncertainty_ratio": { "type": "number", "exclusiveMinimum": 0 },
+            "no_motion_confidence_level": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+            "no_motion_max_displacement_arcsec": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        }
+      }
+    },
+    "confirmed_versus_assumed": {
+      "type": "object",
+      "description": "Separate verified measurements and archive metadata from assumptions or unresolved values.",
+      "additionalProperties": false,
+      "required": ["confirmed", "assumed", "unverified"],
+      "properties": {
+        "confirmed": { "type": "array", "items": { "type": "string" } },
+        "assumed": { "type": "array", "items": { "type": "string" } },
+        "unverified": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["products", "software"],
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["archive", "product_id", "product_type"],
+            "properties": {
+              "archive": { "type": "string" },
+              "product_id": { "type": "string", "minLength": 1 },
+              "product_type": { "type": "string", "minLength": 1 },
+              "release": { "type": ["string", "null"] },
+              "access_url": { "type": ["string", "null"], "format": "uri" },
+              "retrieved_utc": { "type": ["string", "null"], "format": "date-time" },
+              "sha256": { "type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$" }
+            }
+          }
+        },
+        "software": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pipeline_version", "environment_lock"],
+          "properties": {
+            "pipeline_version": { "type": "string" },
+            "environment_lock": { "type": "string" },
+            "git_commit": { "type": ["string", "null"] }
+          }
+        },
+        "horizons": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["service", "target", "reference_frame", "epoch_scale", "light_time_correction", "observer_location", "spacecraft_minus_geocenter_arcsec"],
+          "properties": {
+            "service": { "type": "string" },
+            "target": { "type": "string" },
+            "reference_frame": { "type": "string" },
+            "epoch_scale": { "type": "string" },
+            "light_time_correction": { "type": "string" },
+            "observer_location": { "type": "string" },
+            "spacecraft_minus_geocenter_arcsec": { "type": ["number", "null"], "minimum": 0 }
+          }
+        }
+      }
+    },
+    "image_preview": {
+      "type": ["object", "null"],
+      "deprecated": true,
+      "description": "Deprecated in schema 1.2.0. Use observations[].image. Image paths are relative to the containing case JSON file.",
+      "additionalProperties": false,
+      "required": ["path", "width_px", "height_px", "stretch"],
+      "properties": {
+        "path": { "type": "string" },
+        "width_px": { "type": "integer", "minimum": 1, "maximum": 512 },
+        "height_px": { "type": "integer", "minimum": 1, "maximum": 512 },
+        "stretch": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_id", "time_utc", "ra_deg", "dec_deg", "detector",
+        "effective_wavelength_um", "wavelength_width_um", "quality_flags", "measured_position",
+        "predicted_position", "flux", "usable", "metadata_status", "image", "registration"
+      ],
+      "allOf": [
+        {
+          "if": { "properties": { "usable": { "const": false } }, "required": ["usable"] },
+          "then": { "required": ["exclusion_reason"] }
+        }
+      ],
+      "properties": {
+        "observation_id": { "type": "string", "minLength": 1 },
+        "time_utc": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC timestamp interpreted using the case-level time_definition; matching Horizons epochs must use this same instant."
+        },
+        "ra_deg": { "type": ["number", "null"], "minimum": 0, "exclusiveMaximum": 360 },
+        "dec_deg": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
+        "detector": { "type": ["integer", "null"], "minimum": 1, "maximum": 6 },
+        "effective_wavelength_um": {
+          "type": ["number", "null"],
+          "exclusiveMinimum": 0,
+          "description": "Effective wavelength from the nearest EPSF detector zone (CWAVE); WCS-WAVE is also sampled as a cross-check. The source pixel and wavelength source are recorded below."
+        },
+        "wavelength_width_um": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "wavelength_uncertainty_um": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "description": "Absolute difference between EPSF.CWAVE and the WCS-WAVE lookup at the source position; a cross-product discrepancy estimate, not a calibrated 1-sigma uncertainty."
+        },
+        "wavelength_source": { "type": ["string", "null"] },
+        "wavelength_pixel_xy": {
+          "type": ["array", "null"],
+          "description": "Zero-based [x,y] pixel position in the original detector image at which EPSF and WCS-WAVE were sampled, before reprojection.",
+          "prefixItems": [{ "type": "number" }, { "type": "number" }],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "wavelength_sample_basis": {
+          "enum": ["measured_source_centroid", "predicted_position_unresolved"],
+          "description": "Identifies whether wavelength was sampled at an associated measured centroid or at the prediction because source association was unresolved."
+        },
+        "quality_flags": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["raw_value", "flag_names", "accepted_for_science"],
+          "properties": {
+            "raw_value": { "type": ["integer", "null"], "minimum": 0 },
+            "flag_names": { "type": "array", "items": { "type": "string" } },
+            "accepted_for_science": { "type": "boolean" },
+            "variance_value": { "type": ["number", "null"], "minimum": 0 },
+            "variance_unit": { "type": ["string", "null"] }
+          }
+        },
+        "measured_position": { "$ref": "#/$defs/position" },
+        "predicted_position": {
+          "oneOf": [{ "$ref": "#/$defs/position" }, { "type": "null" }]
+        },
+        "position_residual_arcsec": {
+          "type": ["array", "null"],
+          "prefixItems": [{ "type": "number" }, { "type": "number" }],
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "East and north tangent-plane residuals, in arcseconds."
+        },
+        "flux": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "uncertainty", "unit"],
+          "properties": {
+            "value": { "type": ["number", "null"] },
+            "uncertainty": { "type": ["number", "null"], "minimum": 0 },
+            "unit": { "type": "string" },
+            "method": { "type": ["string", "null"] }
+          }
+        },
+        "image": {
+          "description": "Image path is relative to the containing case JSON file. Each cutout is reprojected onto the shared north-up TAN grid convention: 128x128 pixels at 6 arcsec/pixel by default, ICRS, zero rotation, x increases west and y increases north. The TAN center may differ by epoch so the predicted target remains within the cutout. source_xy is the measured source position; predicted_xy is the Horizons-predicted position, both in zero-based [x,y] pixel coordinates on this grid.",
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "width_px", "height_px", "stretch", "pixel_scale_arcsec", "source_xy", "predicted_xy"],
+              "properties": {
+                "path": { "type": "string", "minLength": 1 },
+                "width_px": { "type": "integer", "minimum": 1, "maximum": 512 },
+                "height_px": { "type": "integer", "minimum": 1, "maximum": 512 },
+                "stretch": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["type", "vmin", "vmax"],
+                  "properties": {
+                    "type": { "type": "string", "minLength": 1 },
+                    "vmin": { "type": "number" },
+                    "vmax": { "type": "number" }
+                  }
+                },
+                "pixel_scale_arcsec": { "type": "number", "exclusiveMinimum": 0 },
+                "source_xy": {
+                  "type": "array",
+                  "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "predicted_xy": {
+                  "type": ["array", "null"],
+                  "description": "Horizons-predicted pixel position in the cutout, in [x, y] order; null when unavailable.",
+                  "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              }
+            },
+            { "type": "null" }
+          ]
+        },
+        "registration": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["n_reference_stars", "rms_arcsec", "method"],
+          "properties": {
+            "n_reference_stars": { "type": ["integer", "null"], "minimum": 0 },
+            "rms_arcsec": { "type": ["number", "null"], "minimum": 0 },
+            "method": { "type": "string", "minLength": 1 }
+          }
+        },
+        "usable": { "type": "boolean" },
+        "exclusion_reason": { "type": "string", "minLength": 1 },
+        "metadata_status": { "enum": ["confirmed", "assumed", "unverified", "missing"] }
+      }
+    },
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ra_deg", "dec_deg", "uncertainty_ra_arcsec", "uncertainty_dec_arcsec", "method"],
+      "properties": {
+        "ra_deg": { "type": ["number", "null"], "minimum": 0, "exclusiveMaximum": 360 },
+        "dec_deg": { "type": ["number", "null"], "minimum": -90, "maximum": 90 },
+        "uncertainty_ra_arcsec": { "type": ["number", "null"], "minimum": 0 },
+        "uncertainty_dec_arcsec": { "type": ["number", "null"], "minimum": 0 },
+        "method": { "type": "string" }
+      }
+    }
+  }
+}
