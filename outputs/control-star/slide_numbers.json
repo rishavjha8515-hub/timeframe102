@@ -196,7 +196,7 @@
       "value": {
         "status": "not applicable",
         "product": "spherex_dr1_cal CWAVE/CBAND maps",
-        "reason": "The SIA endpoint responded HTTP 200 with QUERY_STATUS=OK but returned zero rows. Its advertised collection values include spherex_dr1, spherex_dr1_cube, spherex_dr1_deep, spherex_qr3, and spherex_qr3_deep; spherex_dr1_cal is not an advertised SIA collection. No calibration comparison was made.",
+        "reason": "IRSA query, product retrieval, or product processing failed; no calibration comparison is asserted. Error: DALServiceError: Unable to access the capabilities endpoint at:\n- https://irsa.ipac.caltech.edu/SIA/capabilities: HTTP Code: 502 Proxy Error Response body: <!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>502 Proxy Error</title>\n</head><body>\n<h1>Proxy Error</h1>\n<p>The proxy server received an invalid\r\nresponse from an upstream server.<br />\r\nThe proxy server could not handle the request<p>Reason: <strong>Error reading from remote server</strong></p></p>\n</body></html>\n\n\nThis could mean:\n1. The service URL is incorrect\n2. The service is temporarily unavailable\n3. The service doesn't support this protocol\n4. If a 503 was encountered, retry after the suggested delay.\n",
         "comparison": null
       },
       "bundle_path": "dr1_calibration_check"
