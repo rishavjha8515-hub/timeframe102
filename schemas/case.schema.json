@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:timeframe102:schemas:case:1.7.0",
+  "$id": "urn:timeframe102:schemas:case:1.8.0",
   "title": "TIMEFRAME/102 scientific case record",
   "description": "Versioned machine-readable record for one real or synthetic astronomical case. The example domain in $id is a stable project identifier, not a data endpoint.",
   "type": "object",
@@ -17,7 +17,37 @@
     "provenance"
   ],
   "properties": {
-    "schema_version": { "const": "1.7.0" },
+    "schema_version": { "enum": ["1.7.0", "1.8.0"] },
+    "calibration_crosscheck_plan": {
+      "type": "object",
+      "description": "Predeclared deterministic frame-selection and comparison method. Must be written before calibration measurements are run.",
+      "required": ["status", "selection_rule", "selected_frame_count", "frames", "version_match_rule"],
+      "properties": {
+        "status": { "enum": ["planned", "complete", "partial", "blocked"] },
+        "selection_rule": { "type": "string", "minLength": 1 },
+        "selected_frame_count": { "type": "integer", "minimum": 1 },
+        "frames": { "type": "array", "minItems": 1, "items": { "type": "object" } },
+        "version_match_rule": { "type": "string", "minLength": 1 }
+      }
+    },
+    "calibration_crosscheck_results": { "type": ["object", "null"] },
+    "injection_test_plan": {
+      "type": "object",
+      "description": "Predeclared simulation method, trials, injection sizes, and recovery criterion. Simulation records remain separate from real observations.",
+      "required": ["status", "simulated", "frames", "flux_change_fractions", "position_shift_arcsec", "trial_count_per_level", "injection_method", "detection_criterion", "systematics_limit"],
+      "properties": {
+        "status": { "enum": ["planned", "complete", "partial", "blocked"] },
+        "simulated": { "const": true },
+        "frames": { "type": "string", "minLength": 1 },
+        "flux_change_fractions": { "type": "array", "items": { "type": "number", "exclusiveMinimum": 0 } },
+        "position_shift_arcsec": { "type": "object" },
+        "trial_count_per_level": { "type": "integer", "minimum": 1 },
+        "injection_method": { "type": "string", "minLength": 1 },
+        "detection_criterion": { "type": "string", "minLength": 1 },
+        "systematics_limit": { "type": "string", "minLength": 1 }
+      }
+    },
+    "injection_test": { "type": ["object", "null"], "description": "SIMULATION ONLY; never merged with real observation measurements or used to set the floor/verdict." },
     "null_field_reasons": {
       "type": "object",
       "description": "Path-keyed reasons for null-valued fields in this exported case. Each key uses a JSON path into this object, excluding null_field_reasons itself.",

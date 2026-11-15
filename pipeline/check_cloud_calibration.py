@@ -148,6 +148,8 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
     case = json.loads(CASE_PATH.read_text(encoding="utf-8"))
     observation = _select_observation(case, detector, observation_id)
     obsid = observation["observation_id"]
+    irsa_product = next((item for item in case.get("provenance", {}).get("products", [])
+                         if f"{obsid}D{detector}_" in item.get("product_id", "")), None)
     frame_path = FRAME_CACHE / f"{obsid}_D{detector}.fits"
     if not frame_path.is_file():
         raise FileNotFoundError(f"Cached cutout is missing for {obsid} detector {detector}")
@@ -187,6 +189,7 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
             ]
             calibration_version = calibration[0].header.get("VERSION")
             calibration_processing_date = calibration[0].header.get("DATE")
+        cutout_primary_version = cutout[0].header.get("VERSION")
 
     provenance_match = bool(map_calibration_source and map_calibration_source == mef_calibration_source
                             and map_detector == str(detector))
@@ -197,6 +200,10 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
         "observation_id": obsid,
         "detector": detector,
         "time_utc": observation["time_utc"],
+        "irsa_response_product": ({k: irsa_product.get(k) for k in
+                                   ("product_id", "release", "access_url", "retrieved_utc", "sha256")}
+                                  if irsa_product else None),
+        "cutout_fits_primary_version": cutout_primary_version,
         "calibration_product": {"key": key, **download,
                                 "version_header": calibration_version,
                                 "processing_date_header": calibration_processing_date,
@@ -209,6 +216,8 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
             "standalone_detector": map_detector,
             "requested_detector": detector,
             "matches_cached_mef_source": provenance_match,
+            "standalone_product_release_key": CALIBRATION_VERSION,
+            "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field.",
         },
         "source_position": {"ra_deg": source_ra, "dec_deg": source_dec,
                             "cutout_xy_zero_based": [float(source_x), float(source_y)],

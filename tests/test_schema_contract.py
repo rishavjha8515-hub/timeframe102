@@ -31,7 +31,7 @@ class CaseSchemaTests(unittest.TestCase):
         cls.index_validator = Draft202012Validator(cls.index_schema, format_checker=FormatChecker())
 
     def test_schema_is_versioned(self):
-        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.7.0")
+        self.assertEqual(self.schema["properties"]["schema_version"]["enum"], ["1.7.0", "1.8.0"])
 
     def test_index_is_versioned_and_valid(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))

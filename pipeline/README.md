@@ -79,3 +79,25 @@ Run the offline contract and scientific helper tests with:
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
+
+The follow-up control-star checks use the already cached frames and predeclared
+frame selection. Run the standalone calibration-map comparison when the public
+SPHEREx S3 bucket is reachable, then run the labelled simulation-only injection
+experiment:
+
+```powershell
+.\.venv\Scripts\python.exe -m pipeline.check_cloud_calibration_batch
+.\.venv\Scripts\python.exe -m pipeline.run_injection_test
+```
+
+The exporter attaches these result files to a schema 1.8.0 case and embeds the
+small PNG previews. It validates the bundle and writes the matching slide-number
+index:
+
+```powershell
+.\.venv\Scripts\python.exe -m pipeline.export_control_star_case
+```
+
+The injection report keeps missing-frame trials separate from completed trials;
+unavailable inputs are not counted as measurement failures. Simulation results
+do not set a systematic floor or change a scientific verdict.

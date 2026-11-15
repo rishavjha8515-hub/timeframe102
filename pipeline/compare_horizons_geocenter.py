@@ -22,6 +22,7 @@ from pathlib import Path
 
 import astropy.units as u
 import numpy as np
+from astropy.config.paths import set_temp_cache
 from astropy.coordinates import SkyCoord
 from astropy.table import Table, vstack
 from astropy.time import Time
@@ -60,6 +61,13 @@ def query_epochs(target: str, epochs: list[dict], *, chunk_size: int = 50) -> Ta
     return vstack(outputs, metadata_conflicts="silent") if len(outputs) > 1 else outputs[0]
 
 
+def query_epochs_with_workspace_cache(target: str, epochs: list[dict], *, chunk_size: int = 50) -> Table:
+    """Run Horizons with Astropy's response cache in the project workspace."""
+    cache_dir = Path(__file__).resolve().parents[1] / "pipeline/cache/astroquery"
+    with set_temp_cache(cache_dir):
+        return query_epochs(target, epochs, chunk_size=chunk_size)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--table", type=Path, default=Path("pipeline/cache/probe/most_20000012_Victoria_smaller-body-screen.ecsv"))
@@ -70,7 +78,8 @@ def main(argv: list[str] | None = None) -> int:
     most = Table.read(args.table, format="ascii.ecsv")
     epochs = midpoint_epochs(most)
     try:
-        horizons = query_epochs(args.target, epochs, chunk_size=args.chunk_size)
+        # Managed desktops may deny access to the user's default cache directory.
+        horizons = query_epochs_with_workspace_cache(args.target, epochs, chunk_size=args.chunk_size)
     except Exception as exc:
         print(f"HORIZONS_QUERY_FAILED {type(exc).__name__}: {exc}")
         return 2

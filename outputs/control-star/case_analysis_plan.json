@@ -1,0 +1,112 @@
+{
+  "plan_id": "control-star-1.7.0-followup-01",
+  "case_id": "control-star-1633306316700113024",
+  "base_bundle_schema_version": "1.7.0",
+  "base_bundle_sha256": "E231B6AE394801E1D05A1793B85E8660E95B3C61C323D368E7C520F566E331C6",
+  "frozen_bundle_path": "outputs/control-star/case_bundle_frozen_1.7.0.json",
+  "five_scaled_mad_policy_caveat": "The 5-scaled-MAD policy was set after exploratory inspection; retain this caveat in the case.",
+  "calibration_crosscheck": {
+    "status": "planned",
+    "selection_rule": "Before inspecting agreement: include the usable shortest- and longest-wavelength observations, plus the earliest UTC usable observation for each detector. Deduplicate only identical observation_id+detector pairs.",
+    "selected_frame_count": 8,
+    "frames": [
+      {
+        "selection_basis": "shortest_usable_wavelength",
+        "observation_id": "2025W24_2D_0048_1",
+        "detector": 1,
+        "time_utc": "2025-06-12T17:24:07.603Z",
+        "effective_wavelength_um": 0.7575185298919678
+      },
+      {
+        "selection_basis": "longest_usable_wavelength",
+        "observation_id": "2026W40_2A_0952_2",
+        "detector": 6,
+        "time_utc": "2026-10-04T23:12:53.813Z",
+        "effective_wavelength_um": 4.986695289611816
+      },
+      {
+        "selection_basis": "earliest_usable_utc_for_detector",
+        "observation_id": "2025W17_4B_0021_1",
+        "detector": 1,
+        "time_utc": "2025-04-24T21:07:35.933Z",
+        "effective_wavelength_um": 1.0824133157730103
+      },
+      {
+        "selection_basis": "earliest_usable_utc_for_detector",
+        "observation_id": "2025W17_4B_0165_1",
+        "detector": 2,
+        "time_utc": "2025-04-25T19:57:03.154Z",
+        "effective_wavelength_um": 1.507800817489624
+      },
+      {
+        "selection_basis": "earliest_usable_utc_for_detector",
+        "observation_id": "2025W17_4B_0266_3",
+        "detector": 3,
+        "time_utc": "2025-04-26T12:12:05.458Z",
+        "effective_wavelength_um": 1.6245412826538086
+      },
+      {
+        "selection_basis": "earliest_usable_utc_for_detector",
+        "observation_id": "2025W25_1B_0045_3",
+        "detector": 4,
+        "time_utc": "2025-06-16T04:40:34.522Z",
+        "effective_wavelength_um": 2.9448599815368652
+      },
+      {
+        "selection_basis": "earliest_usable_utc_for_detector",
+        "observation_id": "2025W21_2C_0128_3",
+        "detector": 5,
+        "time_utc": "2025-05-23T06:43:28.070Z",
+        "effective_wavelength_um": 4.03629732131958
+      },
+      {
+        "selection_basis": "earliest_usable_utc_for_detector",
+        "observation_id": "2025W17_4B_0266_3",
+        "detector": 6,
+        "time_utc": "2025-04-26T12:12:05.458Z",
+        "effective_wavelength_um": 4.408782958984375
+      }
+    ],
+    "measurements_to_record": [
+      "EPSF.CWAVE and CBAND",
+      "MEF WCS-WAVE at the mapped detector pixel",
+      "standalone S3 CWAVE and CBAND at the mapped detector pixel",
+      "standalone-minus-EPSF and standalone-minus-MEF differences",
+      "cutout WCS-WAVE HISTORY source filename",
+      "FITS primary VERSION",
+      "EPSF CWAVESRC and CBANDSRC when present",
+      "IRSA response metadata and product provenance"
+    ],
+    "version_match_rule": "Confirmed only when the calibration map HISTORY source filename matches the cutout WCS-WAVE HISTORY source filename and detector matches; separately record the S3 product key/version and any IRSA response version metadata. Missing or conflicting metadata is unverified/mismatch, not assumed."
+  },
+  "injection_test_plan": {
+    "status": "planned",
+    "simulated": true,
+    "frames": "All 61 usable observations in the frozen control-star bundle; one trial per level per observation.",
+    "flux_change_fractions": [
+      0.05,
+      0.1,
+      0.2,
+      0.5
+    ],
+    "position_shift_arcsec": {
+      "direction": "east in the ICRS tangent plane",
+      "magnitudes": [
+        0.25,
+        0.5,
+        1.0,
+        2.0
+      ]
+    },
+    "trial_count_per_level": 61,
+    "injection_method": "Operate on per-trial copies of cached real cutout FITS. Use that frame EPSF array as the normalized PSF; preserve real background, flags, and variance arrays. For flux-change trials, add the specified fraction of the measured control-star aperture flux through the PSF, normalized to unit flux inside the same 3-pixel aperture. For position trials, subtract the PSF model fit to the measured source and add it at the specified eastward-shifted position. Do not alter the source case or the frozen bundle.",
+    "detection_criterion": "Use the unchanged source-extraction gates: local peak SNR >= 5, centroid associated within 5 pixels of the simulated predicted position, and frame passes the frozen quality/edge policy. Count a trial as recovered only if these gates pass and the relevant aperture flux or centroid is finite. This measures algorithmic source/measurement recovery, not statistical variability or motion significance.",
+    "reported_metrics": [
+      "per-level trial count",
+      "recovery count and rate",
+      "median recovered/injected flux-change ratio",
+      "median recovered/injected eastward position-shift ratio"
+    ],
+    "systematics_limit": "Injection into real cutouts preserves some background/noise/flags but not the unknown cross-frame calibration and resampling systematics; it cannot establish real-world variability or motion sensitivity."
+  }
+}

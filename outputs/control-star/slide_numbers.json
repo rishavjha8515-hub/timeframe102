@@ -398,5 +398,111 @@
       "value": "The 5-scaled-MAD policy was set after exploratory inspection.",
       "bundle_path": "confirmed_versus_assumed.unverified"
     }
+  },
+  "calibration_crosscheck": {
+    "value": {
+      "status": "partial",
+      "selected_frames": 8,
+      "compared_frames": 7,
+      "uncompared_frames": 1,
+      "max_absolute_cwave_difference_nm": 14.482865536608713,
+      "max_absolute_cband_difference_nm": 2.054677688942297,
+      "max_absolute_cwave_difference_fraction_channel_width": 0.3953921447577348,
+      "max_absolute_cband_difference_fraction_channel_width": 0.05712332055793047,
+      "all_compared_cutout_map_versions_confirmed": true,
+      "IRSA_response_calibration_version_status": "unverified; SIA response exposes no standalone calibration-map version field"
+    },
+    "bundle_path": "calibration_crosscheck_results"
+  },
+  "injection_test_simulated": {
+    "value": {
+      "simulated": true,
+      "status": "partial",
+      "flux_change_levels": [
+        {
+          "injected_size": 0.05,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 0.9999999999999986
+        },
+        {
+          "injected_size": 0.1,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.0
+        },
+        {
+          "injected_size": 0.2,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.0
+        },
+        {
+          "injected_size": 0.5,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.0
+        }
+      ],
+      "position_shift_levels": [
+        {
+          "injected_size": 0.25,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.1751617293850813
+        },
+        {
+          "injected_size": 0.5,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.269977197877182
+        },
+        {
+          "injected_size": 1.0,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.1731697335736015
+        },
+        {
+          "injected_size": 2.0,
+          "n_trials": 61,
+          "n_completed": 51,
+          "n_unavailable": 10,
+          "n_recovered": 51,
+          "recovery_rate": 1.0,
+          "median_recovered_over_injected_ratio": 1.071063458314697
+        }
+      ]
+    },
+    "bundle_path": "injection_test"
+  },
+  "asteroid_victoria_status": {
+    "value": {
+      "status": "blocked_before_measurement",
+      "bundle_created": false
+    },
+    "source_json": "outputs/asteroid-victoria/status_and_plan.json",
+    "bundle_path": null
   }
 }

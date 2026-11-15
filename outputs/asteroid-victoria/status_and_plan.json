@@ -1,0 +1,293 @@
+{
+  "plan_version": "asteroid-victoria-plan-1",
+  "case_id": "asteroid-victoria",
+  "schema_version": "1.8.0",
+  "is_synthetic": false,
+  "status": "blocked_before_measurement",
+  "target": {
+    "name": "Victoria",
+    "kind": "asteroid",
+    "designation": "12",
+    "naif_id": 20000012
+  },
+  "selection_basis": {
+    "selected_target_reason": "The agreed faint-case target. The cached MOST screen has the following measured coverage; it is fainter than the bright high-saturation-risk candidates while retaining multi-night coverage.",
+    "victoria_screen": {
+      "product_rows": 328,
+      "distinct_observation_ids": 165,
+      "distinct_utc_nights": 34,
+      "baseline_days": 194.1865676160014,
+      "median_gap_days": 1.0,
+      "max_gap_days": 129,
+      "vmag_min": 11.56,
+      "vmag_max": 12.5,
+      "intranight_coordinate_pairs": 131,
+      "median_step_arcsec": 1.6782188075940976,
+      "median_rate_arcsec_per_day": 1074.4431995275295
+    },
+    "europa_comparison": {
+      "distinct_observation_ids": 135,
+      "distinct_utc_nights": 29,
+      "baseline_days": 193.36980738400598,
+      "vmag_min": 12.04,
+      "vmag_max": 12.59
+    },
+    "pallas_reason": "Excluded because a previously processed real SPHEREx cutout at the predicted position had OVERFLOW in the central pixel and within the 2-pixel box. This confirms a quality issue for that cutout; it does not claim all Pallas observations saturate.",
+    "other_candidate_reason": "Ceres, Vesta, Juno, Flora, and the other brighter candidates were not selected for the faint-target demonstration. Victoria is fainter than the high-risk bright group; Europa has fewer distinct observations and nights in the saved MOST ranking. No claim is made that Victoria has the highest archive coverage.",
+    "ranking_json": "outputs/asteroid_candidate_ranking.json",
+    "pallas_cutout_evidence": "outputs/processed-cutouts/processing_report.json"
+  },
+  "premeasurement_policy": {
+    "quality_policy": {
+      "id": "control-star-quality-and-spectral-policy-1",
+      "minimum_usable_epochs": 3,
+      "moving_significance_sigma": 5.0,
+      "minimum_displacement_uncertainty_ratio": 3.0,
+      "no_motion_confidence_level": 0.95,
+      "no_motion_max_displacement_arcsec": null,
+      "quality_flags_exclude": [
+        "TRANSIENT",
+        "SUR_ERROR",
+        "NONFUNC",
+        "OVERFLOW",
+        "SATURATED"
+      ],
+      "context_only_flags": [
+        "HALO",
+        "PERSIST",
+        "DICHROIC"
+      ],
+      "mad_residual_threshold_sigma": 5.0,
+      "spectral_fit_model": "degree-2 polynomial of log(flux_Jy) versus centered log(wavelength_um), robust soft-L1 loss",
+      "wavelength_bin_width_um": 0.1,
+      "minimum_comparison_stars": 20,
+      "minimum_floor_epochs": 3,
+      "comparison_star_criteria": {
+        "catalogs": [
+          "Gaia DR3",
+          "2MASS PSC",
+          "AllWISE"
+        ],
+        "gaia_g_mag_range": [
+          11.12,
+          14.12
+        ],
+        "two_mass_match_max_arcsec": 1.0,
+        "two_mass_ph_qual": "AAA",
+        "allwise_match_max_arcsec": 1.0,
+        "allwise_ph_qual_w1_w2": "AA",
+        "allwise_cc_flags_w1_w2": "00",
+        "allwise_ext_flg": 0,
+        "gaia_isolation_radius_arcsec": 60.0,
+        "maximum_total_proper_motion_mas_yr": 10.0,
+        "maximum_ruwe": 1.4,
+        "exclude_phot_variable_flag": true,
+        "allowed_phot_variable_flag_values": [
+          "CONSTANT",
+          "NOT_AVAILABLE"
+        ],
+        "minimum_cutout_edge_margin_arcsec": 60.0,
+        "exclude_hard_source_flags": [
+          "TRANSIENT",
+          "SUR_ERROR",
+          "NONFUNC",
+          "OVERFLOW",
+          "SATURATED"
+        ],
+        "minimum_stars_per_frame": 20,
+        "maximum_stars_per_frame": 50,
+        "aperture_radius_px": 3.0,
+        "annulus_inner_px": 6.0,
+        "annulus_outer_px": 10.0,
+        "photometric_floor_method": "In each 0.1 um source-wavelength bin, calculate 1.4826 times the MAD of log(measured/catalog-interpolated flux ratios) across comparison stars. Convert the resulting fractional scatter to Jy using the control-star smooth-model flux at that wavelength, then add it in quadrature to the formal uncertainty.",
+        "astrometric_threshold_method": "Per frame, subtract the median east/north Gaia residual across selected comparison stars; set the displacement threshold to three times 1.4826 times the MAD of radial residuals after removing the common frame offset. Require at least 20 comparison stars in a frame."
+      }
+    },
+    "five_scaled_mad_caveat": "The control-star 5-scaled-MAD policy was written after exploratory inspection; the same policy is carried over unchanged and is not represented as preregistered.",
+    "ephemeris_match_radius_arcsec": 6.0,
+    "ephemeris_match_radius_reason": "One pixel on the shared north-up TAN grid at 6 arcsec per pixel; this is only a predeclared association gate, not a motion-significance threshold.",
+    "failed_match_rules": [
+      "No centroid detection: record non-detection and reason; do not label stationary.",
+      "Centroid-to-predicted-position separation greater than 6 arcsec: record the measured offset and mark the ephemeris association as outside the preset radius.",
+      "Predicted position outside the usable image footprint or unusable quality flags: retain the frame with usable=false and an explicit exclusion_reason.",
+      "No motion verdict without a measured comparison-star astrometric threshold."
+    ],
+    "motion_claim_limit": "Report observed-minus-predicted offsets only. Do not assert motion or stationarity from this blocked, uncalibrated sample."
+  },
+  "ephemeris_observer": {
+    "most_observer": "unverified; MOST documentation states Horizons ephemerides but does not specify the observer center for these SPHEREx rows.",
+    "available_reference": "Horizons observer code 500 (geocentre), for comparison only; it has not been adopted as the SPHEREx observer.",
+    "frame": "ICRF/J2000 as represented by the existing MOST ra_obj/dec_obj fields; exact MOST frame details beyond the documented J2000 label are unverified.",
+    "epoch": "UTC midpoint of MOST mjd_start/mjd_end for planned observations.",
+    "light_time": "Unverified for MOST fields; Horizons call was not returned.",
+    "spacecraft_minus_geocentre_arcsec": null,
+    "spacecraft_minus_geocentre_reason": "No Horizons result or SPHEREx spacecraft trajectory/SPICE ephemeris was available in this environment. The user-terminal Horizons query is still required; DNS resolution of ssd.jpl.nasa.gov failed here.",
+    "expected_motion_between_planned_frames": {
+      "basis": "MOST ra_obj/dec_obj path steps between the 10 selected distinct-night rows; predicted ephemeris path, not measured image motion.",
+      "n_intervals": 9,
+      "min_arcsec": 3148.7121393351754,
+      "median_arcsec": 5856.334006611634,
+      "max_arcsec": 41806.753520926366,
+      "observer_error_to_motion_ratio": null,
+      "ratio_reason": "Observer offset is unmeasured, so its size relative to predicted inter-frame path cannot be quantified."
+    }
+  },
+  "planned_frames": [
+    {
+      "observation_id": "2025W30_2B_0403_1",
+      "product_id": "D4",
+      "detector": 4,
+      "utc_night": "2025-07-26",
+      "time_utc": "2025-07-26T15:59:55.176Z",
+      "mjd_midpoint_utc": 60882.6666108305,
+      "predicted_ra_deg_from_most": 36.378407,
+      "predicted_dec_deg_from_most": 21.061709,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": null,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": null
+    },
+    {
+      "observation_id": "2025W31_1A_0477_1",
+      "product_id": "D1",
+      "detector": 1,
+      "utc_night": "2025-07-30",
+      "time_utc": "2025-07-30T12:55:04.648Z",
+      "mjd_midpoint_utc": 60886.538248238,
+      "predicted_ra_deg_from_most": 37.739497,
+      "predicted_dec_deg_from_most": 21.471454,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 3.8716374075011117,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 4798.570664845601
+    },
+    {
+      "observation_id": "2025W32_1A_0132_1",
+      "product_id": "D5",
+      "detector": 5,
+      "utc_night": "2025-08-04",
+      "time_utc": "2025-08-04T13:34:15.648Z",
+      "mjd_midpoint_utc": 60891.565458886,
+      "predicted_ra_deg_from_most": 39.411216,
+      "predicted_dec_deg_from_most": 21.955459,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 5.027210647996981,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 5856.334006611634
+    },
+    {
+      "observation_id": "2025W32_2D_0097_1",
+      "product_id": "D2",
+      "detector": 2,
+      "utc_night": "2025-08-08",
+      "time_utc": "2025-08-08T00:39:22.855Z",
+      "mjd_midpoint_utc": 60895.027347856,
+      "predicted_ra_deg_from_most": 40.494629,
+      "predicted_dec_deg_from_most": 22.257178,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 3.4618889699995634,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 3773.2692695570922
+    },
+    {
+      "observation_id": "2025W33_1B_0016_1",
+      "product_id": "D6",
+      "detector": 6,
+      "utc_night": "2025-08-11",
+      "time_utc": "2025-08-11T02:05:23.219Z",
+      "mjd_midpoint_utc": 60898.087074291,
+      "predicted_ra_deg_from_most": 41.402988,
+      "predicted_dec_deg_from_most": 22.501092,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 3.0597264349999023,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 3148.7121393351754
+    },
+    {
+      "observation_id": "2025W52_2A_0431_1",
+      "product_id": "D5",
+      "detector": 5,
+      "utc_night": "2025-12-27",
+      "time_utc": "2025-12-27T15:46:26.648Z",
+      "mjd_midpoint_utc": 61036.6572528675,
+      "predicted_ra_deg_from_most": 33.921589,
+      "predicted_dec_deg_from_most": 13.317818,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 138.570178576505,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 41806.753520926366
+    },
+    {
+      "observation_id": "2026W03_2A_0548_1",
+      "product_id": "D3",
+      "detector": 3,
+      "utc_night": "2026-01-18",
+      "time_utc": "2026-01-18T05:59:46.341Z",
+      "mjd_midpoint_utc": 61058.249841907,
+      "predicted_ra_deg_from_most": 36.906824,
+      "predicted_dec_deg_from_most": 13.383757,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 21.592589039501036,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 10459.038299615453
+    },
+    {
+      "observation_id": "2026W04_2A_0034_1",
+      "product_id": "D2",
+      "detector": 2,
+      "utc_night": "2026-01-22",
+      "time_utc": "2026-01-22T15:55:17.637Z",
+      "mjd_midpoint_utc": 61062.663398573495,
+      "predicted_ra_deg_from_most": 37.815588,
+      "predicted_dec_deg_from_most": 13.525502,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 4.413556666491786,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 3222.41727204203
+    },
+    {
+      "observation_id": "2026W05_2A_0185_1",
+      "product_id": "D4",
+      "detector": 4,
+      "utc_night": "2026-01-30",
+      "time_utc": "2026-01-30T08:05:24.408Z",
+      "mjd_midpoint_utc": 61070.3370880525,
+      "predicted_ra_deg_from_most": 39.595471,
+      "predicted_dec_deg_from_most": 13.848642,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 7.673689479008317,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 6333.350027819703
+    },
+    {
+      "observation_id": "2026W06_2A_0084_1",
+      "product_id": "D1",
+      "detector": 1,
+      "utc_night": "2026-02-05",
+      "time_utc": "2026-02-05T20:28:34.618Z",
+      "mjd_midpoint_utc": 61076.853178446,
+      "predicted_ra_deg_from_most": 41.283569,
+      "predicted_dec_deg_from_most": 14.184349,
+      "cutout_status": "not_downloaded",
+      "gap_days_from_previous_selected": 6.516090393495688,
+      "MOST_predicted_path_step_arcsec_from_previous_selected": 6018.773162387728
+    }
+  ],
+  "download_status": {
+    "attempted": false,
+    "reason": "No asteroid cutout was downloaded or processed in this workspace; the observer comparison must be resolved before centroid measurement."
+  },
+  "case_bundle_status": {
+    "validated": false,
+    "reason": "No measured asteroid observations exist in this workspace; no synthetic or placeholder case bundle is being presented as real data."
+  },
+  "confirmed_versus_assumed": {
+    "confirmed": [
+      "Cached MOST ECSV contains Victoria coverage summary as recorded above.",
+      "The deterministic 10-row plan spans 10 distinct UTC nights and all six detectors.",
+      "One cached Pallas product has OVERFLOW at the predicted position and within the 2-pixel box.",
+      "The Horizons query attempt failed at DNS resolution for ssd.jpl.nasa.gov after routing Astropy cache writes into the workspace."
+    ],
+    "assumed": [
+      "The 6 arcsec match radius is one common-grid pixel and is an association policy only.",
+      "Victoria is the selected faint demonstration target based on the accepted MOST ranking and brightness/saturation-risk tradeoff."
+    ],
+    "unverified": [
+      "MOST observer center and light-time handling.",
+      "SPHEREx spacecraft observer coordinates or a spacecraft SPICE trajectory for these epochs.",
+      "Spacecraft-minus-geocentre angular offset and its ratio to the predicted inter-frame motion.",
+      "Any Victoria detection, flux, quality flags, wavelength measurement, or ephemeris residual in a real cutout."
+    ]
+  }
+}

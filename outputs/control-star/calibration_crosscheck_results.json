@@ -1,0 +1,816 @@
+{
+  "status": "partial",
+  "plan_id": "control-star-1.7.0-followup-01",
+  "selection_rule": "Before inspecting agreement: include the usable shortest- and longest-wavelength observations, plus the earliest UTC usable observation for each detector. Deduplicate only identical observation_id+detector pairs.",
+  "selected_frame_count": 8,
+  "compared_frame_count": 7,
+  "failed_frame_count": 1,
+  "frames": [
+    {
+      "selection_basis": "shortest_usable_wavelength",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2025W24_2D_0048_1",
+      "detector": 1,
+      "time_utc": "2025-06-12T17:24:07.603Z",
+      "irsa_response_product": {
+        "product_id": "level2_2025W24_2D_0048_1D1_spx_l2b-v27-2026-202.fits",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W24_2D/l2b-v27-2026-202/1/level2_2025W24_2D_0048_1D1_spx_l2b-v27-2026-202.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-14T16:07:56.392Z",
+        "sha256": "7315ce8ab80423f52903c5a0d6951b47116885d0b5c40ea71d7af5f67f01f8c2"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": 200,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "44fb48b236e25a99d42c8986da0064cc58359527e1fc76e182eda52371a1ae23",
+        "etag": "624790eba5fdde40a6cb2187099e415d",
+        "cached": true,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:34.712",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_1_v2.2.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_1_v2.2.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "1",
+        "requested_detector": 1,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.77402614387574,
+        "dec_deg": 66.46749329133667,
+        "cutout_xy_zero_based": [
+          72.63352500310118,
+          72.0386034045171
+        ],
+        "detector_xy_fits_one_based": [
+          1303.633525003101,
+          1926.038603404517
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 0.7575185298919678,
+        "epsf_cband": 0.017881475389003754,
+        "mef_wcs_wave": 0.7532270647171411,
+        "mef_wcs_wave_cband": 0.01825783245562864,
+        "standalone_cwave": 0.7525650490557723,
+        "standalone_cband": 0.016860026138308948,
+        "standalone_minus_epsf_cwave": -0.004953480836195512,
+        "standalone_minus_mef_wcs_wave": -0.0006620156613688088,
+        "standalone_minus_epsf_cband": -0.0010214492506948059,
+        "standalone_minus_epsf_cwave_nm": -4.953480836195512,
+        "standalone_minus_epsf_cband_nm": -1.0214492506948059,
+        "absolute_cwave_difference_fraction_channel_width": 0.2770174568056987,
+        "absolute_cband_difference_fraction_channel_width": 0.05712332055793047
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_1_v2.2.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_1_v2.2.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_1_v2.2.fits",
+        "standalone.CWAVE DETECTOR": "1",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2025W24_2D_0048_1D1_spx_l2b-v27-2026-202.fits",
+        "IRSA_response.release": "spherex_dr1_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "selection_basis": "longest_usable_wavelength",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2026W40_2A_0952_2",
+      "detector": 6,
+      "time_utc": "2026-10-04T23:12:53.813Z",
+      "irsa_response_product": {
+        "product_id": "level2_2026W40_2A_0952_2D6_spx_l2b-v27-2026-285.fits",
+        "release": "spherex_qr3_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/qr3/level2/2026W40_2A/l2b-v27-2026-285/6/level2_2026W40_2A_0952_2D6_spx_l2b-v27-2026-285.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-14T16:38:17.891Z",
+        "sha256": "4fa1c79665edb7bb8bbb20d1082a37166988bbe53510dbe60dc18b1acdc68806"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/6/spectral_wcs_D6_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/6/spectral_wcs_D6_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": null,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "19195d253892883586aa2183cb66238b32f6032ade62d490b36b85b0dd18f212",
+        "etag": null,
+        "cached": true,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:34.129",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_6_v3.0.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_6_v3.0.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "6",
+        "requested_detector": 6,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.77446412353225,
+        "dec_deg": 66.46751905542025,
+        "cutout_xy_zero_based": [
+          72.8926437558894,
+          24.26247432386535
+        ],
+        "detector_xy_fits_one_based": [
+          705.8926437558894,
+          25.262474323865263
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 4.986695289611816,
+        "epsf_cband": 0.03662911802530289,
+        "mef_wcs_wave": 5.001425372557304,
+        "mef_wcs_wave_cband": 0.03720854838791199,
+        "standalone_cwave": 5.001178155148425,
+        "standalone_cband": 0.03532018553575815,
+        "standalone_minus_epsf_cwave": 0.014482865536608713,
+        "standalone_minus_mef_wcs_wave": -0.00024721740887923005,
+        "standalone_minus_epsf_cband": -0.0013089324895447368,
+        "standalone_minus_epsf_cwave_nm": 14.482865536608713,
+        "standalone_minus_epsf_cband_nm": -1.3089324895447367,
+        "absolute_cwave_difference_fraction_channel_width": 0.3953921447577348,
+        "absolute_cband_difference_fraction_channel_width": 0.03573475311746639
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_6_v3.0.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_6_v3.0.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_6_v3.0.fits",
+        "standalone.CWAVE DETECTOR": "6",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2026W40_2A_0952_2D6_spx_l2b-v27-2026-285.fits",
+        "IRSA_response.release": "spherex_qr3_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "selection_basis": "earliest_usable_utc_for_detector",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2025W17_4B_0021_1",
+      "detector": 1,
+      "time_utc": "2025-04-24T21:07:35.933Z",
+      "irsa_response_product": {
+        "product_id": "level2_2025W17_4B_0021_1D1_spx_l2b-v27-2026-196.fits",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/1/level2_2025W17_4B_0021_1D1_spx_l2b-v27-2026-196.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-14T16:01:49.889Z",
+        "sha256": "80dff58eb05e4d168ab613cee682d1911b9597564fdc7176d1a4180456d64d65"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": 200,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "44fb48b236e25a99d42c8986da0064cc58359527e1fc76e182eda52371a1ae23",
+        "etag": "624790eba5fdde40a6cb2187099e415d",
+        "cached": true,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:34.712",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_1_v2.2.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_1_v2.2.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "1",
+        "requested_detector": 1,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.77429510253,
+        "dec_deg": 66.46758063272732,
+        "cutout_xy_zero_based": [
+          72.52538373491373,
+          72.64276566888036
+        ],
+        "detector_xy_fits_one_based": [
+          1247.5253837349137,
+          144.64276566888043
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 1.0824133157730103,
+        "epsf_cband": 0.02930026315152645,
+        "mef_wcs_wave": 1.0832533023551876,
+        "mef_wcs_wave_cband": 0.028678156891060257,
+        "standalone_cwave": 1.0828815313631495,
+        "standalone_cband": 0.029444475477196138,
+        "standalone_minus_epsf_cwave": 0.0004682155901392093,
+        "standalone_minus_mef_wcs_wave": -0.0003717709920381118,
+        "standalone_minus_epsf_cband": 0.00014421232566968686,
+        "standalone_minus_epsf_cwave_nm": 0.4682155901392093,
+        "standalone_minus_epsf_cband_nm": 0.14421232566968686,
+        "absolute_cwave_difference_fraction_channel_width": 0.0159799107508977,
+        "absolute_cband_difference_fraction_channel_width": 0.0049218781730352434
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_1_v2.2.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_1_v2.2.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_1_v2.2.fits",
+        "standalone.CWAVE DETECTOR": "1",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2025W17_4B_0021_1D1_spx_l2b-v27-2026-196.fits",
+        "IRSA_response.release": "spherex_dr1_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "selection_basis": "earliest_usable_utc_for_detector",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2025W17_4B_0165_1",
+      "detector": 2,
+      "time_utc": "2025-04-25T19:57:03.154Z",
+      "irsa_response_product": {
+        "product_id": "level2_2025W17_4B_0165_1D2_spx_l2b-v27-2026-196.fits",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/2/level2_2025W17_4B_0165_1D2_spx_l2b-v27-2026-196.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-14T16:02:44.192Z",
+        "sha256": "5f07078e3c6440d7d5ab38b2f0824a3283401b44c0018ac7cf48c2ce3f206f33"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/2/spectral_wcs_D2_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/2/spectral_wcs_D2_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": null,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "0eb4e27f351e6161e21372818f9e811480a7ab8bab9295722f180791e151a463",
+        "etag": null,
+        "cached": true,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:34.863",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_2_v2.2.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_2_v2.2.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "2",
+        "requested_detector": 2,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.7742373327412,
+        "dec_deg": 66.46753681250064,
+        "cutout_xy_zero_based": [
+          73.37593249735305,
+          72.96568964767465
+        ],
+        "detector_xy_fits_one_based": [
+          1049.375932497353,
+          480.9656896476747
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 1.507800817489624,
+        "epsf_cband": 0.036711644381284714,
+        "mef_wcs_wave": 1.4947583774199926,
+        "mef_wcs_wave_cband": 0.03635472579622599,
+        "standalone_cwave": 1.494317643881375,
+        "standalone_cband": 0.036530420215601864,
+        "standalone_minus_epsf_cwave": -0.013483173608249022,
+        "standalone_minus_mef_wcs_wave": -0.00044073353861762143,
+        "standalone_minus_epsf_cband": -0.00018122416568285005,
+        "standalone_minus_epsf_cwave_nm": -13.483173608249022,
+        "standalone_minus_epsf_cband_nm": -0.18122416568285005,
+        "absolute_cwave_difference_fraction_channel_width": 0.36727239641498133,
+        "absolute_cband_difference_fraction_channel_width": 0.004936421910189253
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_2_v2.2.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_2_v2.2.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_2_v2.2.fits",
+        "standalone.CWAVE DETECTOR": "2",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2025W17_4B_0165_1D2_spx_l2b-v27-2026-196.fits",
+        "IRSA_response.release": "spherex_dr1_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "selection_basis": "earliest_usable_utc_for_detector",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2025W17_4B_0266_3",
+      "detector": 3,
+      "time_utc": "2025-04-26T12:12:05.458Z",
+      "irsa_response_product": {
+        "product_id": "level2_2025W17_4B_0266_3D3_spx_l2b-v27-2026-196.fits",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W17_4B/l2b-v27-2026-196/3/level2_2025W17_4B_0266_3D3_spx_l2b-v27-2026-196.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-14T16:03:29.412Z",
+        "sha256": "5ac037b484cf0e8e1212e49e96353ad2032bd6aadd54d2a09c0112978e4237d9"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/3/spectral_wcs_D3_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/3/spectral_wcs_D3_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": 200,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "51750c8f948a30541d391e54930279aa067c62c398a7cc2679e592bc6044427a",
+        "etag": "327f973e59efeaa101bf1fe9ac7c354e",
+        "cached": false,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:35.361",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_3_v2.2.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_3_v2.2.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "3",
+        "requested_detector": 3,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.77424046688526,
+        "dec_deg": 66.46750997364875,
+        "cutout_xy_zero_based": [
+          72.31436116351968,
+          72.01279815789512
+        ],
+        "detector_xy_fits_one_based": [
+          850.3143611635196,
+          2025.012798157895
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 1.6245412826538086,
+        "epsf_cband": 0.03914326801896095,
+        "mef_wcs_wave": 1.622128954418021,
+        "mef_wcs_wave_cband": 0.03898263684705549,
+        "standalone_cwave": 1.621478719178923,
+        "standalone_cband": 0.038229377679762505,
+        "standalone_minus_epsf_cwave": -0.003062563474885538,
+        "standalone_minus_mef_wcs_wave": -0.0006502352390980182,
+        "standalone_minus_epsf_cband": -0.0009138903391984476,
+        "standalone_minus_epsf_cwave_nm": -3.062563474885538,
+        "standalone_minus_epsf_cband_nm": -0.9138903391984476,
+        "absolute_cwave_difference_fraction_channel_width": 0.07823985144526092,
+        "absolute_cband_difference_fraction_channel_width": 0.023347318337236436
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_3_v2.2.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_3_v2.2.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_3_v2.2.fits",
+        "standalone.CWAVE DETECTOR": "3",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2025W17_4B_0266_3D3_spx_l2b-v27-2026-196.fits",
+        "IRSA_response.release": "spherex_dr1_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "selection_basis": "earliest_usable_utc_for_detector",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2025W25_1B_0045_3",
+      "detector": 4,
+      "time_utc": "2025-06-16T04:40:34.522Z",
+      "irsa_response_product": {
+        "product_id": "level2_2025W25_1B_0045_3D4_spx_l2b-v27-2026-213.fits",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W25_1B/l2b-v27-2026-213/4/level2_2025W25_1B_0045_3D4_spx_l2b-v27-2026-213.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-15T03:59:41.481Z",
+        "sha256": "7d5897b7ee4c62431df1b0427727fdc93f48f60fa810be0d551daf1c1d1687d3"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/4/spectral_wcs_D4_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/4/spectral_wcs_D4_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": 200,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "dbdcb8addb4ffe817f31786c8cb359b1f47df3528173e9d4602b94c84f7d7c1a",
+        "etag": "438a1d94ca7b392cf854f68d18bfd7db",
+        "cached": false,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:36.210",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_4_v2.2.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_4_v2.2.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "4",
+        "requested_detector": 4,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.77390266363744,
+        "dec_deg": 66.4675851052553,
+        "cutout_xy_zero_based": [
+          72.3716853156071,
+          72.68060945719506
+        ],
+        "detector_xy_fits_one_based": [
+          1289.371685315607,
+          1115.680609457195
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 2.9448599815368652,
+        "epsf_cband": 0.08395356684923172,
+        "mef_wcs_wave": 2.94664383288465,
+        "mef_wcs_wave_cband": 0.08426426253398725,
+        "standalone_cwave": 2.9464791953401472,
+        "standalone_cband": 0.08600824453817402,
+        "standalone_minus_epsf_cwave": 0.0016192138032820047,
+        "standalone_minus_mef_wcs_wave": -0.00016463754450279922,
+        "standalone_minus_epsf_cband": 0.002054677688942297,
+        "standalone_minus_epsf_cwave_nm": 1.6192138032820047,
+        "standalone_minus_epsf_cband_nm": 2.054677688942297,
+        "absolute_cwave_difference_fraction_channel_width": 0.019287016193009106,
+        "absolute_cband_difference_fraction_channel_width": 0.02447397729547568
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_4_v2.2.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_4_v2.2.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_4_v2.2.fits",
+        "standalone.CWAVE DETECTOR": "4",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2025W25_1B_0045_3D4_spx_l2b-v27-2026-213.fits",
+        "IRSA_response.release": "spherex_dr1_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "selection_basis": "earliest_usable_utc_for_detector",
+      "status": "compared",
+      "release": "dr1",
+      "observation_id": "2025W21_2C_0128_3",
+      "detector": 5,
+      "time_utc": "2025-05-23T06:43:28.070Z",
+      "irsa_response_product": {
+        "product_id": "level2_2025W21_2C_0128_3D5_spx_l2b-v27-2026-199.fits",
+        "release": "spherex_dr1_deep",
+        "access_url": "https://irsa.ipac.caltech.edu/ibe/data/spherex/dr1/level2/2025W21_2C/l2b-v27-2026-199/5/level2_2025W21_2C_0128_3D5_spx_l2b-v27-2026-199.fits?center=269.7741047377%2C66.4674833510&size=0.25",
+        "retrieved_utc": "2026-11-14T16:05:54.289Z",
+        "sha256": "262ede7ff4ff72b73a1acc9a76afd3540e4f370850ce34363d405921170f40fc"
+      },
+      "cutout_fits_primary_version": "7.0.5",
+      "calibration_product": {
+        "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/5/spectral_wcs_D5_spx_cal-swcs-v5-2026-191.fits",
+        "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/5/spectral_wcs_D5_spx_cal-swcs-v5-2026-191.fits",
+        "http_status": 200,
+        "content_length": 33312960,
+        "bytes_downloaded": 33312960,
+        "sha256": "3361428284bddad1dcdce42081ebfbd225acb0b19f6caa94fba3e133bbabfc1c",
+        "etag": "d59bd98b5d1d14ae8d74499b1c1ccb3f",
+        "cached": false,
+        "version_header": "7.0.0b6.post2+g6b3a1a7",
+        "processing_date_header": "2026-06-26T22:53:33.905",
+        "hdu_summary": [
+          {
+            "name": "PRIMARY",
+            "shape": null
+          },
+          {
+            "name": "CWAVE",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "CBAND",
+            "shape": [
+              2040,
+              2040
+            ]
+          },
+          {
+            "name": "WCS-WAVE",
+            "shape": [
+              1
+            ]
+          }
+        ]
+      },
+      "calibration_provenance": {
+        "standalone_map_source_file": "spectral_wcs_5_v3.0.fits",
+        "cached_mef_wcs_wave_source_file": "spectral_wcs_5_v3.0.fits",
+        "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+        "cached_epsf_cband_source": "spectral_wcs CBAND",
+        "standalone_detector": "5",
+        "requested_detector": 5,
+        "matches_cached_mef_source": true,
+        "standalone_product_release_key": "cal-swcs-v5-2026-191",
+        "irsa_response_version_metadata": "SIA provenance contains the L2 product ID/release/access URL, but no standalone spectral_wcs map version field."
+      },
+      "source_position": {
+        "ra_deg": 269.77431259335424,
+        "dec_deg": 66.46740074727975,
+        "cutout_xy_zero_based": [
+          73.31918921170508,
+          72.50080272888562
+        ],
+        "detector_xy_fits_one_based": [
+          1078.3191892117052,
+          1192.5008027288857
+        ],
+        "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+      },
+      "wavelength_comparison_um": {
+        "epsf_cwave": 4.03629732131958,
+        "epsf_cband": 0.03686419501900673,
+        "mef_wcs_wave": 4.0495765845241545,
+        "mef_wcs_wave_cband": 0.03659434615221813,
+        "standalone_cwave": 4.0495383440796004,
+        "standalone_cband": 0.036657560365423614,
+        "standalone_minus_epsf_cwave": 0.013241022760020371,
+        "standalone_minus_mef_wcs_wave": -3.824044455402742e-05,
+        "standalone_minus_epsf_cband": -0.0002066346535831154,
+        "standalone_minus_epsf_cwave_nm": 13.241022760020371,
+        "standalone_minus_epsf_cband_nm": -0.2066346535831154,
+        "absolute_cwave_difference_fraction_channel_width": 0.35918383008752697,
+        "absolute_cband_difference_fraction_channel_width": 0.005605294065870069
+      },
+      "confirmed_versus_assumed": {
+        "confirmed": [
+          "S3 key was returned by the user's public-bucket inventory.",
+          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+          "Standalone map and cached MEF both cite spectral_wcs_5_v3.0.fits; detector matches."
+        ],
+        "assumed": []
+      },
+      "calibration_version_status": "confirmed",
+      "version_evidence": {
+        "cutout_fits_primary.VERSION": "7.0.5",
+        "cutout.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_5_v3.0.fits",
+        "standalone.WCS-WAVE HISTORY Calibration source file": "spectral_wcs_5_v3.0.fits",
+        "standalone.CWAVE DETECTOR": "5",
+        "standalone_product_key_version": "cal-swcs-v5-2026-191",
+        "IRSA_response.product_id": "level2_2025W21_2C_0128_3D5_spx_l2b-v27-2026-199.fits",
+        "IRSA_response.release": "spherex_dr1_deep",
+        "IRSA_response_has_cal-swcs-v5-2026-191_field": false,
+        "IRSA_response_calibration_version_status": "unverified; SIA response has L2 product ID/release but no standalone calibration-map version field"
+      }
+    },
+    {
+      "status": "failed",
+      "selection_basis": "earliest_usable_utc_for_detector",
+      "observation_id": "2025W17_4B_0266_3",
+      "detector": 6,
+      "error": "TypeError: Cannot cast array data from dtype('O') to dtype('float64') according to the rule 'safe'"
+    }
+  ],
+  "summary": {
+    "max_absolute_cwave_difference_nm": 14.482865536608713,
+    "max_absolute_cband_difference_nm": 2.054677688942297,
+    "max_absolute_cwave_difference_fraction_channel_width": 0.3953921447577348,
+    "max_absolute_cband_difference_fraction_channel_width": 0.05712332055793047,
+    "all_compared_cutout_map_versions_confirmed": true,
+    "IRSA_response_calibration_version_status": "unverified; SIA response exposes no standalone calibration-map version field"
+  }
+}

@@ -1,10 +1,13 @@
 """Synthetic offline tests for the user-run Victoria download/Horizons scripts."""
 
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from astropy.table import Table
+from astropy.config.paths import get_cache_dir_path
 
-from pipeline.compare_horizons_geocenter import midpoint_epochs
+from pipeline.compare_horizons_geocenter import midpoint_epochs, query_epochs_with_workspace_cache
 from pipeline.fetch_cutouts import select_epoch_rows
 
 
@@ -33,6 +36,16 @@ class LocalEpochScriptTests(unittest.TestCase):
         epoch = midpoint_epochs(table)[0]
         self.assertAlmostEqual(epoch["mjd_midpoint"], 60000.001, places=8)
         self.assertTrue(epoch["epoch_utc"].startswith("2023-02-25T"))
+
+    def test_horizons_query_uses_workspace_cache_without_network_in_test(self):
+        expected = Table({"RA": [10.0]})
+        def inspect_cache(*args, **kwargs):
+            cache_path = Path(get_cache_dir_path()).resolve()
+            self.assertTrue(cache_path.is_relative_to((Path(__file__).resolve().parents[1] / "pipeline/cache").resolve()))
+            return expected
+        with patch("pipeline.compare_horizons_geocenter.query_epochs", side_effect=inspect_cache):
+            actual = query_epochs_with_workspace_cache("12", [], chunk_size=50)
+        self.assertIs(actual, expected)
 
 
 if __name__ == "__main__":

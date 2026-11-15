@@ -59,6 +59,99 @@ def _cached_json(path: Path) -> dict[str, Any] | None:
         return None
 
 
+def _attach_followup_analysis(case: dict[str, Any], output_dir: Path = OUTPUT_DIR) -> dict[str, Any]:
+    """Attach additive, separately measured calibration and simulation records."""
+    plan = _cached_json(output_dir / "case_analysis_plan.json")
+    calibration = _cached_json(output_dir / "calibration_crosscheck_results.json")
+    injection = _cached_json(output_dir / "injection_test_results.json")
+    if plan is None:
+        return case
+
+    calibration_plan = plan.get("calibration_crosscheck")
+    if isinstance(calibration_plan, dict):
+        selected_frames = calibration_plan.get("frames", [])
+        case["calibration_crosscheck_plan"] = {
+            "status": calibration.get("status", calibration_plan.get("status", "planned")),
+            "selection_rule": calibration_plan["selection_rule"],
+            "selected_frame_count": calibration_plan.get("selected_frame_count", len(selected_frames)),
+            "frames": selected_frames,
+            "version_match_rule": calibration_plan["version_match_rule"],
+        }
+        case["calibration_crosscheck_results"] = calibration
+
+    injection_plan = plan.get("injection_test_plan")
+    if isinstance(injection_plan, dict):
+        case["injection_test_plan"] = {
+            **injection_plan,
+            "status": injection.get("status", injection_plan.get("status", "planned")),
+            "unavailable_trial_accounting": (
+                "Recovery rates use completed attempted trials as the denominator. Missing inputs are attempted=false "
+                "and recovered=null, excluded from that denominator, and counted as unavailable; processing errors are separate."
+            ),
+        }
+        case["injection_test"] = injection
+
+    confirmed = case["confirmed_versus_assumed"]["confirmed"]
+    unverified = case["confirmed_versus_assumed"]["unverified"]
+    if calibration is not None:
+        compared = [row for row in calibration.get("frames", []) if row.get("status") == "compared"]
+        failed = [row for row in calibration.get("frames", []) if row.get("status") != "compared"]
+        if compared:
+            detectors = sorted({int(row["detector"]) for row in compared})
+            confirmed.append(
+                f"Calibration cross-check measured {len(compared)} of {calibration.get('selected_frame_count')} preselected frames "
+                f"on detector(s) {detectors}; all compared source-file/detector matches and wavelength differences are in "
+                "calibration_crosscheck_results."
+            )
+            for row in compared:
+                evidence = row.get("version_evidence", {})
+                confirmed.append(
+                    "Calibration provenance: "
+                    f"cutout WCS-WAVE HISTORY Calibration source file='{evidence.get('cutout.WCS-WAVE HISTORY Calibration source file')}' "
+                    f"matches standalone WCS-WAVE HISTORY Calibration source file='{evidence.get('standalone.WCS-WAVE HISTORY Calibration source file')}'; "
+                    f"standalone CWAVE DETECTOR='{evidence.get('standalone.CWAVE DETECTOR')}'; "
+                    f"S3 key='{row.get('calibration_product', {}).get('key')}'."
+                )
+                confirmed.append(
+                    f"Cutout PRIMARY.VERSION='{row.get('cutout_fits_primary_version')}' is recorded as the product processing version, "
+                    "not interpreted as a standalone spectral-WCS map version."
+                )
+        if failed:
+            unverified.append(
+                f"{len(failed)} of {calibration.get('selected_frame_count')} preselected calibration frames were not compared; "
+                "their differences and the all-frame maximum remain unmeasured. See calibration_crosscheck_results.frames[*].error."
+            )
+        unverified.append(
+            calibration.get("summary", {}).get(
+                "IRSA_response_calibration_version_status",
+                "IRSA response calibration-map version metadata is unverified.",
+            )
+        )
+
+    if injection is not None:
+        flux = injection.get("flux_change_results", [])
+        position = injection.get("position_shift_results", [])
+        confirmed.append(
+            f"SIMULATION ONLY: injection/recovery completed with status '{injection.get('status')}'. "
+            "Per-level attempted, completed, unavailable, recovery-rate, and recovered/injected metrics are in injection_test."
+        )
+        if injection.get("failed_frames"):
+            unverified.append(
+                f"{len(injection['failed_frames'])} planned injection frames were unavailable or failed processing; "
+                "they are not counted as non-recoveries. Simulation limitations are recorded in injection_test.cannot_show."
+            )
+        if flux or position:
+            confirmed.append(
+                "Injection results are simulated on copies of real cutouts and are not used to alter measured observations, "
+                "systematic floors, or scientific verdicts."
+            )
+
+    case["confirmed_versus_assumed"]["confirmed"] = list(dict.fromkeys(confirmed))
+    case["confirmed_versus_assumed"]["unverified"] = list(dict.fromkeys(unverified))
+    case["schema_version"] = "1.8.0"
+    return case
+
+
 def _merge_cloud_calibration_attempt(
     result: dict[str, Any], cloud_report: dict[str, Any] | None
 ) -> dict[str, Any]:
@@ -574,6 +667,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                          "environment_lock": "requirements.txt; requirements-dev.txt",
                          "git_commit": _git_head()}},
     }
+    case = _attach_followup_analysis(case)
     hard_flag_union = sum(1 for o in series if set(o.get("flags_5x5", [])) & HARD_FLAGS)
     diagnostics = {"policy": POLICY, "rule_hit_counts": counts,
                    "retry_backoff_seconds": [5, 15, 45, 90],
@@ -762,11 +856,53 @@ def export() -> tuple[int, list[str]]:
                                              "bundle_path": "confirmed_versus_assumed.unverified"}
         }
     }
+    calibration_followup = case.get("calibration_crosscheck_results")
+    if isinstance(calibration_followup, dict):
+        slide_numbers["calibration_crosscheck"] = {
+            "value": {
+                "status": calibration_followup.get("status"),
+                "selected_frames": calibration_followup.get("selected_frame_count"),
+                "compared_frames": calibration_followup.get("compared_frame_count"),
+                "uncompared_frames": calibration_followup.get("failed_frame_count"),
+                **calibration_followup.get("summary", {}),
+            },
+            "bundle_path": "calibration_crosscheck_results",
+        }
+    injection_followup = case.get("injection_test")
+    if isinstance(injection_followup, dict):
+        slide_numbers["injection_test_simulated"] = {
+            "value": {
+                "simulated": injection_followup.get("simulated"),
+                "status": injection_followup.get("status"),
+                "flux_change_levels": [
+                    {key: level.get(key) for key in ("injected_size", "n_trials", "n_completed", "n_unavailable",
+                                                        "n_recovered", "recovery_rate",
+                                                        "median_recovered_over_injected_ratio")}
+                    for level in injection_followup.get("flux_change_results", [])
+                ],
+                "position_shift_levels": [
+                    {key: level.get(key) for key in ("injected_size", "n_trials", "n_completed", "n_unavailable",
+                                                        "n_recovered", "recovery_rate",
+                                                        "median_recovered_over_injected_ratio")}
+                    for level in injection_followup.get("position_shift_results", [])
+                ],
+            },
+            "bundle_path": "injection_test",
+        }
+    asteroid_status_path = ROOT / "outputs/asteroid-victoria/status_and_plan.json"
+    if asteroid_status_path.is_file():
+        asteroid_status = _cached_json(asteroid_status_path) or {}
+        slide_numbers["asteroid_victoria_status"] = {
+            "value": {"status": asteroid_status.get("status"),
+                      "bundle_created": asteroid_status.get("case_bundle_status", {}).get("validated")},
+            "source_json": "outputs/asteroid-victoria/status_and_plan.json",
+            "bundle_path": None,
+        }
     (OUTPUT_DIR / "slide_numbers.json").write_text(json.dumps(slide_numbers, indent=2, allow_nan=False), encoding="utf-8")
     return bundle_path.stat().st_size, diagnostics["null_fields"]
 
 
 if __name__ == "__main__":
     size, null_fields = export()
-    print(f"schema=1.7.0 validated=true bundle_bytes={size}")
+    print(f"schema=1.8.0 validated=true bundle_bytes={size}")
     print(f"null_fields_count={len(null_fields)} full_list=outputs/control-star/quality_report.json:null_fields")
