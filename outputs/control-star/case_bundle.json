@@ -7378,7 +7378,7 @@
     "software": {
       "pipeline_version": "0.1.0",
       "environment_lock": "requirements.txt; requirements-dev.txt",
-      "git_commit": "8f76f28fb9f47835cd5a05168adae8389f0c4101"
+      "git_commit": "581c6daac8d664a3afb3e4b2d6c90eda103ddce7"
     }
   }
 }
