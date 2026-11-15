@@ -36,6 +36,13 @@ OUTPUT_DIR = ROOT / "outputs/control-star"
 CASE_ID = "control-star-1633306316700113024"
 SOURCE_ID = "1633306316700113024"
 HARD_FLAGS = set(POLICY["quality_flags_exclude"])
+PLANNED_GAIA_SEARCH_RADIUS_DEG = 0.25
+GAIA_SEARCH_RADIUS_DEG = 0.30
+GAIA_RADIUS_DEVIATION = (
+    "Count-only decision before 2MASS/AllWISE matching, per-frame checks, or any floor/statistic: "
+    "the planned 0.25 deg catalog radius yielded 19 Gaia candidates after unchanged fixed Gaia cuts; "
+    "0.30 deg yielded 32. Radius widened to 0.30 deg to reach the planned minimum-candidate count."
+)
 
 
 def _flatten(report: dict[str, Any]) -> list[dict[str, Any]]:
@@ -118,7 +125,10 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     # This is a Gaia-only pre-screen, not a vetted comparison-star sample.
     # The fixed cuts are recorded in POLICY before any candidate filtering.
     criteria = POLICY["comparison_star_criteria"]
-    gaia_candidate_ids = preselect_gaia_comparisons(gaia_table, ra0, dec0, SOURCE_ID, criteria)
+    gaia_candidate_ids = preselect_gaia_comparisons(
+        gaia_table, ra0, dec0, SOURCE_ID, criteria,
+        search_radius_arcsec=GAIA_SEARCH_RADIUS_DEG * 3600.0,
+    )
     comparison_query_report = _cached_json(
         ROOT / "pipeline/cache/control-star/comparison_catalogs/comparison_catalog_vetting.json") or {}
     comparison_query_error = comparison_query_report.get("error")
@@ -407,12 +417,14 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
         "comparison_star_analysis": {
             "selection_status": "blocked",
             "selection_reason": (
-                f"Only {len(gaia_candidate_ids)} non-target Gaia sources pass the predeclared magnitude, "
+                f"{len(gaia_candidate_ids)} non-target Gaia candidates pass the initial predeclared magnitude, "
                 "proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, "
-                "before per-frame edge/flag checks and required 2MASS/AllWISE matching; this is below "
-                f"the required {criteria['minimum_stars_per_frame']} comparison stars. IRSA TAP matching "
-                "was also blocked, so the catalog match count is unknown."
-                + (f" Recorded TAP error: {comparison_query_error}" if comparison_query_error else "")
+                "before per-frame edge/flag checks and required 2MASS/AllWISE matching. This is an initial "
+                f"candidate count only; at least {criteria['minimum_stars_per_frame']} stars must still pass "
+                "catalog and per-frame vetting. IRSA TAP matching was blocked, so the vetted count is unknown."
+                + f" Catalog search-radius deviation: planned {PLANNED_GAIA_SEARCH_RADIUS_DEG:.2f} deg, "
+                  f"selected {GAIA_SEARCH_RADIUS_DEG:.2f} deg. {GAIA_RADIUS_DEVIATION}"
+                + (f" Recorded catalog-query error: {comparison_query_error}" if comparison_query_error else "")
             ),
             "n_gaia_candidates": len(gaia_candidate_ids),
             "gaia_candidate_source_ids": gaia_candidate_ids,
@@ -597,6 +609,13 @@ def export() -> tuple[int, list[str]]:
                                        "bundle_path": "comparison_star_analysis.n_stars_used; comparison_star_analysis.n_gaia_candidates"},
             "comparison_star_criteria": {"value": case["verdict"]["threshold_policy"]["comparison_star_criteria"],
                                           "bundle_path": "verdict.threshold_policy.comparison_star_criteria"},
+            "comparison_star_radius_deviation": {
+                "value": {"planned_radius_deg": PLANNED_GAIA_SEARCH_RADIUS_DEG,
+                          "selected_radius_deg": GAIA_SEARCH_RADIUS_DEG,
+                          "candidate_count_at_planned_radius": 19,
+                          "candidate_count_at_selected_radius": comparison["n_gaia_candidates"],
+                          "decision_basis": "Count only, before catalog matching or floor/statistic calculation."},
+                "bundle_path": "comparison_star_analysis.selection_reason"},
             "dr1_calibration_check": {"value": case["dr1_calibration_check"], "bundle_path": "dr1_calibration_check"},
             "five_mad_exploratory_caveat": {"value": "The 5-scaled-MAD policy was set after exploratory inspection.",
                                              "bundle_path": "confirmed_versus_assumed.unverified"}

@@ -5448,10 +5448,12 @@
   ],
   "comparison_star_analysis": {
     "selection_status": "blocked",
-    "selection_reason": "Only 14 non-target Gaia sources pass the predeclared magnitude, proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, before per-frame edge/flag checks and required 2MASS/AllWISE matching; this is below the required 20 comparison stars. IRSA TAP matching was also blocked, so the catalog match count is unknown. Recorded TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))",
-    "n_gaia_candidates": 14,
+    "selection_reason": "32 non-target Gaia candidates pass the initial predeclared magnitude, proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, before per-frame edge/flag checks and required 2MASS/AllWISE matching. This is an initial candidate count only; at least 20 stars must still pass catalog and per-frame vetting. IRSA TAP matching was blocked, so the vetted count is unknown. Catalog search-radius deviation: planned 0.25 deg, selected 0.30 deg. Count-only decision before 2MASS/AllWISE matching, per-frame checks, or any floor/statistic: the planned 0.25 deg catalog radius yielded 19 Gaia candidates after unchanged fixed Gaia cuts; 0.30 deg yielded 32. Radius widened to 0.30 deg to reach the planned minimum-candidate count. Recorded catalog-query error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))",
+    "n_gaia_candidates": 32,
     "gaia_candidate_source_ids": [
       "1441150476305503232",
+      "1633300990939807104",
+      "1633302021731955840",
       "1633303567920281344",
       "1633304358194267520",
       "1633306007462468608",
@@ -5460,11 +5462,27 @@
       "1633310061910851584",
       "1633310714745868288",
       "1633311161422476160",
+      "1633319579558246528",
       "1633320575990698752",
       "1633321881660763648",
       "1633323084251692288",
+      "1633325042756677120",
       "1633325248915154176",
-      "2257806724884479232"
+      "1633326966902113152",
+      "1633327482298199296",
+      "1633328135133208576",
+      "1633328272572168960",
+      "1633373489987783040",
+      "2161724904856688384",
+      "2257800333973166976",
+      "2257803151471711488",
+      "2257806724884479232",
+      "2257809508023306752",
+      "2257812222442627584",
+      "2257813012716603392",
+      "2257814284026932480",
+      "2257814558904831360",
+      "2257815555337234432"
     ],
     "n_catalog_matched": null,
     "n_stars_used": 0,
@@ -6679,7 +6697,7 @@
     ],
     "unverified": [
       "The written 5-scaled-MAD policy followed exploratory inspection of these cached frames; classifications are screening results, not a preregistered test.",
-      "Only 14 Gaia-only sources passed the predeclared preliminary comparison cuts; none were used because required catalog matching and per-frame checks were not completed.",
+      "Only 32 Gaia-only sources passed the predeclared preliminary comparison cuts; none were used because required catalog matching and per-frame checks were not completed.",
       "IRSA TAP comparison-catalog query failed: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\")); 2MASS/AllWISE matches are unknown.",
       "No systematic photometric floor; no common frame offset or comparison-star astrometric scatter.",
       "No variability claim; spectral verdict remains insufficient evidence.",
@@ -7412,7 +7430,7 @@
     "software": {
       "pipeline_version": "0.1.0",
       "environment_lock": "requirements.txt; requirements-dev.txt",
-      "git_commit": "740abc42b8177e99cd0e36d17f1cfa5ebd71a25a"
+      "git_commit": "0a576f7320cf3d60f174a646527f491e7ae0a0ea"
     }
   }
 }

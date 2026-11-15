@@ -29,7 +29,9 @@ OUT_DIR = ROOT / "pipeline/cache/control-star/comparison_catalogs"
 TARGET_ID = "1633306316700113024"
 TARGET_RA_DEG = 269.77410473768515
 TARGET_DEC_DEG = 66.46748335101324
-SEARCH_RADIUS_DEG = 0.25
+PLANNED_SEARCH_RADIUS_DEG = 0.25
+GAIA_SEARCH_RADIUS_DEG = 0.30
+SEARCH_RADIUS_DEG = GAIA_SEARCH_RADIUS_DEG
 
 
 def _value(row: Any, key: str) -> Any:
@@ -41,11 +43,13 @@ def _value(row: Any, key: str) -> Any:
     return value
 
 
-def vet_catalog_matches(gaia: Table, tmass: Table, allwise: Table) -> list[dict[str, Any]]:
+def vet_catalog_matches(gaia: Table, tmass: Table, allwise: Table,
+                        *, search_radius_deg: float = SEARCH_RADIUS_DEG) -> list[dict[str, Any]]:
     """Apply fixed Gaia, positional, and catalog-quality criteria to each candidate."""
     criteria = POLICY["comparison_star_criteria"]
     candidate_ids = preselect_gaia_comparisons(
-        gaia, TARGET_RA_DEG, TARGET_DEC_DEG, TARGET_ID, criteria
+        gaia, TARGET_RA_DEG, TARGET_DEC_DEG, TARGET_ID, criteria,
+        search_radius_arcsec=search_radius_deg * 3600.0,
     )
     tmass_coords = SkyCoord(np.asarray(tmass["ra"], float) * u.deg,
                             np.asarray(tmass["dec"], float) * u.deg)
@@ -111,6 +115,14 @@ def main() -> int:
         "target_gaia_source_id": TARGET_ID,
         "query_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "search_radius_deg": SEARCH_RADIUS_DEG,
+        "search_radius_deviation": {
+            "planned_radius_deg": PLANNED_SEARCH_RADIUS_DEG,
+            "selected_radius_deg": SEARCH_RADIUS_DEG,
+            "reason": (
+                "Count-only decision before catalog matching or floor calculation: planned radius 0.25 deg "
+                "yielded 19 Gaia candidates after the unchanged fixed Gaia cuts; 0.30 deg yielded 32."
+            ),
+        },
         "criteria": POLICY["comparison_star_criteria"],
         "status": "failed",
         "error": None,
@@ -121,7 +133,7 @@ def main() -> int:
         allwise = _query("allwise_p3as_psd", "designation, ra, dec, ph_qual, cc_flags, ext_flg")
         tmass.write(OUT_DIR / "2mass_fp_psc.ecsv", format="ascii.ecsv", overwrite=True)
         allwise.write(OUT_DIR / "allwise_p3as_psd.ecsv", format="ascii.ecsv", overwrite=True)
-        candidates = vet_catalog_matches(gaia, tmass, allwise)
+        candidates = vet_catalog_matches(gaia, tmass, allwise, search_radius_deg=SEARCH_RADIUS_DEG)
         result.update({
             "status": "complete",
             "gaia_candidate_count": len(candidates),

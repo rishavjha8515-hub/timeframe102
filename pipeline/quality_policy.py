@@ -47,7 +47,8 @@ POLICY = {
 
 
 def preselect_gaia_comparisons(table: Any, target_ra_deg: float, target_dec_deg: float,
-                              target_source_id: str, criteria: dict[str, Any] | None = None) -> list[str]:
+                              target_source_id: str, criteria: dict[str, Any] | None = None,
+                              *, search_radius_arcsec: float = 12 * 60) -> list[str]:
     """Return Gaia-only candidates passing the fixed cuts and isolation test.
 
     This intentionally does not establish 2MASS/AllWISE matches, per-frame
@@ -64,7 +65,7 @@ def preselect_gaia_comparisons(table: Any, target_ra_deg: float, target_dec_deg:
     variable = np.asarray(table["phot_variable_flag"]).astype(str)
     source_ids = np.asarray(table["source_id"]).astype(str)
     mask = (
-        (sep < 12 * 60) & (gmag >= criteria["gaia_g_mag_range"][0]) &
+        (sep < search_radius_arcsec) & (gmag >= criteria["gaia_g_mag_range"][0]) &
         (gmag <= criteria["gaia_g_mag_range"][1]) &
         (pm <= criteria["maximum_total_proper_motion_mas_yr"]) &
         (ruwe < criteria["maximum_ruwe"]) &

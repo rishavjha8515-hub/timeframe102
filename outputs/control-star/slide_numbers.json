@@ -146,7 +146,7 @@
     },
     "comparison_stars_used": {
       "value": 0,
-      "candidate_count": 14,
+      "candidate_count": 32,
       "bundle_path": "comparison_star_analysis.n_stars_used; comparison_star_analysis.n_gaia_candidates"
     },
     "comparison_star_criteria": {
@@ -191,6 +191,16 @@
         "astrometric_threshold_method": "Per frame, subtract the median east/north Gaia residual across selected comparison stars; set the displacement threshold to three times 1.4826 times the MAD of radial residuals after removing the common frame offset. Require at least 20 comparison stars in a frame."
       },
       "bundle_path": "verdict.threshold_policy.comparison_star_criteria"
+    },
+    "comparison_star_radius_deviation": {
+      "value": {
+        "planned_radius_deg": 0.25,
+        "selected_radius_deg": 0.3,
+        "candidate_count_at_planned_radius": 19,
+        "candidate_count_at_selected_radius": 32,
+        "decision_basis": "Count only, before catalog matching or floor/statistic calculation."
+      },
+      "bundle_path": "comparison_star_analysis.selection_reason"
     },
     "dr1_calibration_check": {
       "value": {

@@ -44,6 +44,18 @@ class QualityPolicyTests(unittest.TestCase):
         self.assertEqual(selected, ["isolated"])
         self.assertEqual(POLICY["comparison_star_criteria"]["minimum_stars_per_frame"], 20)
 
+    def test_count_only_radius_widening_does_not_change_gaia_cuts(self):
+        table = Table({
+            "source_id": ["target", "outer"],
+            "ra": [10.0, 10.25], "dec": [20.0, 20.0],
+            "phot_g_mean_mag": [12.0, 12.0], "pmra": [0.0, 1.0], "pmdec": [0.0, 1.0],
+            "ruwe": [1.0, 1.0], "phot_variable_flag": ["CONSTANT", "CONSTANT"],
+        })
+        self.assertEqual(preselect_gaia_comparisons(table, 10.0, 20.0, "target"), [])
+        self.assertEqual(preselect_gaia_comparisons(
+            table, 10.0, 20.0, "target", search_radius_arcsec=0.30 * 3600
+        ), ["outer"])
+
     def test_catalog_vetting_requires_positional_and_quality_gates(self):
         gaia = Table({
             "source_id": ["1633306316700113024", "candidate"],
