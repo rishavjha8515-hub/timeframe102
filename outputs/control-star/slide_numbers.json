@@ -136,7 +136,7 @@
         "sample_size": 0,
         "fractional_scatter": null,
         "floor_jy": null,
-        "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))"
+        "reason": "No comparison-star flux ratios were measured. Although 24 sources passed catalog gates, 0 of 61 usable cutouts met the required 20-star pre-photometry count; comparison photometry was therefore not started."
       },
       "bundle_path": "comparison_star_analysis.photometric_floor"
     },
@@ -148,6 +148,60 @@
       "value": 0,
       "candidate_count": 32,
       "bundle_path": "comparison_star_analysis.n_stars_used; comparison_star_analysis.n_gaia_candidates"
+    },
+    "catalog_qualified_comparison_stars": {
+      "value": 24,
+      "source_ids": [
+        "1441150476305503232",
+        "1633300990939807104",
+        "1633302021731955840",
+        "1633304358194267520",
+        "1633306007462468608",
+        "1633309615234243968",
+        "1633310061910851584",
+        "1633310714745868288",
+        "1633311161422476160",
+        "1633320575990698752",
+        "1633321881660763648",
+        "1633323084251692288",
+        "1633325042756677120",
+        "1633327482298199296",
+        "1633328135133208576",
+        "1633328272572168960",
+        "1633373489987783040",
+        "2161724904856688384",
+        "2257806724884479232",
+        "2257812222442627584",
+        "2257813012716603392",
+        "2257814284026932480",
+        "2257814558904831360",
+        "2257815555337234432"
+      ],
+      "bundle_path": "comparison_star_analysis.catalog_matched_candidate_source_ids"
+    },
+    "comparison_candidates_per_frame": {
+      "minimum": 1,
+      "maximum": 7,
+      "frames_meeting_minimum": 0,
+      "usable_frames": 61,
+      "bundle_path": "comparison_star_analysis.per_frame_counts[*]"
+    },
+    "comparison_catalog_query": {
+      "value": {
+        "status": "complete",
+        "catalog_source": "CDS VizieR public mirrors",
+        "query_utc": "2026-11-15T09:02:18.957391Z",
+        "servers": {
+          "2mass": "vizier.idia.ac.za",
+          "allwise": "vizier.cfa.harvard.edu"
+        },
+        "row_counts": {
+          "2mass": 918,
+          "allwise": 5403
+        },
+        "reason": null
+      },
+      "bundle_path": "comparison_star_analysis.catalog_query"
     },
     "comparison_star_criteria": {
       "value": {

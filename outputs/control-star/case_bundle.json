@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "case_id": "control-star-1633306316700113024",
   "is_synthetic": false,
   "time_definition": "midpoint",
@@ -5447,8 +5447,8 @@
     }
   ],
   "comparison_star_analysis": {
-    "selection_status": "blocked",
-    "selection_reason": "32 non-target Gaia candidates pass the initial predeclared magnitude, proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, before per-frame edge/flag checks and required 2MASS/AllWISE matching. This is an initial candidate count only; at least 20 stars must still pass catalog and per-frame vetting. IRSA TAP matching was blocked, so the vetted count is unknown. Catalog search-radius deviation: planned 0.25 deg, selected 0.30 deg. Count-only decision before 2MASS/AllWISE matching, per-frame checks, or any floor/statistic: the planned radius yielded 19 candidates after unchanged fixed cuts; the selected radius yielded 32. Radius widened to reach the planned minimum-candidate count. Recorded catalog-query error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))",
+    "selection_status": "insufficient stars",
+    "selection_reason": "32 Gaia candidates passed the initial fixed cuts; 24 passed the fixed 2MASS/AllWISE positional and quality gates. Across 61 usable cutouts, the pre-photometry edge/5x5-hard-flag eligible count ranged from 1 to 7; 0 frames met the required minimum of 20. No comparison-star detection or photometry was run because the minimum sample size was not met. This pre-photometry count does not assert that every listed candidate was detected. Search radius was widened by a count-only decision from 0.25 to 0.30 deg: 19 to 32 preliminary Gaia candidates.",
     "n_gaia_candidates": 32,
     "gaia_candidate_source_ids": [
       "1441150476305503232",
@@ -5484,375 +5484,1575 @@
       "2257814558904831360",
       "2257815555337234432"
     ],
-    "n_catalog_matched": null,
+    "catalog_query": {
+      "status": "complete",
+      "catalog_source": "CDS VizieR public mirrors",
+      "query_utc": "2026-11-15T09:02:18.957391Z",
+      "servers": {
+        "2mass": "vizier.idia.ac.za",
+        "allwise": "vizier.cfa.harvard.edu"
+      },
+      "row_counts": {
+        "2mass": 918,
+        "allwise": 5403
+      },
+      "reason": null
+    },
+    "catalog_matched_candidate_source_ids": [
+      "1441150476305503232",
+      "1633300990939807104",
+      "1633302021731955840",
+      "1633304358194267520",
+      "1633306007462468608",
+      "1633309615234243968",
+      "1633310061910851584",
+      "1633310714745868288",
+      "1633311161422476160",
+      "1633320575990698752",
+      "1633321881660763648",
+      "1633323084251692288",
+      "1633325042756677120",
+      "1633327482298199296",
+      "1633328135133208576",
+      "1633328272572168960",
+      "1633373489987783040",
+      "2161724904856688384",
+      "2257806724884479232",
+      "2257812222442627584",
+      "2257813012716603392",
+      "2257814284026932480",
+      "2257814558904831360",
+      "2257815555337234432"
+    ],
+    "n_catalog_matched": 24,
     "n_stars_used": 0,
     "stars_used": [],
     "per_frame_counts": [
       {
         "observation_id": "2025W17_4B_0021_1",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W17_4B_0165_1",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W17_4B_0266_3",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 2,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 2 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 3,
+        "n_edge_safe": 2,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W17_4B_0266_3",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 2,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 2 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 3,
+        "n_edge_safe": 2,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W20_2D_0199_1",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 3,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 3 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 3,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W21_2C_0128_3",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W22_1B_0282_3",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W22_2B_0018_2",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W24_2D_0048_1",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W24_2D_0254_3",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W25_1B_0045_3",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W25_1B_0598_4",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 6,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W26_2A_0350_1",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W26_2A_0364_3",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W28_2A_0580_1",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 7,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 7 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1441150476305503232",
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633321881660763648"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W29_1A_0092_3",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1441150476305503232",
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633321881660763648"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W30_2B_0112_2",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 1,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 1 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 4,
+        "prephotometry_candidate_source_ids": [
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633304358194267520",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W30_2B_0189_1",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W31_1A_0611_1",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633320575990698752",
+            "flag_names": [
+              "OVERFLOW",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W31_2A_0240_4",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 3,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 3 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 4,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          },
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633311161422476160",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633320575990698752",
+            "flag_names": [
+              "OVERFLOW"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W33_2C_0877_2",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 3,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 3 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 3,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633309615234243968",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633311161422476160",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W34_1B_0008_3",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W34_2B_0629_2",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633304358194267520",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W35_1A_0219_1",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 7,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 7 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1441150476305503232",
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633321881660763648"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W36_1A_0405_4",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W36_1A_0758_4",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W37_2A_0440_2",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 3,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 3 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W37_2A_0588_4",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2025W38_1A_0727_4",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W39_2A_0689_3",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 3,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          },
+          {
+            "source_id": "1633320575990698752",
+            "flag_names": [
+              "OVERFLOW"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W40_1A_0274_1",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160",
+          "1633320575990698752"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633304358194267520",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W41_2B_0417_1",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1441150476305503232",
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W41_2B_0558_4",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 3,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633320575990698752",
+            "flag_names": [
+              "OVERFLOW"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2025W42_1A_0045_2",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1441150476305503232",
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633321881660763648"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W20_2A_0202_3",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633320575990698752",
+            "flag_names": [
+              "OVERFLOW"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W21_1A_0527_4",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633311161422476160",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W21_2A_0447_3",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W23_1A_0575_2",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W23_2A_0072_3",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 3,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 3 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633304358194267520",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W23_2A_0618_1",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 3,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 3 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W25_1A_0231_4",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W25_2A_0635_2",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310714745868288",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W27_1A_0247_1",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310061910851584",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          },
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W27_1A_0258_1",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633309615234243968",
+          "1633310061910851584",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W27_1A_0405_4",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W29_1A_0509_2",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633321881660763648"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1441150476305503232",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W30_2A_0424_3",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W30_2A_0621_4",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W31_1B_0039_3",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 4,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W32_2A_0646_1",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 2,
+        "prephotometry_candidate_source_ids": [
+          "1633306007462468608",
+          "1633310061910851584",
+          "1633310714745868288",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633304358194267520",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W34_1A_0212_3",
         "detector": 2,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 7,
+        "n_edge_safe": 7,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633320575990698752",
+            "flag_names": [
+              "OVERFLOW"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W34_2A_0012_2",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 6,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 6 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 8,
+        "n_edge_safe": 6,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "2257806724884479232"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W36_1A_0435_1",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 2,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 2 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 4,
+        "n_edge_safe": 2,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W36_2A_0446_3",
         "detector": 1,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W37_1A_0216_3",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "NONFUNC",
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W37_2A_0104_1",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 9,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608",
+          "1633309615234243968",
+          "1633310061910851584"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633310714745868288",
+            "flag_names": [
+              "TRANSIENT"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W37_2A_0104_2",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 2,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 2 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 10,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 3,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633310714745868288"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633306007462468608",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633309615234243968",
+            "flag_names": [
+              "SUR_ERROR",
+              "TRANSIENT"
+            ]
+          },
+          {
+            "source_id": "1633310061910851584",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W40_2A_0909_4",
         "detector": 5,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 5,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 5 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 5,
+        "n_edge_safe": 5,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160",
+          "1633320575990698752"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W40_2A_0930_4",
         "detector": 4,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 4,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 4 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 6,
+        "n_edge_safe": 4,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633309615234243968",
+          "1633310061910851584",
+          "1633310714745868288",
+          "1633311161422476160"
+        ],
+        "hard_flagged_source_ids": []
       },
       {
         "observation_id": "2026W40_2A_0952_2",
         "detector": 3,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 1,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 1 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 4,
+        "n_edge_safe": 2,
+        "n_hard_flagged": 1,
+        "prephotometry_candidate_source_ids": [
+          "1633306007462468608"
+        ],
+        "hard_flagged_source_ids": [
+          {
+            "source_id": "1633304358194267520",
+            "flag_names": [
+              "NONFUNC"
+            ]
+          }
+        ]
       },
       {
         "observation_id": "2026W40_2A_0952_2",
         "detector": 6,
-        "n_stars": null,
-        "reason": "per-frame catalog matching and photometry were not run"
+        "n_stars": 2,
+        "reason": "Count is after catalog, footprint, 60 arcsec edge, and 5x5 hard-flag gates, but before detection and photometry. 2 candidates remain; required minimum is 20.",
+        "n_catalog_matched": 24,
+        "n_inside_cutout": 2,
+        "n_edge_safe": 2,
+        "n_hard_flagged": 0,
+        "prephotometry_candidate_source_ids": [
+          "1633304358194267520",
+          "1633306007462468608"
+        ],
+        "hard_flagged_source_ids": []
       }
     ],
     "photometric_floor": {
@@ -5861,7 +7061,7 @@
       "sample_size": 0,
       "fractional_scatter": null,
       "floor_jy": null,
-      "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))"
+      "reason": "No comparison-star flux ratios were measured. Although 24 sources passed catalog gates, 0 of 61 usable cutouts met the required 20-star pre-photometry count; comparison photometry was therefore not started."
     },
     "astrometric_calibration": {
       "status": "unavailable",
@@ -6812,7 +8012,7 @@
   "spectral_verdict": {
     "label": "insufficient evidence",
     "evidence": {
-      "summary": "A smooth empirical spectrum and robust residual screen are available, but no matched comparison-star systematic floor was measured; no variability inference is made.",
+      "summary": "A smooth empirical spectrum and robust residual screen are available, but the per-frame comparison-star sample is below the fixed minimum and no systematic floor was measured; no variability inference is made.",
       "n_observations": 80,
       "n_usable": 61,
       "wavelength_range_um": [
@@ -6820,7 +8020,7 @@
         4.986695289611816
       ],
       "reasons": [
-        "No 2MASS-matched, vetted comparison-star set is available in the local cache.",
+        "Only 1 to 7 catalog-qualified candidates per usable cutout pass the edge and hard-flag gates, below the required 20.",
         "No comparison-star residual MAD floor was measured.",
         "A single control-star wavelength-dependent fit is not a temporal variability test."
       ]
@@ -6829,14 +8029,14 @@
   "verdict": {
     "label": "insufficient evidence",
     "evidence": {
-      "summary": "The control-star case has measured source positions but lacks a frame-level comparison-star astrometric solution and calibrated residual scatter.",
+      "summary": "The control-star case has measured source positions but the cutouts contain fewer than the required 20 comparison candidates per frame, so no comparison-star astrometric solution or calibrated residual scatter was measured.",
       "n_observations": 80,
       "n_usable": 61,
       "baseline_days": 528.0870125000001,
       "residual_rms_arcsec": null,
       "motion_significance_sigma": null,
       "reasons": [
-        "No 20-star Gaia/2MASS comparison set could be confirmed from cached data.",
+        "24 candidates pass catalog gates, but no usable cutout has 20 candidates after footprint, edge, and hard-flag checks.",
         "Common frame north offset and corrected scatter are unverified."
       ]
     },
@@ -6911,7 +8111,9 @@
       "78 real IRSA SPHEREx cutouts have measured fluxes from cached FITS.",
       "Two cached edge cutouts were reprocessed and now return unusable with explicit edge reasons.",
       "The two specified high-flux frames are retained and rejected by the declared flag/MAD policy.",
-      "The provenance SHA-256 values are taken from cache or computed from the cached FITS."
+      "The provenance SHA-256 values are taken from cache or computed from the cached FITS.",
+      "VizieR mirrors returned 918 2MASS rows and 5403 AllWISE rows; 24 of 32 candidates passed the fixed catalog gates.",
+      "All 61 usable cutouts were checked for comparison-star footprint, edge margin, and decoded 5x5 hard flags; 0 met the required 20-candidate threshold."
     ],
     "assumed": [
       "Gaia proper motion is propagated linearly; perspective acceleration is ignored.",
@@ -6920,8 +8122,8 @@
     ],
     "unverified": [
       "The written 5-scaled-MAD policy followed exploratory inspection of these cached frames; classifications are screening results, not a preregistered test.",
-      "Only 32 Gaia-only sources passed the predeclared preliminary comparison cuts; none were used because required catalog matching and per-frame checks were not completed.",
-      "IRSA TAP comparison-catalog query failed: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\")); 2MASS/AllWISE matches are unknown.",
+      "The 24 catalog-qualified candidates are pre-photometry selections; none were measured because every usable cutout has at most 7 eligible candidates.",
+      "IRSA TAP comparison-catalog query failed: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\")); the CDS VizieR mirror fallback succeeded.",
       "No systematic photometric floor; no common frame offset or comparison-star astrometric scatter.",
       "No variability claim; spectral verdict remains insufficient evidence.",
       "No motion threshold recalibration without comparison-star residuals."
@@ -7653,7 +8855,7 @@
     "software": {
       "pipeline_version": "0.1.0",
       "environment_lock": "requirements.txt; requirements-dev.txt",
-      "git_commit": "929defba01b6ce3a5d0dbfb1f892d3b27ac11f54"
+      "git_commit": "e77b1416f0dd8633b751b7b29b5cdf02072a5b84"
     }
   },
   "null_field_reasons": {
@@ -8322,70 +9524,9 @@
     "observations[79].predicted_position.uncertainty_dec_arcsec": "A propagated positional covariance was not available; the recorded Gaia prediction omits catalog uncertainty and frame systematics.",
     "observations[79].registration.n_reference_stars": "No multi-star astrometric refinement was performed; registration.method records the reprojection-only method.",
     "observations[79].registration.rms_arcsec": "No multi-star astrometric refinement was performed; registration.method records the reprojection-only method.",
-    "comparison_star_analysis.n_catalog_matched": "The IRSA TAP and VizieR catalog queries failed in this execution; catalog-match count is unknown.",
-    "comparison_star_analysis.per_frame_counts[0].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[1].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[2].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[3].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[4].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[5].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[6].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[7].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[8].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[9].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[10].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[11].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[12].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[13].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[14].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[15].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[16].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[17].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[18].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[19].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[20].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[21].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[22].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[23].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[24].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[25].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[26].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[27].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[28].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[29].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[30].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[31].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[32].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[33].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[34].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[35].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[36].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[37].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[38].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[39].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[40].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[41].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[42].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[43].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[44].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[45].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[46].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[47].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[48].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[49].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[50].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[51].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[52].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[53].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[54].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[55].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[56].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[57].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[58].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[59].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.per_frame_counts[60].n_stars": "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed.",
-    "comparison_star_analysis.photometric_floor.fractional_scatter": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))",
-    "comparison_star_analysis.photometric_floor.floor_jy": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))",
+    "comparison_star_analysis.catalog_query.reason": "This value was not measured or supplied; it remains null rather than being inferred.",
+    "comparison_star_analysis.photometric_floor.fractional_scatter": "No comparison-star flux ratios were measured. Although 24 sources passed catalog gates, 0 of 61 usable cutouts met the required 20-star pre-photometry count; comparison photometry was therefore not started.",
+    "comparison_star_analysis.photometric_floor.floor_jy": "No comparison-star flux ratios were measured. Although 24 sources passed catalog gates, 0 of 61 usable cutouts met the required 20-star pre-photometry count; comparison photometry was therefore not started.",
     "comparison_star_analysis.astrometric_calibration.common_offset_east_arcsec": "No comparison-star centroids were measured; the common frame offset and residual scatter are unknown.",
     "comparison_star_analysis.astrometric_calibration.common_offset_north_arcsec": "No comparison-star centroids were measured; the common frame offset and residual scatter are unknown.",
     "comparison_star_analysis.astrometric_calibration.residual_scatter_arcsec": "No comparison-star centroids were measured; the common frame offset and residual scatter are unknown.",

@@ -31,7 +31,7 @@ class CaseSchemaTests(unittest.TestCase):
         cls.index_validator = Draft202012Validator(cls.index_schema, format_checker=FormatChecker())
 
     def test_schema_is_versioned(self):
-        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.6.0")
+        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.7.0")
 
     def test_index_is_versioned_and_valid(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
@@ -72,6 +72,11 @@ class CaseSchemaTests(unittest.TestCase):
         self.assertTrue(all(reason.strip() for reason in case["null_field_reasons"].values()))
         comparison = case["comparison_star_analysis"]
         self.assertEqual(comparison["n_stars_used"], 0)
+        self.assertEqual(comparison["n_catalog_matched"], 24)
+        self.assertEqual(len(comparison["catalog_matched_candidate_source_ids"]), 24)
+        self.assertEqual(len(comparison["per_frame_counts"]), 61)
+        self.assertEqual(max(row["n_stars"] for row in comparison["per_frame_counts"]), 7)
+        self.assertEqual(comparison["catalog_query"]["row_counts"], {"2mass": 918, "allwise": 5403})
         self.assertEqual(comparison["photometric_floor"]["status"], "unavailable")
         self.assertIsNone(comparison["photometric_floor"]["floor_jy"])
         self.assertTrue(comparison["photometric_floor"]["reason"])
@@ -128,7 +133,7 @@ class CaseSchemaTests(unittest.TestCase):
 
     def test_schema_rejects_a_case_without_provenance(self):
         invalid = {
-            "schema_version": "1.6.0",
+            "schema_version": "1.7.0",
             "case_id": "fixture",
             "is_synthetic": True,
             "time_definition": "midpoint",

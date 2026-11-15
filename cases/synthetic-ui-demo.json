@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "case_id": "synthetic-ui-demo",
   "is_synthetic": true,
   "time_definition": "midpoint",

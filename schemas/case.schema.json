@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:timeframe102:schemas:case:1.6.0",
+  "$id": "urn:timeframe102:schemas:case:1.7.0",
   "title": "TIMEFRAME/102 scientific case record",
   "description": "Versioned machine-readable record for one real or synthetic astronomical case. The example domain in $id is a stable project identifier, not a data endpoint.",
   "type": "object",
@@ -17,7 +17,7 @@
     "provenance"
   ],
   "properties": {
-    "schema_version": { "const": "1.6.0" },
+    "schema_version": { "const": "1.7.0" },
     "null_field_reasons": {
       "type": "object",
       "description": "Path-keyed reasons for null-valued fields in this exported case. Each key uses a JSON path into this object, excluding null_field_reasons itself.",
@@ -545,6 +545,20 @@
       "additionalProperties": false,
       "required": ["selection_status", "selection_reason", "n_gaia_candidates", "gaia_candidate_source_ids", "n_catalog_matched", "n_stars_used", "stars_used", "per_frame_counts", "photometric_floor", "astrometric_calibration"],
       "properties": {
+        "catalog_query": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "catalog_source", "query_utc", "servers", "row_counts"],
+          "properties": {
+            "status": { "enum": ["complete", "failed", "not run"] },
+            "catalog_source": { "type": "string" },
+            "query_utc": { "type": ["string", "null"], "format": "date-time" },
+            "servers": { "type": "object", "additionalProperties": { "type": "string" } },
+            "row_counts": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+            "reason": { "type": ["string", "null"] }
+          }
+        },
+        "catalog_matched_candidate_source_ids": { "type": "array", "items": { "type": "string" } },
         "selection_status": { "enum": ["measured", "insufficient stars", "blocked", "not run"] },
         "selection_reason": { "type": ["string", "null"] },
         "n_gaia_candidates": { "type": ["integer", "null"], "minimum": 0 },
@@ -578,7 +592,23 @@
               "observation_id": { "type": "string" },
               "detector": { "type": "integer", "minimum": 1, "maximum": 6 },
               "n_stars": { "type": ["integer", "null"], "minimum": 0 },
-              "reason": { "type": ["string", "null"] }
+              "reason": { "type": ["string", "null"] },
+              "n_catalog_matched": { "type": ["integer", "null"], "minimum": 0 },
+              "n_inside_cutout": { "type": ["integer", "null"], "minimum": 0 },
+              "n_edge_safe": { "type": ["integer", "null"], "minimum": 0 },
+              "n_hard_flagged": { "type": ["integer", "null"], "minimum": 0 },
+              "prephotometry_candidate_source_ids": { "type": "array", "items": { "type": "string" } },
+              "hard_flagged_source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "object", "additionalProperties": false,
+                  "required": ["source_id", "flag_names"],
+                  "properties": {
+                    "source_id": { "type": "string" },
+                    "flag_names": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
             }
           }
         },

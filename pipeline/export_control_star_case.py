@@ -141,6 +141,24 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     comparison_query_report = _cached_json(
         ROOT / "pipeline/cache/control-star/comparison_catalogs/comparison_catalog_vetting.json") or {}
     comparison_query_error = comparison_query_report.get("error")
+    vizier_query_report = _cached_json(
+        ROOT / "pipeline/cache/control-star/comparison_catalogs/vizier/comparison_catalog_vetting_vizier.json") or {}
+    frame_vetting_report = _cached_json(
+        ROOT / "pipeline/cache/control-star/comparison_catalogs/vizier/per_frame_vetting.json") or {}
+    catalog_qualified_candidates = [
+        row for row in vizier_query_report.get("candidates", []) if row.get("passed_catalog_gates")
+    ] if vizier_query_report.get("status") == "complete" else []
+    catalog_qualified_ids = sorted(row["source_id"] for row in catalog_qualified_candidates)
+    frame_vetting_by_key = {
+        (row["observation_id"], int(row["detector"])): row
+        for row in frame_vetting_report.get("per_frame_counts", [])
+    }
+    catalog_row_counts = {name: table["row_count"]
+                          for name, table in vizier_query_report.get("raw_tables", {}).items()}
+    frame_count_min = frame_vetting_report.get("minimum_candidates_in_frame")
+    frame_count_max = frame_vetting_report.get("maximum_candidates_in_frame")
+    frames_with_required_stars = frame_vetting_report.get("frames_with_minimum_candidates", 0)
+    usable_vetting_frame_count = frame_vetting_report.get("usable_frame_count", 0)
     dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/dr1_calibration_check.json") or {}
     direct_dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/direct_sia_query_report.json")
     cloud_calibration_report = _cached_json(
@@ -417,7 +435,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     )
 
     case = {
-        "schema_version": "1.6.0", "case_id": CASE_ID, "is_synthetic": False,
+        "schema_version": "1.7.0", "case_id": CASE_ID, "is_synthetic": False,
         "time_definition": "midpoint",
         "target": {"name": f"Gaia DR3 {SOURCE_ID}", "kind": "star", "designation": None,
                    "catalog_id": SOURCE_ID,
@@ -425,29 +443,52 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                    "proper_motion": {"pm_ra_cosdec_mas_yr": pmra, "pm_dec_mas_yr": pmdec, "reference_epoch": "J2016.0"}},
         "observations": observations,
         "comparison_star_analysis": {
-            "selection_status": "blocked",
+            "selection_status": (
+                "insufficient stars" if frame_vetting_report.get("status") == "insufficient stars"
+                else "blocked" if not catalog_qualified_candidates or not frame_vetting_by_key
+                else "insufficient stars"
+            ),
             "selection_reason": (
-                f"{len(gaia_candidate_ids)} non-target Gaia candidates pass the initial predeclared magnitude, "
-                "proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, "
-                "before per-frame edge/flag checks and required 2MASS/AllWISE matching. This is an initial "
-                f"candidate count only; at least {criteria['minimum_stars_per_frame']} stars must still pass "
-                "catalog and per-frame vetting. IRSA TAP matching was blocked, so the vetted count is unknown."
-                + f" Catalog search-radius deviation: planned {PLANNED_GAIA_SEARCH_RADIUS_DEG:.2f} deg, "
-                  f"selected {GAIA_SEARCH_RADIUS_DEG:.2f} deg. Count-only decision before 2MASS/AllWISE matching, "
-                  "per-frame checks, or any floor/statistic: the planned radius yielded "
-                  f"{len(gaia_candidate_ids_at_planned_radius)} candidates after unchanged fixed cuts; "
-                  f"the selected radius yielded {len(gaia_candidate_ids)}. Radius widened to reach the "
-                  "planned minimum-candidate count."
-                + (f" Recorded catalog-query error: {comparison_query_error}" if comparison_query_error else "")
+                f"{len(gaia_candidate_ids)} Gaia candidates passed the initial fixed cuts; "
+                f"{len(catalog_qualified_ids)} passed the fixed 2MASS/AllWISE positional and quality gates. "
+                f"Across {frame_vetting_report.get('usable_frame_count', 0)} usable cutouts, "
+                f"the pre-photometry edge/5x5-hard-flag eligible count ranged from "
+                f"{frame_count_min} to {frame_count_max}; "
+                f"{frames_with_required_stars} frames met the required "
+                f"minimum of {criteria['minimum_stars_per_frame']}. No comparison-star detection or photometry "
+                "was run because the minimum sample size was not met. This pre-photometry count does not "
+                "assert that every listed candidate was detected. Search radius was widened by a count-only "
+                f"decision from {PLANNED_GAIA_SEARCH_RADIUS_DEG:.2f} to {GAIA_SEARCH_RADIUS_DEG:.2f} deg: "
+                f"{len(gaia_candidate_ids_at_planned_radius)} to {len(gaia_candidate_ids)} preliminary Gaia candidates."
             ),
             "n_gaia_candidates": len(gaia_candidate_ids),
             "gaia_candidate_source_ids": gaia_candidate_ids,
-            "n_catalog_matched": None,
+            "catalog_query": {
+                "status": vizier_query_report.get("status", "failed"),
+                "catalog_source": vizier_query_report.get("catalog_source", "CDS VizieR public mirrors"),
+                "query_utc": vizier_query_report.get("query_utc"),
+                "servers": {name: table["server"] for name, table in vizier_query_report.get("raw_tables", {}).items()},
+                "row_counts": catalog_row_counts,
+                "reason": (None if vizier_query_report.get("status") == "complete"
+                           else vizier_query_report.get("error", "No completed VizieR catalog query is cached.")),
+            },
+            "catalog_matched_candidate_source_ids": catalog_qualified_ids,
+            "n_catalog_matched": len(catalog_qualified_ids) if vizier_query_report.get("status") == "complete" else None,
             "n_stars_used": 0,
             "stars_used": [],
             "per_frame_counts": [
-                {"observation_id": o["observation_id"], "detector": o["detector"],
-                 "n_stars": None, "reason": "per-frame catalog matching and photometry were not run"}
+                ({"observation_id": o["observation_id"], "detector": o["detector"],
+                  "n_stars": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["n_stars"],
+                  "reason": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["reason"],
+                  "n_catalog_matched": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["n_catalog_matched"],
+                  "n_inside_cutout": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["n_inside_cutout"],
+                  "n_edge_safe": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["n_edge_safe"],
+                  "n_hard_flagged": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["n_hard_flagged"],
+                  "prephotometry_candidate_source_ids": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["eligible_source_ids"],
+                  "hard_flagged_source_ids": frame_vetting_by_key[(o["observation_id"], int(o["detector"]))]["hard_flagged_source_ids"]}
+                 if (o["observation_id"], int(o["detector"])) in frame_vetting_by_key else
+                 {"observation_id": o["observation_id"], "detector": o["detector"], "n_stars": None,
+                  "reason": "frame-level cached FITS vetting did not complete"})
                 for o in observations if o["usable"]
             ],
             "photometric_floor": {
@@ -456,8 +497,12 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                 "sample_size": 0,
                 "fractional_scatter": None,
                 "floor_jy": None,
-                "reason": ("No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. "
-                          + (f"IRSA TAP error: {comparison_query_error}" if comparison_query_error else "No catalog query result is available."))
+                "reason": (f"No comparison-star flux ratios were measured. Although {len(catalog_qualified_ids)} sources passed catalog gates, "
+                           f"{frames_with_required_stars} of {usable_vetting_frame_count} usable cutouts met the required "
+                           "20-star pre-photometry count; comparison photometry was therefore not started.")
+                          if vizier_query_report.get("status") == "complete" and frame_vetting_report
+                          else ("No 2MASS/AllWISE matched comparison-star flux ratios were measured; "
+                                + (f"IRSA TAP error: {comparison_query_error}" if comparison_query_error else "No catalog query result is available."))
             },
             "astrometric_calibration": {
                 "status": "unavailable",
@@ -488,18 +533,18 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                               "per_observation": per_observation},
         "dr1_calibration_check": dr1_calibration_result,
         "spectral_verdict": {"label": "insufficient evidence", "evidence": {
-            "summary": "A smooth empirical spectrum and robust residual screen are available, but no matched comparison-star systematic floor was measured; no variability inference is made.",
+            "summary": "A smooth empirical spectrum and robust residual screen are available, but the per-frame comparison-star sample is below the fixed minimum and no systematic floor was measured; no variability inference is made.",
             "n_observations": len(observations), "n_usable": usable_count,
             "wavelength_range_um": [float(min(valid_wavelengths)), float(max(valid_wavelengths))] if valid_wavelengths else None,
-            "reasons": ["No 2MASS-matched, vetted comparison-star set is available in the local cache.",
+            "reasons": [f"Only {frame_count_min} to {frame_count_max} catalog-qualified candidates per usable cutout pass the edge and hard-flag gates, below the required 20.",
                         "No comparison-star residual MAD floor was measured.",
                         "A single control-star wavelength-dependent fit is not a temporal variability test."]}},
         "verdict": {"label": "insufficient evidence", "evidence": {
-            "summary": "The control-star case has measured source positions but lacks a frame-level comparison-star astrometric solution and calibrated residual scatter.",
+            "summary": "The control-star case has measured source positions but the cutouts contain fewer than the required 20 comparison candidates per frame, so no comparison-star astrometric solution or calibrated residual scatter was measured.",
             "n_observations": len(observations), "n_usable": usable_count,
             "baseline_days": float(max(Time(o["time_utc"]).mjd for o in observations) - min(Time(o["time_utc"]).mjd for o in observations)),
             "residual_rms_arcsec": None, "motion_significance_sigma": None,
-            "reasons": ["No 20-star Gaia/2MASS comparison set could be confirmed from cached data.",
+            "reasons": [f"{len(catalog_qualified_ids)} candidates pass catalog gates, but no usable cutout has 20 candidates after footprint, edge, and hard-flag checks.",
                         "Common frame north offset and corrected scatter are unverified."]},
             "threshold_policy": {"id": "control-star-quality-and-spectral-policy-1", "minimum_usable_epochs": 3,
                 "moving_significance_sigma": 5.0, "minimum_displacement_uncertainty_ratio": 3.0,
@@ -509,15 +554,19 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
             "confirmed": [f"{measured_frame_count} real IRSA SPHEREx cutouts have measured fluxes from cached FITS.",
                           "Two cached edge cutouts were reprocessed and now return unusable with explicit edge reasons.",
                           "The two specified high-flux frames are retained and rejected by the declared flag/MAD policy.",
-                          "The provenance SHA-256 values are taken from cache or computed from the cached FITS."],
+                          "The provenance SHA-256 values are taken from cache or computed from the cached FITS.",
+                          f"VizieR mirrors returned {catalog_row_counts.get('2mass')} 2MASS rows and {catalog_row_counts.get('allwise')} AllWISE rows; {len(catalog_qualified_ids)} of {len(gaia_candidate_ids)} candidates passed the fixed catalog gates.",
+                          f"All {usable_vetting_frame_count} usable cutouts were checked for comparison-star footprint, edge margin, and decoded 5x5 hard flags; {frames_with_required_stars} met the required 20-candidate threshold."],
             "assumed": ["Gaia proper motion is propagated linearly; perspective acceleration is ignored.",
                        "The degree-2 log-log spectrum is an empirical description, not a physical stellar model.",
                        "Reprojected pixels are treated as independent in formal measurement errors."],
             "unverified": ([f"{len(failed_by_key)} transient download failures remain without cached FITS in this network-restricted environment."] if failed_by_key else []) + [
                            "The written 5-scaled-MAD policy followed exploratory inspection of these cached frames; classifications are screening results, not a preregistered test.",
-                           f"Only {len(gaia_candidate_ids)} Gaia-only sources passed the predeclared preliminary comparison cuts; none were used because required catalog matching and per-frame checks were not completed.",
-                           (f"IRSA TAP comparison-catalog query failed: {comparison_query_error}; 2MASS/AllWISE matches are unknown."
-                            if comparison_query_error else "IRSA TAP comparison-catalog query has no usable result; 2MASS/AllWISE matches are unknown."),
+                           "The 24 catalog-qualified candidates are pre-photometry selections; none were measured because every usable cutout has at most 7 eligible candidates.",
+                           *([f"IRSA TAP comparison-catalog query failed: {comparison_query_error}; the CDS VizieR mirror fallback succeeded."]
+                             if comparison_query_error and vizier_query_report.get("status") == "complete"
+                             else ([f"VizieR catalog query failed: {vizier_query_report.get('error')}"]
+                                   if vizier_query_report.get("status") != "complete" else [])),
                            "No systematic photometric floor; no common frame offset or comparison-star astrometric scatter.",
                            "No variability claim; spectral verdict remains insufficient evidence.",
                            "No motion threshold recalibration without comparison-star residuals."]},
@@ -530,6 +579,10 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                    "retry_backoff_seconds": [5, 15, 45, 90],
                    "comparison_candidates_at_planned_radius": len(gaia_candidate_ids_at_planned_radius),
                    "comparison_candidates_at_selected_radius": len(gaia_candidate_ids),
+                   "catalog_qualified_comparison_candidates": len(catalog_qualified_ids),
+                   "comparison_frames_with_minimum_candidates": frames_with_required_stars,
+                   "comparison_frame_min_candidates": frame_count_min,
+                   "comparison_frame_max_candidates": frame_count_max,
                    "context_flag_frame_counts": context_counts,
                    "frames_removed_by_context_only_flags": 0,
                    "unique_frames_with_hard_flags": hard_flag_union,
@@ -681,6 +734,16 @@ def export() -> tuple[int, list[str]]:
                                                            "bundle_path": "comparison_star_analysis.astrometric_calibration.displacement_threshold_arcsec"},
             "comparison_stars_used": {"value": comparison["n_stars_used"], "candidate_count": comparison["n_gaia_candidates"],
                                        "bundle_path": "comparison_star_analysis.n_stars_used; comparison_star_analysis.n_gaia_candidates"},
+            "catalog_qualified_comparison_stars": {"value": comparison["n_catalog_matched"],
+                                                    "source_ids": comparison["catalog_matched_candidate_source_ids"],
+                                                    "bundle_path": "comparison_star_analysis.catalog_matched_candidate_source_ids"},
+            "comparison_candidates_per_frame": {"minimum": diagnostics["comparison_frame_min_candidates"],
+                                                  "maximum": diagnostics["comparison_frame_max_candidates"],
+                                                  "frames_meeting_minimum": diagnostics["comparison_frames_with_minimum_candidates"],
+                                                  "usable_frames": len(comparison["per_frame_counts"]),
+                                                  "bundle_path": "comparison_star_analysis.per_frame_counts[*]"},
+            "comparison_catalog_query": {"value": comparison["catalog_query"],
+                                          "bundle_path": "comparison_star_analysis.catalog_query"},
             "comparison_star_criteria": {"value": case["verdict"]["threshold_policy"]["comparison_star_criteria"],
                                           "bundle_path": "verdict.threshold_policy.comparison_star_criteria"},
             "comparison_star_radius_deviation": {
@@ -705,5 +768,5 @@ def export() -> tuple[int, list[str]]:
 
 if __name__ == "__main__":
     size, null_fields = export()
-    print(f"schema=1.6.0 validated=true bundle_bytes={size}")
+    print(f"schema=1.7.0 validated=true bundle_bytes={size}")
     print(f"null_fields_count={len(null_fields)} full_list=outputs/control-star/quality_report.json:null_fields")
