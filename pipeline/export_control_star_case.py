@@ -9,6 +9,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -39,6 +40,21 @@ HARD_FLAGS = set(POLICY["quality_flags_exclude"])
 
 def _flatten(report: dict[str, Any]) -> list[dict[str, Any]]:
     return [o for group in report["groups_by_measured_source_wavelength"].values() for o in group]
+
+
+def _git_head() -> str | None:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True,
+                                       stderr=subprocess.DEVNULL).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return None
+
+
+def _cached_json(path: Path) -> dict[str, Any] | None:
+    try:
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    except (OSError, json.JSONDecodeError):
+        return None
 
 
 def _catalog_rows() -> dict[tuple[str, int], dict[str, Any]]:
@@ -82,6 +98,10 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     # The fixed cuts are recorded in POLICY before any candidate filtering.
     criteria = POLICY["comparison_star_criteria"]
     gaia_candidate_ids = preselect_gaia_comparisons(gaia_table, ra0, dec0, SOURCE_ID, criteria)
+    comparison_query_report = _cached_json(
+        ROOT / "pipeline/cache/control-star/comparison_catalogs/comparison_catalog_vetting.json") or {}
+    comparison_query_error = comparison_query_report.get("error")
+    dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/dr1_calibration_check.json") or {}
 
     # Re-run the two cached edge failures using the repaired boundary-aware code.
     # They become explicit excluded observations; only four network failures remain.
@@ -334,7 +354,8 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                 "proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, "
                 "before per-frame edge/flag checks and required 2MASS/AllWISE matching; this is below "
                 f"the required {criteria['minimum_stars_per_frame']} comparison stars. IRSA TAP matching "
-                "was also blocked by DNS resolution failure, so the catalog match count is unknown."
+                "was also blocked, so the catalog match count is unknown."
+                + (f" Recorded TAP error: {comparison_query_error}" if comparison_query_error else "")
             ),
             "n_gaia_candidates": len(gaia_candidate_ids),
             "gaia_candidate_source_ids": gaia_candidate_ids,
@@ -352,7 +373,8 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                 "sample_size": 0,
                 "fractional_scatter": None,
                 "floor_jy": None,
-                "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; IRSA TAP DNS lookup failed and the Gaia-only pre-screen is below the required sample size."
+                "reason": ("No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. "
+                          + (f"IRSA TAP error: {comparison_query_error}" if comparison_query_error else "No catalog query result is available."))
             },
             "astrometric_calibration": {
                 "status": "unavailable",
@@ -381,10 +403,11 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                               "model_curve": curve,
                               "per_observation": per_observation},
         "dr1_calibration_check": {
-            "status": "not applicable",
+            "status": dr1_report.get("status", "not applicable"),
             "product": "spherex_dr1_cal CWAVE/CBAND maps",
-            "reason": "Not run: IRSA hostname resolution failed in this environment, so no calibration product could be queried or downloaded.",
-            "comparison": None
+            "reason": ((dr1_report.get("reason") or "No cached calibration-check result is available.")
+                       + (f" Error: {dr1_report['error']}" if dr1_report.get("error") else "")),
+            "comparison": dr1_report.get("comparison")
         },
         "spectral_verdict": {"label": "insufficient evidence", "evidence": {
             "summary": "A smooth empirical spectrum and robust residual screen are available, but no matched comparison-star systematic floor was measured; no variability inference is made.",
@@ -421,7 +444,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                            "No motion threshold recalibration without comparison-star residuals."]},
         "provenance": {"products": products, "software": {"pipeline_version": "0.1.0",
                          "environment_lock": "requirements.txt; requirements-dev.txt",
-                         "git_commit": "3871152f69fd304f3c5c1d0484305f3f95d6c71e"}},
+                         "git_commit": _git_head()}},
     }
     hard_flag_union = sum(1 for o in series if set(o.get("flags_5x5", [])) & HARD_FLAGS)
     diagnostics = {"policy": POLICY, "rule_hit_counts": counts,

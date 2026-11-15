@@ -136,7 +136,7 @@
         "sample_size": 0,
         "fractional_scatter": null,
         "floor_jy": null,
-        "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; IRSA TAP DNS lookup failed and the Gaia-only pre-screen is below the required sample size."
+        "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))"
       },
       "bundle_path": "comparison_star_analysis.photometric_floor"
     },
@@ -196,7 +196,7 @@
       "value": {
         "status": "not applicable",
         "product": "spherex_dr1_cal CWAVE/CBAND maps",
-        "reason": "Not run: IRSA hostname resolution failed in this environment, so no calibration product could be queried or downloaded.",
+        "reason": "IRSA query, product retrieval, or product processing failed; no calibration comparison is asserted. Error: DALServiceError: Unable to access the capabilities endpoint at:\n- https://irsa.ipac.caltech.edu/SIA/capabilities: Connection failed (Possible causes: incorrect URL, DNS issue, or service is down)\n\nThis could mean:\n1. The service URL is incorrect\n2. The service is temporarily unavailable\n3. The service doesn't support this protocol\n4. If a 503 was encountered, retry after the suggested delay.\n",
         "comparison": null
       },
       "bundle_path": "dr1_calibration_check"
