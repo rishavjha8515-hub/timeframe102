@@ -5448,7 +5448,7 @@
   ],
   "comparison_star_analysis": {
     "selection_status": "blocked",
-    "selection_reason": "Only 14 non-target Gaia sources pass the predeclared magnitude, proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, before per-frame edge/flag checks and required 2MASS/AllWISE matching; this is below the required 20 comparison stars. IRSA TAP matching was also blocked, so the catalog match count is unknown. Recorded TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))",
+    "selection_reason": "Only 14 non-target Gaia sources pass the predeclared magnitude, proper-motion, RUWE, variability-flag, field-radius, and 60-arcsec isolation cuts, before per-frame edge/flag checks and required 2MASS/AllWISE matching; this is below the required 20 comparison stars. IRSA TAP matching was also blocked, so the catalog match count is unknown. Recorded TAP error: DALServiceError: 502 Server Error: Proxy Error for url: https://irsa.ipac.caltech.edu/TAP/sync",
     "n_gaia_candidates": 14,
     "gaia_candidate_source_ids": [
       "1441150476305503232",
@@ -5843,7 +5843,7 @@
       "sample_size": 0,
       "fractional_scatter": null,
       "floor_jy": null,
-      "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))"
+      "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALServiceError: 502 Server Error: Proxy Error for url: https://irsa.ipac.caltech.edu/TAP/sync"
     },
     "astrometric_calibration": {
       "status": "unavailable",
@@ -6531,7 +6531,7 @@
   "dr1_calibration_check": {
     "status": "not applicable",
     "product": "spherex_dr1_cal CWAVE/CBAND maps",
-    "reason": "IRSA query, product retrieval, or product processing failed; no calibration comparison is asserted. Error: DALServiceError: Unable to access the capabilities endpoint at:\n- https://irsa.ipac.caltech.edu/SIA/capabilities: Connection failed (Possible causes: incorrect URL, DNS issue, or service is down)\n\nThis could mean:\n1. The service URL is incorrect\n2. The service is temporarily unavailable\n3. The service doesn't support this protocol\n4. If a 503 was encountered, retry after the suggested delay.\n",
+    "reason": "IRSA query, product retrieval, or product processing failed; no calibration comparison is asserted. Error: DALServiceError: 502 Server Error: Proxy Error for url: https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+269.77410473768515+66.46748335101324+0.001&COLLECTION=spherex_dr1_cal&MAXREC=10000",
     "comparison": null
   },
   "spectral_verdict": {
@@ -7378,7 +7378,7 @@
     "software": {
       "pipeline_version": "0.1.0",
       "environment_lock": "requirements.txt; requirements-dev.txt",
-      "git_commit": "dce943dcff9b7fce64bb8b994c7ae663c7052c7f"
+      "git_commit": "8f76f28fb9f47835cd5a05168adae8389f0c4101"
     }
   }
 }
