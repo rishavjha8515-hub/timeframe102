@@ -118,10 +118,7 @@ def main() -> int:
         "search_radius_deviation": {
             "planned_radius_deg": PLANNED_SEARCH_RADIUS_DEG,
             "selected_radius_deg": SEARCH_RADIUS_DEG,
-            "reason": (
-                "Count-only decision before catalog matching or floor calculation: planned radius 0.25 deg "
-                "yielded 19 Gaia candidates after the unchanged fixed Gaia cuts; 0.30 deg yielded 32."
-            ),
+            "reason": "Count-only decision before catalog matching or floor calculation; counts are computed from the cached Gaia table.",
         },
         "criteria": POLICY["comparison_star_criteria"],
         "status": "failed",
@@ -129,6 +126,21 @@ def main() -> int:
     }
     try:
         gaia = Table.read(GAIA_PATH, format="ascii.ecsv")
+        planned_ids = preselect_gaia_comparisons(
+            gaia, TARGET_RA_DEG, TARGET_DEC_DEG, TARGET_ID, POLICY["comparison_star_criteria"],
+            search_radius_arcsec=PLANNED_SEARCH_RADIUS_DEG * 3600.0,
+        )
+        selected_ids = preselect_gaia_comparisons(
+            gaia, TARGET_RA_DEG, TARGET_DEC_DEG, TARGET_ID, POLICY["comparison_star_criteria"],
+            search_radius_arcsec=SEARCH_RADIUS_DEG * 3600.0,
+        )
+        result["search_radius_deviation"]["candidate_count_at_planned_radius"] = len(planned_ids)
+        result["search_radius_deviation"]["candidate_count_at_selected_radius"] = len(selected_ids)
+        result["search_radius_deviation"]["reason"] = (
+            "Count-only decision before catalog matching or floor calculation: the cached Gaia table yielded "
+            f"{len(planned_ids)} candidates at {PLANNED_SEARCH_RADIUS_DEG:.2f} deg and "
+            f"{len(selected_ids)} at {SEARCH_RADIUS_DEG:.2f} deg after unchanged fixed Gaia cuts."
+        )
         tmass = _query("fp_psc", "designation, ra, dec, ph_qual")
         allwise = _query("allwise_p3as_psd", "designation, ra, dec, ph_qual, cc_flags, ext_flg")
         tmass.write(OUT_DIR / "2mass_fp_psc.ecsv", format="ascii.ecsv", overwrite=True)

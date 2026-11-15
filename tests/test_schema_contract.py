@@ -31,7 +31,7 @@ class CaseSchemaTests(unittest.TestCase):
         cls.index_validator = Draft202012Validator(cls.index_schema, format_checker=FormatChecker())
 
     def test_schema_is_versioned(self):
-        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.5.0")
+        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.6.0")
 
     def test_index_is_versioned_and_valid(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
@@ -67,6 +67,9 @@ class CaseSchemaTests(unittest.TestCase):
 
     def test_control_analysis_keeps_unavailable_floor_and_skipped_test_explicit(self):
         case = json.loads((ROOT / "outputs/control-star/case_bundle.json").read_text(encoding="utf-8"))
+        null_paths = json.loads((ROOT / "outputs/control-star/quality_report.json").read_text(encoding="utf-8"))["null_fields"]
+        self.assertEqual(set(null_paths), set(case["null_field_reasons"]))
+        self.assertTrue(all(reason.strip() for reason in case["null_field_reasons"].values()))
         comparison = case["comparison_star_analysis"]
         self.assertEqual(comparison["n_stars_used"], 0)
         self.assertEqual(comparison["photometric_floor"]["status"], "unavailable")
@@ -76,17 +79,25 @@ class CaseSchemaTests(unittest.TestCase):
         self.assertEqual(test["status"], "skipped")
         self.assertIsNone(test["p_value"])
         self.assertTrue(test["reason"])
-        self.assertEqual(case["dr1_calibration_check"]["status"], "not applicable")
+        self.assertEqual(case["dr1_calibration_check"]["status"], "pass")
         dr1 = case["dr1_calibration_check"]
         self.assertEqual(dr1["comparison"]["direct_sia_http_status"], 200)
         self.assertEqual(dr1["comparison"]["direct_sia_row_count"], 467)
         self.assertEqual(dr1["comparison"]["case_observation_detector_matches"], 0)
-        self.assertIn("not available through SIA", dr1["reason"])
+        self.assertIn("no tolerance-based acceptance threshold was applied", dr1["reason"])
         cloud_attempt = dr1["comparison"]["cloud_calibration_attempt"]
-        self.assertEqual(cloud_attempt["status"], "failed")
-        self.assertEqual(cloud_attempt["requested_key"],
+        self.assertEqual(cloud_attempt["status"], "compared")
+        self.assertEqual(cloud_attempt["calibration_product"]["key"],
                          "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits")
-        self.assertIn("Failed to resolve", cloud_attempt["error"])
+        self.assertTrue(cloud_attempt["calibration_provenance"]["matches_cached_mef_source"])
+        self.assertAlmostEqual(
+            cloud_attempt["wavelength_comparison_um"]["standalone_minus_epsf_cwave"],
+            0.0004682155901392093,
+        )
+        flux = case["catalog_flux_comparison"]["comparisons"]
+        self.assertEqual([row["flux_ratio_spherex_to_catalog"] for row in flux],
+                         [0.9489875344110771, 0.9467459958984408,
+                          1.0822292439202874, 0.955228966847731])
 
     def test_case_index_entries_resolve_to_matching_records(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
@@ -117,7 +128,7 @@ class CaseSchemaTests(unittest.TestCase):
 
     def test_schema_rejects_a_case_without_provenance(self):
         invalid = {
-            "schema_version": "1.5.0",
+            "schema_version": "1.6.0",
             "case_id": "fixture",
             "is_synthetic": True,
             "time_definition": "midpoint",

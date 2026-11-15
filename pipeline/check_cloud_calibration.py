@@ -87,6 +87,32 @@ def _download_map(key: str, path: Path, *, session: Any = requests) -> dict[str,
             "etag": response.headers.get("ETag", "").strip('"') or None}
 
 
+def _download_or_reuse_map(key: str, path: Path, *, session: Any = requests) -> dict[str, Any]:
+    """Reuse a verified cached object; otherwise download it from public S3."""
+    if not path.is_file():
+        metadata = _download_map(key, path, session=session)
+        metadata["cached"] = False
+        return metadata
+    size = path.stat().st_size
+    if size > MAX_DOWNLOAD_BYTES:
+        raise RuntimeError(f"Cached map exceeds {MAX_DOWNLOAD_BYTES} byte cap: {size}")
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    if size != EXPECTED_MAP_BYTES:
+        raise RuntimeError(f"Cached map size differs from bucket inventory: {size} bytes")
+    previous_path = CACHE / "cloud_calibration_comparison.json"
+    try:
+        previous = json.loads(previous_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        previous = {}
+    prior = previous.get("calibration_product", {})
+    if prior.get("key") == key and prior.get("sha256") == digest:
+        return {k: prior[k] for k in ("url", "http_status", "content_length", "bytes_downloaded", "sha256", "etag")
+                if k in prior} | {"cached": True}
+    return {"url": f"{BUCKET_URL}/{key}", "http_status": None,
+            "content_length": size, "bytes_downloaded": size, "sha256": digest,
+            "etag": None, "cached": True}
+
+
 def sample_calibration_map(hdu_data: np.ndarray, detector_x_fits: float, detector_y_fits: float) -> float:
     """Bilinearly sample a full-detector calibration image in 1-based pixels."""
     image = np.asarray(hdu_data, dtype=float)
@@ -100,6 +126,19 @@ def sample_calibration_map(hdu_data: np.ndarray, detector_x_fits: float, detecto
     if not np.isfinite(value):
         raise ValueError("Calibration map has no finite value at the mapped source pixel")
     return value
+
+
+def calibration_source_from_history(history: Any) -> str | None:
+    """Extract a FITS HISTORY calibration-source filename, if present."""
+    if history is None:
+        return None
+    lines = [history] if isinstance(history, str) else list(history)
+    prefix = "Calibration source file:"
+    for line in lines:
+        text = str(line).strip()
+        if text.startswith(prefix):
+            return text[len(prefix):].strip()
+    return None
 
 
 def compare_one(*, release: str = "dr1", detector: int = 1,
@@ -116,7 +155,7 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
     filename = f"spectral_wcs_D{detector}_spx_{CALIBRATION_VERSION}.fits"
     key = f"{release}/spectral_wcs/{CALIBRATION_VERSION}/{detector}/{filename}"
     map_path = CACHE / release / filename
-    download = _download_map(key, map_path, session=session)
+    download = _download_or_reuse_map(key, map_path, session=session)
     if download["bytes_downloaded"] != EXPECTED_MAP_BYTES:
         raise RuntimeError(f"Unexpected calibration-map size: {download['bytes_downloaded']} bytes; "
                            f"bucket inventory reported {EXPECTED_MAP_BYTES}")
@@ -127,6 +166,10 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
         source_x, source_y = sky_wcs.world_to_pixel_values(source_ra, source_dec)
         sampled = sample_wavelength_metadata(cutout, float(source_x), float(source_y))
         detector_x, detector_y, transform = cutout_to_detector_pixels(cutout, float(source_x), float(source_y))
+        mef_calibration_source = calibration_source_from_history(cutout["WCS-WAVE"].header.get("HISTORY"))
+        epsf_header = cutout["EPSF"].header
+        epsf_cwave_source = epsf_header.get("CWAVESRC")
+        epsf_cband_source = epsf_header.get("CBANDSRC")
         with fits.open(map_path, memmap=True) as calibration:
             required = ("CWAVE", "CBAND", "WCS-WAVE")
             missing = [name for name in required if name not in calibration]
@@ -134,12 +177,19 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
                 raise ValueError(f"Downloaded calibration product lacks HDUs: {missing}")
             cal_wave = sample_calibration_map(calibration["CWAVE"].data, detector_x, detector_y)
             cal_band = sample_calibration_map(calibration["CBAND"].data, detector_x, detector_y)
+            map_calibration_source = calibration_source_from_history(
+                calibration["WCS-WAVE"].header.get("HISTORY")
+            )
+            map_detector = str(calibration["CWAVE"].header.get("DETECTOR", "")).strip()
             calibration_hdu_summary = [
                 {"name": hdu.name, "shape": list(hdu.data.shape) if hdu.data is not None else None}
                 for hdu in calibration
             ]
             calibration_version = calibration[0].header.get("VERSION")
             calibration_processing_date = calibration[0].header.get("DATE")
+
+    provenance_match = bool(map_calibration_source and map_calibration_source == mef_calibration_source
+                            and map_detector == str(detector))
 
     return {
         "status": "compared",
@@ -151,6 +201,15 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
                                 "version_header": calibration_version,
                                 "processing_date_header": calibration_processing_date,
                                 "hdu_summary": calibration_hdu_summary},
+        "calibration_provenance": {
+            "standalone_map_source_file": map_calibration_source,
+            "cached_mef_wcs_wave_source_file": mef_calibration_source,
+            "cached_epsf_cwave_source": epsf_cwave_source,
+            "cached_epsf_cband_source": epsf_cband_source,
+            "standalone_detector": map_detector,
+            "requested_detector": detector,
+            "matches_cached_mef_source": provenance_match,
+        },
         "source_position": {"ra_deg": source_ra, "dec_deg": source_dec,
                             "cutout_xy_zero_based": [float(source_x), float(source_y)],
                             "detector_xy_fits_one_based": [detector_x, detector_y],
@@ -169,8 +228,12 @@ def compare_one(*, release: str = "dr1", detector: int = 1,
         },
         "confirmed_versus_assumed": {
             "confirmed": ["S3 key was returned by the user's public-bucket inventory.",
-                          "Map HDUs were sampled at the cached cutout's mapped detector pixel."],
-            "assumed": ["The listed DR1/QR3 calibration version is the intended match for the cached case product; verify from the FITS provenance headers and IRSA response."],
+                          "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+                          *([f"Standalone map and cached MEF both cite {map_calibration_source}; detector matches."]
+                            if provenance_match else [])],
+            "assumed": ([] if provenance_match else [
+                "The standalone map provenance does not yet confirm it is the calibration source used by the cached MEF."
+            ]),
         },
     }
 

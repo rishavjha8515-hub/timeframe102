@@ -22,7 +22,7 @@ from astropy.coordinates import SkyCoord
 from astropy.table import Table
 from astroquery.vizier import Vizier
 
-from .quality_policy import POLICY
+from .quality_policy import POLICY, preselect_gaia_comparisons
 from .query_comparison_catalogs import (
     GAIA_SEARCH_RADIUS_DEG,
     PLANNED_SEARCH_RADIUS_DEG,
@@ -88,11 +88,7 @@ def main() -> int:
         "search_radius_deviation": {
             "planned_radius_deg": PLANNED_SEARCH_RADIUS_DEG,
             "selected_radius_deg": GAIA_SEARCH_RADIUS_DEG,
-            "reason": (
-                "Count-only decision before 2MASS/AllWISE matching or any floor calculation: "
-                "the cached Gaia table yielded 19 candidates at 0.25 deg and 32 at 0.30 deg "
-                "after the unchanged fixed Gaia cuts."
-            ),
+            "reason": "Count-only decision before 2MASS/AllWISE matching or any floor calculation.",
         },
         "criteria": POLICY["comparison_star_criteria"],
         "query_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
@@ -100,6 +96,21 @@ def main() -> int:
     }
     try:
         gaia = Table.read(GAIA_PATH, format="ascii.ecsv")
+        planned_ids = preselect_gaia_comparisons(
+            gaia, TARGET_RA_DEG, TARGET_DEC_DEG, TARGET_ID, POLICY["comparison_star_criteria"],
+            search_radius_arcsec=PLANNED_SEARCH_RADIUS_DEG * 3600.0,
+        )
+        selected_ids = preselect_gaia_comparisons(
+            gaia, TARGET_RA_DEG, TARGET_DEC_DEG, TARGET_ID, POLICY["comparison_star_criteria"],
+            search_radius_arcsec=GAIA_SEARCH_RADIUS_DEG * 3600.0,
+        )
+        result["search_radius_deviation"]["candidate_count_at_planned_radius"] = len(planned_ids)
+        result["search_radius_deviation"]["candidate_count_at_selected_radius"] = len(selected_ids)
+        result["search_radius_deviation"]["reason"] = (
+            "Count-only decision before 2MASS/AllWISE matching or any floor calculation: the cached Gaia table yielded "
+            f"{len(planned_ids)} candidates at {PLANNED_SEARCH_RADIUS_DEG:.2f} deg and "
+            f"{len(selected_ids)} at {GAIA_SEARCH_RADIUS_DEG:.2f} deg after unchanged fixed Gaia cuts."
+        )
         center = SkyCoord(TARGET_RA_DEG * u.deg, TARGET_DEC_DEG * u.deg, frame="icrs")
         raw_tmass = _query_vizier(CATALOGS["tmass"], center, GAIA_SEARCH_RADIUS_DEG)
         raw_allwise = _query_vizier(CATALOGS["allwise"], center, GAIA_SEARCH_RADIUS_DEG)

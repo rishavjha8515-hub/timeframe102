@@ -204,9 +204,9 @@
     },
     "dr1_calibration_check": {
       "value": {
-        "status": "not applicable",
+        "status": "pass",
         "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
-        "reason": "A direct SIA query to spherex_dr1 at CALIB=2 succeeded with HTTP 200 and returned 467 wide-survey image rows (237 observation IDs), but 0 rows matched the control-case observation-ID/detector pairs. Standalone calibration files are not available through SIA; the CWAVE/CBAND file has not yet been retrieved or compared. The public S3 map was listed, but the FITS download/comparison failed in the current execution environment; see comparison.cloud_calibration_attempt.",
+        "reason": "Standalone DR1 Spectral WCS CWAVE/CBAND were retrieved from the public S3 object and sampled at the mapped source pixel. Its WCS-WAVE HISTORY source filename matches the cached MEF, and the detector matches. This pass records successful provenance-matched comparison; no tolerance-based acceptance threshold was applied. See comparison.cloud_calibration_attempt for the measured values.",
         "comparison": {
           "direct_sia_http_status": 200,
           "direct_sia_collection": "spherex_dr1",
@@ -230,20 +230,115 @@
             ]
           ],
           "cloud_calibration_attempt": {
-            "status": "failed",
+            "status": "compared",
             "release": "dr1",
-            "detector": 1,
             "observation_id": "2025W17_4B_0021_1",
-            "requested_key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
-            "requested_url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
-            "expected_bytes_from_inventory": 33312960,
-            "attempted_utc": "2026-11-15T08:01:50.553147Z",
-            "error_type": "ConnectionError",
-            "error": "HTTPSConnectionPool(host='nasa-irsa-spherex.s3.us-east-1.amazonaws.com', port=443): Max retries exceeded with url: /dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits (Caused by NameResolutionError(\"HTTPSConnection(host='nasa-irsa-spherex.s3.us-east-1.amazonaws.com', port=443): Failed to resolve 'nasa-irsa-spherex.s3.us-east-1.amazonaws.com' ([Errno 11001] getaddrinfo failed)\"))"
+            "detector": 1,
+            "time_utc": "2025-04-24T21:07:35.933Z",
+            "calibration_product": {
+              "key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+              "url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+              "http_status": 200,
+              "content_length": 33312960,
+              "bytes_downloaded": 33312960,
+              "sha256": "44fb48b236e25a99d42c8986da0064cc58359527e1fc76e182eda52371a1ae23",
+              "etag": "624790eba5fdde40a6cb2187099e415d",
+              "cached": true,
+              "version_header": "7.0.0b6.post2+g6b3a1a7",
+              "processing_date_header": "2026-06-26T22:53:34.712",
+              "hdu_summary": [
+                {
+                  "name": "PRIMARY",
+                  "shape": null
+                },
+                {
+                  "name": "CWAVE",
+                  "shape": [
+                    2040,
+                    2040
+                  ]
+                },
+                {
+                  "name": "CBAND",
+                  "shape": [
+                    2040,
+                    2040
+                  ]
+                },
+                {
+                  "name": "WCS-WAVE",
+                  "shape": [
+                    1
+                  ]
+                }
+              ]
+            },
+            "calibration_provenance": {
+              "standalone_map_source_file": "spectral_wcs_1_v2.2.fits",
+              "cached_mef_wcs_wave_source_file": "spectral_wcs_1_v2.2.fits",
+              "cached_epsf_cwave_source": "spectral_wcs CWAVE",
+              "cached_epsf_cband_source": "spectral_wcs CBAND",
+              "standalone_detector": "1",
+              "requested_detector": 1,
+              "matches_cached_mef_source": true
+            },
+            "source_position": {
+              "ra_deg": 269.77429510253,
+              "dec_deg": 66.46758063272732,
+              "cutout_xy_zero_based": [
+                72.52538373491373,
+                72.64276566888036
+              ],
+              "detector_xy_fits_one_based": [
+                1247.5253837349137,
+                144.64276566888043
+              ],
+              "coordinate_transform": "WCS CRPIX offset from WCS-WAVE full detector grid"
+            },
+            "wavelength_comparison_um": {
+              "epsf_cwave": 1.0824133157730103,
+              "epsf_cband": 0.02930026315152645,
+              "mef_wcs_wave": 1.0832533023551876,
+              "mef_wcs_wave_cband": 0.028678156891060257,
+              "standalone_cwave": 1.0828815313631495,
+              "standalone_cband": 0.029444475477196138,
+              "standalone_minus_epsf_cwave": 0.0004682155901392093,
+              "standalone_minus_mef_wcs_wave": -0.0003717709920381118,
+              "standalone_minus_epsf_cband": 0.00014421232566968686
+            },
+            "confirmed_versus_assumed": {
+              "confirmed": [
+                "S3 key was returned by the user's public-bucket inventory.",
+                "Map HDUs were sampled at the cached cutout's mapped detector pixel.",
+                "Standalone map and cached MEF both cite spectral_wcs_1_v2.2.fits; detector matches."
+              ],
+              "assumed": []
+            }
           }
         }
       },
       "bundle_path": "dr1_calibration_check"
+    },
+    "catalog_flux_ratios": {
+      "value": [
+        0.9489875344110771,
+        0.9467459958984408,
+        1.0822292439202874,
+        0.955228966847731
+      ],
+      "signed_deviation_percent": [
+        -5.101246558892292,
+        -5.325400410155923,
+        8.222924392028741,
+        -4.477103315226905
+      ],
+      "absolute_deviation_percent": [
+        5.101246558892292,
+        5.325400410155923,
+        8.222924392028741,
+        4.477103315226905
+      ],
+      "bundle_path": "catalog_flux_comparison.comparisons[*].flux_ratio_spherex_to_catalog"
     },
     "five_mad_exploratory_caveat": {
       "value": "The 5-scaled-MAD policy was set after exploratory inspection.",

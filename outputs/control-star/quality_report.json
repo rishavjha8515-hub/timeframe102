@@ -74,6 +74,8 @@
     45,
     90
   ],
+  "comparison_candidates_at_planned_radius": 19,
+  "comparison_candidates_at_selected_radius": 32,
   "context_flag_frame_counts": {
     "HALO": 14,
     "PERSIST": 4,
@@ -843,6 +845,10 @@
     "comparison_star_analysis.astrometric_calibration.common_offset_north_arcsec",
     "comparison_star_analysis.astrometric_calibration.residual_scatter_arcsec",
     "comparison_star_analysis.astrometric_calibration.displacement_threshold_arcsec",
+    "catalog_flux_comparison.catalog_flux_points[3].zero_point_uncertainty_jy",
+    "catalog_flux_comparison.catalog_flux_points[4].zero_point_uncertainty_jy",
+    "catalog_flux_comparison.catalog_flux_points[5].zero_point_uncertainty_jy",
+    "catalog_flux_comparison.catalog_flux_points[6].zero_point_uncertainty_jy",
     "spectral_analysis.chi2_with_floor",
     "spectral_analysis.reduced_chi2_with_floor",
     "spectral_analysis.constant_flux_test.statistic",
@@ -854,6 +860,7 @@
     "spectral_analysis.per_observation[74].normalized_residual",
     "spectral_analysis.per_observation[76].model_flux",
     "spectral_analysis.per_observation[76].normalized_residual",
+    "dr1_calibration_check.comparison.cloud_calibration_attempt.calibration_product.hdu_summary[0].shape",
     "verdict.evidence.residual_rms_arcsec",
     "verdict.evidence.motion_significance_sigma",
     "verdict.threshold_policy.no_motion_max_displacement_arcsec"
@@ -870,5 +877,5 @@
     0.7575185298919678,
     4.986695289611816
   ],
-  "bundle_size_bytes": 1186204
+  "bundle_size_bytes": 1329192
 }

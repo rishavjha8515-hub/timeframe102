@@ -38,11 +38,6 @@ SOURCE_ID = "1633306316700113024"
 HARD_FLAGS = set(POLICY["quality_flags_exclude"])
 PLANNED_GAIA_SEARCH_RADIUS_DEG = 0.25
 GAIA_SEARCH_RADIUS_DEG = 0.30
-GAIA_RADIUS_DEVIATION = (
-    "Count-only decision before 2MASS/AllWISE matching, per-frame checks, or any floor/statistic: "
-    "the planned 0.25 deg catalog radius yielded 19 Gaia candidates after unchanged fixed Gaia cuts; "
-    "0.30 deg yielded 32. Radius widened to 0.30 deg to reach the planned minimum-candidate count."
-)
 
 
 def _flatten(report: dict[str, Any]) -> list[dict[str, Any]]:
@@ -75,12 +70,22 @@ def _merge_cloud_calibration_attempt(
         comparison = {}
         result["comparison"] = comparison
     comparison["cloud_calibration_attempt"] = cloud_report
-    if cloud_report.get("status") == "failed":
+    provenance = cloud_report.get("calibration_provenance", {})
+    if cloud_report.get("status") == "compared" and provenance.get("matches_cached_mef_source"):
+        result["status"] = "pass"
+        result["reason"] = (
+            "Standalone DR1 Spectral WCS CWAVE/CBAND were retrieved from the public S3 object and sampled at "
+            "the mapped source pixel. Its WCS-WAVE HISTORY source filename matches the cached MEF, and the "
+            "detector matches. This pass records successful provenance-matched comparison; no tolerance-based "
+            "acceptance threshold was applied. See comparison.cloud_calibration_attempt for the measured values."
+        )
+    elif cloud_report.get("status") == "failed":
         result["reason"] += (
             " The public S3 map was listed, but the FITS download/comparison failed in the "
             "current execution environment; see comparison.cloud_calibration_attempt."
         )
     elif cloud_report.get("status") == "compared":
+        result["status"] = "not applicable"
         result["reason"] += " The public S3 calibration map was downloaded and compared at the mapped source pixel."
     return result
 
@@ -125,6 +130,10 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     # This is a Gaia-only pre-screen, not a vetted comparison-star sample.
     # The fixed cuts are recorded in POLICY before any candidate filtering.
     criteria = POLICY["comparison_star_criteria"]
+    gaia_candidate_ids_at_planned_radius = preselect_gaia_comparisons(
+        gaia_table, ra0, dec0, SOURCE_ID, criteria,
+        search_radius_arcsec=PLANNED_GAIA_SEARCH_RADIUS_DEG * 3600.0,
+    )
     gaia_candidate_ids = preselect_gaia_comparisons(
         gaia_table, ra0, dec0, SOURCE_ID, criteria,
         search_radius_arcsec=GAIA_SEARCH_RADIUS_DEG * 3600.0,
@@ -136,6 +145,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     direct_dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/direct_sia_query_report.json")
     cloud_calibration_report = _cached_json(
         ROOT / "pipeline/cache/control-star/dr1-cal-check/cloud/cloud_calibration_comparison.json")
+    catalog_flux_comparison = _cached_json(OUTPUT_DIR / "catalog_flux_comparison.json")
 
     # Re-run the two cached edge failures using the repaired boundary-aware code.
     # They become explicit excluded observations; only four network failures remain.
@@ -407,7 +417,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     )
 
     case = {
-        "schema_version": "1.5.0", "case_id": CASE_ID, "is_synthetic": False,
+        "schema_version": "1.6.0", "case_id": CASE_ID, "is_synthetic": False,
         "time_definition": "midpoint",
         "target": {"name": f"Gaia DR3 {SOURCE_ID}", "kind": "star", "designation": None,
                    "catalog_id": SOURCE_ID,
@@ -423,7 +433,11 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                 f"candidate count only; at least {criteria['minimum_stars_per_frame']} stars must still pass "
                 "catalog and per-frame vetting. IRSA TAP matching was blocked, so the vetted count is unknown."
                 + f" Catalog search-radius deviation: planned {PLANNED_GAIA_SEARCH_RADIUS_DEG:.2f} deg, "
-                  f"selected {GAIA_SEARCH_RADIUS_DEG:.2f} deg. {GAIA_RADIUS_DEVIATION}"
+                  f"selected {GAIA_SEARCH_RADIUS_DEG:.2f} deg. Count-only decision before 2MASS/AllWISE matching, "
+                  "per-frame checks, or any floor/statistic: the planned radius yielded "
+                  f"{len(gaia_candidate_ids_at_planned_radius)} candidates after unchanged fixed cuts; "
+                  f"the selected radius yielded {len(gaia_candidate_ids)}. Radius widened to reach the "
+                  "planned minimum-candidate count."
                 + (f" Recorded catalog-query error: {comparison_query_error}" if comparison_query_error else "")
             ),
             "n_gaia_candidates": len(gaia_candidate_ids),
@@ -456,6 +470,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                 "reason": "No comparison-star centroids were measured; the common frame offset and residual scatter are unknown."
             }
         },
+        "catalog_flux_comparison": catalog_flux_comparison,
         "spectral_analysis": {"model": POLICY["spectral_fit_model"], "parameters": model_parameters,
                               "chi2": float(chi2_without_floor), "n_observations": chi2_n,
                               "n_parameters": 3, "dof": chi2_dof,
@@ -513,6 +528,8 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     hard_flag_union = sum(1 for o in series if set(o.get("flags_5x5", [])) & HARD_FLAGS)
     diagnostics = {"policy": POLICY, "rule_hit_counts": counts,
                    "retry_backoff_seconds": [5, 15, 45, 90],
+                   "comparison_candidates_at_planned_radius": len(gaia_candidate_ids_at_planned_radius),
+                   "comparison_candidates_at_selected_radius": len(gaia_candidate_ids),
                    "context_flag_frame_counts": context_counts,
                    "frames_removed_by_context_only_flags": 0,
                    "unique_frames_with_hard_flags": hard_flag_union,
@@ -535,8 +552,76 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     return case, diagnostics
 
 
+def _null_paths(value: Any, prefix: str = "") -> list[str]:
+    found: list[str] = []
+    if value is None:
+        return [prefix]
+    if isinstance(value, dict):
+        for key, child in value.items():
+            found.extend(_null_paths(child, f"{prefix}.{key}" if prefix else key))
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            found.extend(_null_paths(child, f"{prefix}[{index}]"))
+    return found
+
+
+def _reason_for_null(case: dict[str, Any], path: str) -> str:
+    if path == "target.designation":
+        return "No separate common-name designation is used; target identity is supplied by Gaia DR3 catalog_id."
+    if path.startswith("observations["):
+        index = int(path.split("[", 1)[1].split("]", 1)[0])
+        observation = case["observations"][index]
+        tail = path.split("].", 1)[1] if "]." in path else ""
+        exclusion = observation.get("exclusion_reason")
+        if tail == "wavelength_pixel_xy":
+            return "The wavelength lookup was performed at the mapped detector pixel, but that raw pixel coordinate was not retained in this case export."
+        if tail == "quality_flags.raw_value":
+            return "The packed raw flag integer was not retained; decoded flag names are recorded in quality_flags.flag_names."
+        if tail.startswith("predicted_position.uncertainty_"):
+            return "A propagated positional covariance was not available; the recorded Gaia prediction omits catalog uncertainty and frame systematics."
+        if tail.startswith("registration."):
+            return "No multi-star astrometric refinement was performed; registration.method records the reprojection-only method."
+        if tail.endswith("uncertainty_ra_arcsec") or tail.endswith("uncertainty_dec_arcsec"):
+            return "A centroid positional uncertainty was not calculated by the current source-position export."
+        if tail in ("ra_deg", "dec_deg", "measured_position.ra_deg", "measured_position.dec_deg",
+                    "position_residual_arcsec", "image.source_xy", "image.predicted_xy"):
+            return (f"No reliable source centroid was available for this frame; {exclusion}" if exclusion
+                    else "No reliable source centroid was available, so this coordinate or residual was not computed.")
+        if tail.startswith("flux.") or tail.startswith("effective_wavelength_") or tail in ("wavelength_width_um", "wavelength_uncertainty_um", "wavelength_source"):
+            return (f"The FITS product could not provide this measurement; {exclusion}" if exclusion
+                    else "The measurement was not available from the processed FITS product.")
+        if tail.startswith("image."):
+            return (f"No usable source position was associated with the image; {exclusion}" if exclusion
+                    else "The source position was not available for this image field.")
+    if path.startswith("comparison_star_analysis.per_frame_counts["):
+        return "Per-frame comparison-star catalog matching and photometry were not run because no catalog-qualified sample was confirmed."
+    if path == "comparison_star_analysis.n_catalog_matched":
+        return "The IRSA TAP and VizieR catalog queries failed in this execution; catalog-match count is unknown."
+    if path.startswith("comparison_star_analysis.photometric_floor."):
+        return case["comparison_star_analysis"]["photometric_floor"].get("reason") or "No comparison-star flux-ratio sample was measured."
+    if path.startswith("comparison_star_analysis.astrometric_calibration."):
+        return case["comparison_star_analysis"]["astrometric_calibration"].get("reason") or "No comparison-star astrometric sample was measured."
+    if path.startswith("catalog_flux_comparison.catalog_flux_points[") and path.endswith("zero_point_uncertainty_jy"):
+        return "A separate AllWISE zero-point uncertainty was not supplied; the catalog magnitude uncertainty is recorded and propagated."
+    if path.startswith("spectral_analysis.per_observation["):
+        return "No model residual is available because the corresponding observation lacks a fitted usable flux."
+    if path in ("spectral_analysis.chi2_with_floor", "spectral_analysis.reduced_chi2_with_floor"):
+        return "A comparison-star systematic floor was not measured, so a with-floor statistic cannot be computed."
+    if path.startswith("spectral_analysis.constant_flux_test."):
+        return case["spectral_analysis"]["constant_flux_test"].get("reason") or "The constant-flux test was skipped because no systematic floor is available."
+    if path.endswith("hdu_summary[0].shape"):
+        return "The FITS PRIMARY HDU has no image array; its shape is null by product structure."
+    if path in ("verdict.evidence.residual_rms_arcsec", "verdict.evidence.motion_significance_sigma"):
+        return "No comparison-star astrometric calibration was measured, so residual significance is unknown."
+    if path == "verdict.threshold_policy.no_motion_max_displacement_arcsec":
+        return "The displacement threshold awaits the comparison-star residual scatter and remains unmeasured."
+    return "This value was not measured or supplied; it remains null rather than being inferred."
+
+
 def export() -> tuple[int, list[str]]:
     case, diagnostics = build_case()
+    null_fields = _null_paths(case)
+    case["null_field_reasons"] = {path: _reason_for_null(case, path) for path in null_fields}
     schema = json.loads((ROOT / "schemas/case.schema.json").read_text(encoding="utf-8"))
     Draft202012Validator(schema, format_checker=FormatChecker()).validate(case)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -556,18 +641,7 @@ def export() -> tuple[int, list[str]]:
     case_path.write_text(json.dumps(path_case, indent=2, allow_nan=False), encoding="utf-8")
     bundle_path.write_text(json.dumps(bundle, indent=2, allow_nan=False), encoding="utf-8")
     Draft202012Validator(schema, format_checker=FormatChecker()).validate(json.loads(bundle_path.read_text(encoding="utf-8")))
-    def null_paths(value: Any, prefix: str = "") -> list[str]:
-        found: list[str] = []
-        if value is None:
-            return [prefix]
-        if isinstance(value, dict):
-            for key, child in value.items():
-                found.extend(null_paths(child, f"{prefix}.{key}" if prefix else key))
-        elif isinstance(value, list):
-            for index, child in enumerate(value):
-                found.extend(null_paths(child, f"{prefix}[{index}]"))
-        return found
-    diagnostics["null_fields"] = null_paths(case)
+    diagnostics["null_fields"] = null_fields
     diagnostics["bundle_size_bytes"] = bundle_path.stat().st_size
     usable_count = sum(bool(o["usable"]) for o in case["observations"])
     diagnostics_path = OUTPUT_DIR / "quality_report.json"
@@ -612,11 +686,15 @@ def export() -> tuple[int, list[str]]:
             "comparison_star_radius_deviation": {
                 "value": {"planned_radius_deg": PLANNED_GAIA_SEARCH_RADIUS_DEG,
                           "selected_radius_deg": GAIA_SEARCH_RADIUS_DEG,
-                          "candidate_count_at_planned_radius": 19,
-                          "candidate_count_at_selected_radius": comparison["n_gaia_candidates"],
+                          "candidate_count_at_planned_radius": diagnostics["comparison_candidates_at_planned_radius"],
+                          "candidate_count_at_selected_radius": diagnostics["comparison_candidates_at_selected_radius"],
                           "decision_basis": "Count only, before catalog matching or floor/statistic calculation."},
                 "bundle_path": "comparison_star_analysis.selection_reason"},
             "dr1_calibration_check": {"value": case["dr1_calibration_check"], "bundle_path": "dr1_calibration_check"},
+            "catalog_flux_ratios": {"value": [row["flux_ratio_spherex_to_catalog"] for row in case["catalog_flux_comparison"]["comparisons"]],
+                                     "signed_deviation_percent": [(row["flux_ratio_spherex_to_catalog"] - 1.0) * 100.0 for row in case["catalog_flux_comparison"]["comparisons"]],
+                                     "absolute_deviation_percent": [abs(row["flux_ratio_spherex_to_catalog"] - 1.0) * 100.0 for row in case["catalog_flux_comparison"]["comparisons"]],
+                                     "bundle_path": "catalog_flux_comparison.comparisons[*].flux_ratio_spherex_to_catalog"},
             "five_mad_exploratory_caveat": {"value": "The 5-scaled-MAD policy was set after exploratory inspection.",
                                              "bundle_path": "confirmed_versus_assumed.unverified"}
         }
@@ -627,5 +705,5 @@ def export() -> tuple[int, list[str]]:
 
 if __name__ == "__main__":
     size, null_fields = export()
-    print(f"schema=1.5.0 validated=true bundle_bytes={size}")
+    print(f"schema=1.6.0 validated=true bundle_bytes={size}")
     print(f"null_fields_count={len(null_fields)} full_list=outputs/control-star/quality_report.json:null_fields")
