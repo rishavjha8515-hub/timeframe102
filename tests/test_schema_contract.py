@@ -77,6 +77,11 @@ class CaseSchemaTests(unittest.TestCase):
         self.assertIsNone(test["p_value"])
         self.assertTrue(test["reason"])
         self.assertEqual(case["dr1_calibration_check"]["status"], "not applicable")
+        dr1 = case["dr1_calibration_check"]
+        self.assertEqual(dr1["comparison"]["direct_sia_http_status"], 200)
+        self.assertEqual(dr1["comparison"]["direct_sia_row_count"], 467)
+        self.assertEqual(dr1["comparison"]["case_observation_detector_matches"], 0)
+        self.assertIn("not SIA", dr1["reason"])
 
     def test_case_index_entries_resolve_to_matching_records(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))

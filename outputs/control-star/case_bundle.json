@@ -6530,9 +6530,31 @@
   },
   "dr1_calibration_check": {
     "status": "not applicable",
-    "product": "spherex_dr1_cal CWAVE/CBAND maps",
-    "reason": "IRSA query, product retrieval, or product processing failed; no calibration comparison is asserted. Error: DALServiceError: Unable to access the capabilities endpoint at:\n- https://irsa.ipac.caltech.edu/SIA/capabilities: HTTP Code: 502 Proxy Error Response body: <!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>502 Proxy Error</title>\n</head><body>\n<h1>Proxy Error</h1>\n<p>The proxy server received an invalid\r\nresponse from an upstream server.<br />\r\nThe proxy server could not handle the request<p>Reason: <strong>Error reading from remote server</strong></p></p>\n</body></html>\n\n\nThis could mean:\n1. The service URL is incorrect\n2. The service is temporarily unavailable\n3. The service doesn't support this protocol\n4. If a 503 was encountered, retry after the suggested delay.\n",
-    "comparison": null
+    "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
+    "reason": "A direct SIA query to spherex_dr1 at CALIB=2 succeeded with HTTP 200 and returned 467 wide-survey image rows (237 observation IDs), but 0 rows matched the control-case observation-ID/detector pairs. IRSA exposes calibration files through browsable directories, not SIA; the standalone CWAVE/CBAND file has not yet been retrieved or compared.",
+    "comparison": {
+      "direct_sia_http_status": 200,
+      "direct_sia_collection": "spherex_dr1",
+      "direct_sia_calib_level": 2,
+      "direct_sia_row_count": 467,
+      "distinct_obs_ids": 237,
+      "detectors": [
+        2,
+        5
+      ],
+      "case_observation_detector_matches": 0,
+      "case_usable_observation_detector_matches": 0,
+      "band_bounds_m": [
+        [
+          "1.10330e-06",
+          "1.64990e-06"
+        ],
+        [
+          "3.81130e-06",
+          "4.43000e-06"
+        ]
+      ]
+    }
   },
   "spectral_verdict": {
     "label": "insufficient evidence",
@@ -6646,7 +6668,7 @@
     "unverified": [
       "The written 5-scaled-MAD policy followed exploratory inspection of these cached frames; classifications are screening results, not a preregistered test.",
       "Only 14 Gaia-only sources passed the predeclared preliminary comparison cuts; none were used because required catalog matching and per-frame checks were not completed.",
-      "IRSA TAP comparison-catalog query failed DNS resolution; 2MASS/AllWISE matches are unknown.",
+      "IRSA TAP comparison-catalog query failed: DALServiceError: 502 Server Error: Proxy Error for url: https://irsa.ipac.caltech.edu/TAP/sync; 2MASS/AllWISE matches are unknown.",
       "No systematic photometric floor; no common frame offset or comparison-star astrometric scatter.",
       "No variability claim; spectral verdict remains insufficient evidence.",
       "No motion threshold recalibration without comparison-star residuals."
@@ -7378,7 +7400,7 @@
     "software": {
       "pipeline_version": "0.1.0",
       "environment_lock": "requirements.txt; requirements-dev.txt",
-      "git_commit": "c52b289b858cbb96584adf93b5007f1b36096c19"
+      "git_commit": "98f9846040a49fa45d4de4f751b97063f06f7efd"
     }
   }
 }

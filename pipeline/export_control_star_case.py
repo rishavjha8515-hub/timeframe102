@@ -102,6 +102,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
         ROOT / "pipeline/cache/control-star/comparison_catalogs/comparison_catalog_vetting.json") or {}
     comparison_query_error = comparison_query_report.get("error")
     dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/dr1_calibration_check.json") or {}
+    direct_dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/direct_sia_query_report.json")
 
     # Re-run the two cached edge failures using the repaired boundary-aware code.
     # They become explicit excluded observations; only four network failures remain.
@@ -402,13 +403,35 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                               },
                               "model_curve": curve,
                               "per_observation": per_observation},
-        "dr1_calibration_check": {
+        "dr1_calibration_check": ({
+            "status": "not applicable",
+            "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
+            "reason": (
+                f"A direct SIA query to {direct_dr1_report['collection']} at CALIB={direct_dr1_report['calib_level']} "
+                f"succeeded with HTTP {direct_dr1_report['http_status']} and returned {direct_dr1_report['row_count']} "
+                f"wide-survey image rows ({direct_dr1_report['distinct_obs_ids']} observation IDs), but "
+                f"{direct_dr1_report['case_observation_detector_matches']} rows matched the control-case "
+                "observation-ID/detector pairs. IRSA exposes calibration files through browsable directories, "
+                "not SIA; the standalone CWAVE/CBAND file has not yet been retrieved or compared."
+            ),
+            "comparison": {
+                "direct_sia_http_status": direct_dr1_report["http_status"],
+                "direct_sia_collection": direct_dr1_report["collection"],
+                "direct_sia_calib_level": direct_dr1_report["calib_level"],
+                "direct_sia_row_count": direct_dr1_report["row_count"],
+                "distinct_obs_ids": direct_dr1_report["distinct_obs_ids"],
+                "detectors": direct_dr1_report["detectors"],
+                "case_observation_detector_matches": direct_dr1_report["case_observation_detector_matches"],
+                "case_usable_observation_detector_matches": direct_dr1_report["case_usable_observation_detector_matches"],
+                "band_bounds_m": direct_dr1_report["em_min_max_m"]
+            }
+        } if direct_dr1_report else {
             "status": dr1_report.get("status", "not applicable"),
-            "product": "spherex_dr1_cal CWAVE/CBAND maps",
+            "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
             "reason": ((dr1_report.get("reason") or "No cached calibration-check result is available.")
                        + (f" Error: {dr1_report['error']}" if dr1_report.get("error") else "")),
             "comparison": dr1_report.get("comparison")
-        },
+        }),
         "spectral_verdict": {"label": "insufficient evidence", "evidence": {
             "summary": "A smooth empirical spectrum and robust residual screen are available, but no matched comparison-star systematic floor was measured; no variability inference is made.",
             "n_observations": len(observations), "n_usable": usable_count,
@@ -438,7 +461,8 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
             "unverified": ([f"{len(failed_by_key)} transient download failures remain without cached FITS in this network-restricted environment."] if failed_by_key else []) + [
                            "The written 5-scaled-MAD policy followed exploratory inspection of these cached frames; classifications are screening results, not a preregistered test.",
                            f"Only {len(gaia_candidate_ids)} Gaia-only sources passed the predeclared preliminary comparison cuts; none were used because required catalog matching and per-frame checks were not completed.",
-                           "IRSA TAP comparison-catalog query failed DNS resolution; 2MASS/AllWISE matches are unknown.",
+                           (f"IRSA TAP comparison-catalog query failed: {comparison_query_error}; 2MASS/AllWISE matches are unknown."
+                            if comparison_query_error else "IRSA TAP comparison-catalog query has no usable result; 2MASS/AllWISE matches are unknown."),
                            "No systematic photometric floor; no common frame offset or comparison-star astrometric scatter.",
                            "No variability claim; spectral verdict remains insufficient evidence.",
                            "No motion threshold recalibration without comparison-star residuals."]},

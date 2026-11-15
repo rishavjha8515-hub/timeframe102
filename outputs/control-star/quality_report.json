@@ -854,7 +854,6 @@
     "spectral_analysis.per_observation[74].normalized_residual",
     "spectral_analysis.per_observation[76].model_flux",
     "spectral_analysis.per_observation[76].normalized_residual",
-    "dr1_calibration_check.comparison",
     "verdict.evidence.residual_rms_arcsec",
     "verdict.evidence.motion_significance_sigma",
     "verdict.threshold_policy.no_motion_max_displacement_arcsec"
@@ -871,5 +870,5 @@
     0.7575185298919678,
     4.986695289611816
   ],
-  "bundle_size_bytes": 1183281
+  "bundle_size_bytes": 1183439
 }
