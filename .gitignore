@@ -4,3 +4,7 @@
 *.fz
 __pycache__/
 pipeline/cache/fits-inspection/
+
+.venv/
+pipeline/cache/
+__pycache__/
