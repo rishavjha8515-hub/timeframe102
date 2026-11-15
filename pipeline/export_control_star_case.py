@@ -57,6 +57,27 @@ def _cached_json(path: Path) -> dict[str, Any] | None:
         return None
 
 
+def _merge_cloud_calibration_attempt(
+    result: dict[str, Any], cloud_report: dict[str, Any] | None
+) -> dict[str, Any]:
+    """Attach a retrieval/comparison record without asserting a calibration match."""
+    if cloud_report is None:
+        return result
+    comparison = result.get("comparison")
+    if not isinstance(comparison, dict):
+        comparison = {}
+        result["comparison"] = comparison
+    comparison["cloud_calibration_attempt"] = cloud_report
+    if cloud_report.get("status") == "failed":
+        result["reason"] += (
+            " The public S3 map was listed, but the FITS download/comparison failed in the "
+            "current execution environment; see comparison.cloud_calibration_attempt."
+        )
+    elif cloud_report.get("status") == "compared":
+        result["reason"] += " The public S3 calibration map was downloaded and compared at the mapped source pixel."
+    return result
+
+
 def _catalog_rows() -> dict[tuple[str, int], dict[str, Any]]:
     rows: dict[tuple[str, int], dict[str, Any]] = {}
     for path in sorted(CATALOG_DIR.glob(f"sia_{SOURCE_ID}_*.ecsv")):
@@ -103,6 +124,8 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     comparison_query_error = comparison_query_report.get("error")
     dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/dr1_calibration_check.json") or {}
     direct_dr1_report = _cached_json(ROOT / "pipeline/cache/control-star/dr1-cal-check/direct_sia_query_report.json")
+    cloud_calibration_report = _cached_json(
+        ROOT / "pipeline/cache/control-star/dr1-cal-check/cloud/cloud_calibration_comparison.json")
 
     # Re-run the two cached edge failures using the repaired boundary-aware code.
     # They become explicit excluded observations; only four network failures remain.
@@ -340,6 +363,39 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
     valid_wavelengths = [r[0] for r in usable_rows]
     usable_count = sum(o["usable"] for o in observations)
     measured_frame_count = sum(1 for o in observations if o["flux"]["value"] is not None)
+    dr1_calibration_result = ({
+        "status": "not applicable",
+        "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
+        "reason": (
+            f"A direct SIA query to {direct_dr1_report['collection']} at CALIB={direct_dr1_report['calib_level']} "
+            f"succeeded with HTTP {direct_dr1_report['http_status']} and returned {direct_dr1_report['row_count']} "
+            f"wide-survey image rows ({direct_dr1_report['distinct_obs_ids']} observation IDs), but "
+            f"{direct_dr1_report['case_observation_detector_matches']} rows matched the control-case "
+            "observation-ID/detector pairs. Standalone calibration files are not available through SIA; the "
+            "CWAVE/CBAND file has not yet been retrieved or compared."
+        ),
+        "comparison": {
+            "direct_sia_http_status": direct_dr1_report["http_status"],
+            "direct_sia_collection": direct_dr1_report["collection"],
+            "direct_sia_calib_level": direct_dr1_report["calib_level"],
+            "direct_sia_row_count": direct_dr1_report["row_count"],
+            "distinct_obs_ids": direct_dr1_report["distinct_obs_ids"],
+            "detectors": direct_dr1_report["detectors"],
+            "case_observation_detector_matches": direct_dr1_report["case_observation_detector_matches"],
+            "case_usable_observation_detector_matches": direct_dr1_report["case_usable_observation_detector_matches"],
+            "band_bounds_m": direct_dr1_report["em_min_max_m"]
+        }
+    } if direct_dr1_report else {
+        "status": dr1_report.get("status", "not applicable"),
+        "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
+        "reason": ((dr1_report.get("reason") or "No cached calibration-check result is available.")
+                   + (f" Error: {dr1_report['error']}" if dr1_report.get("error") else "")),
+        "comparison": dr1_report.get("comparison")
+    })
+    dr1_calibration_result = _merge_cloud_calibration_attempt(
+        dr1_calibration_result, cloud_calibration_report
+    )
+
     case = {
         "schema_version": "1.5.0", "case_id": CASE_ID, "is_synthetic": False,
         "time_definition": "midpoint",
@@ -403,35 +459,7 @@ def build_case() -> tuple[dict[str, Any], dict[str, Any]]:
                               },
                               "model_curve": curve,
                               "per_observation": per_observation},
-        "dr1_calibration_check": ({
-            "status": "not applicable",
-            "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
-            "reason": (
-                f"A direct SIA query to {direct_dr1_report['collection']} at CALIB={direct_dr1_report['calib_level']} "
-                f"succeeded with HTTP {direct_dr1_report['http_status']} and returned {direct_dr1_report['row_count']} "
-                f"wide-survey image rows ({direct_dr1_report['distinct_obs_ids']} observation IDs), but "
-                f"{direct_dr1_report['case_observation_detector_matches']} rows matched the control-case "
-                "observation-ID/detector pairs. IRSA exposes calibration files through browsable directories, "
-                "not SIA; the standalone CWAVE/CBAND file has not yet been retrieved or compared."
-            ),
-            "comparison": {
-                "direct_sia_http_status": direct_dr1_report["http_status"],
-                "direct_sia_collection": direct_dr1_report["collection"],
-                "direct_sia_calib_level": direct_dr1_report["calib_level"],
-                "direct_sia_row_count": direct_dr1_report["row_count"],
-                "distinct_obs_ids": direct_dr1_report["distinct_obs_ids"],
-                "detectors": direct_dr1_report["detectors"],
-                "case_observation_detector_matches": direct_dr1_report["case_observation_detector_matches"],
-                "case_usable_observation_detector_matches": direct_dr1_report["case_usable_observation_detector_matches"],
-                "band_bounds_m": direct_dr1_report["em_min_max_m"]
-            }
-        } if direct_dr1_report else {
-            "status": dr1_report.get("status", "not applicable"),
-            "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
-            "reason": ((dr1_report.get("reason") or "No cached calibration-check result is available.")
-                       + (f" Error: {dr1_report['error']}" if dr1_report.get("error") else "")),
-            "comparison": dr1_report.get("comparison")
-        }),
+        "dr1_calibration_check": dr1_calibration_result,
         "spectral_verdict": {"label": "insufficient evidence", "evidence": {
             "summary": "A smooth empirical spectrum and robust residual screen are available, but no matched comparison-star systematic floor was measured; no variability inference is made.",
             "n_observations": len(observations), "n_usable": usable_count,

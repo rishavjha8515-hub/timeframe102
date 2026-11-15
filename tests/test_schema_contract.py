@@ -81,7 +81,12 @@ class CaseSchemaTests(unittest.TestCase):
         self.assertEqual(dr1["comparison"]["direct_sia_http_status"], 200)
         self.assertEqual(dr1["comparison"]["direct_sia_row_count"], 467)
         self.assertEqual(dr1["comparison"]["case_observation_detector_matches"], 0)
-        self.assertIn("not SIA", dr1["reason"])
+        self.assertIn("not available through SIA", dr1["reason"])
+        cloud_attempt = dr1["comparison"]["cloud_calibration_attempt"]
+        self.assertEqual(cloud_attempt["status"], "failed")
+        self.assertEqual(cloud_attempt["requested_key"],
+                         "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits")
+        self.assertIn("Failed to resolve", cloud_attempt["error"])
 
     def test_case_index_entries_resolve_to_matching_records(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))

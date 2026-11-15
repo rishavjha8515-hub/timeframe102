@@ -136,7 +136,7 @@
         "sample_size": 0,
         "fractional_scatter": null,
         "floor_jy": null,
-        "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALServiceError: 502 Server Error: Proxy Error for url: https://irsa.ipac.caltech.edu/TAP/sync"
+        "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; the Gaia-only pre-screen is below the required sample size. IRSA TAP error: DALFormatError: ConnectionError: HTTPSConnectionPool(host='irsa.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by NameResolutionError(\"HTTPSConnection(host='irsa.ipac.caltech.edu', port=443): Failed to resolve 'irsa.ipac.caltech.edu' ([Errno 11001] getaddrinfo failed)\"))"
       },
       "bundle_path": "comparison_star_analysis.photometric_floor"
     },
@@ -196,7 +196,7 @@
       "value": {
         "status": "not applicable",
         "product": "SPHEREx standalone Spectral WCS calibration maps (CWAVE/CBAND)",
-        "reason": "A direct SIA query to spherex_dr1 at CALIB=2 succeeded with HTTP 200 and returned 467 wide-survey image rows (237 observation IDs), but 0 rows matched the control-case observation-ID/detector pairs. IRSA exposes calibration files through browsable directories, not SIA; the standalone CWAVE/CBAND file has not yet been retrieved or compared.",
+        "reason": "A direct SIA query to spherex_dr1 at CALIB=2 succeeded with HTTP 200 and returned 467 wide-survey image rows (237 observation IDs), but 0 rows matched the control-case observation-ID/detector pairs. Standalone calibration files are not available through SIA; the CWAVE/CBAND file has not yet been retrieved or compared. The public S3 map was listed, but the FITS download/comparison failed in the current execution environment; see comparison.cloud_calibration_attempt.",
         "comparison": {
           "direct_sia_http_status": 200,
           "direct_sia_collection": "spherex_dr1",
@@ -218,7 +218,19 @@
               "3.81130e-06",
               "4.43000e-06"
             ]
-          ]
+          ],
+          "cloud_calibration_attempt": {
+            "status": "failed",
+            "release": "dr1",
+            "detector": 1,
+            "observation_id": "2025W17_4B_0021_1",
+            "requested_key": "dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+            "requested_url": "https://nasa-irsa-spherex.s3.us-east-1.amazonaws.com/dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits",
+            "expected_bytes_from_inventory": 33312960,
+            "attempted_utc": "2026-11-15T08:01:50.553147Z",
+            "error_type": "ConnectionError",
+            "error": "HTTPSConnectionPool(host='nasa-irsa-spherex.s3.us-east-1.amazonaws.com', port=443): Max retries exceeded with url: /dr1/spectral_wcs/cal-swcs-v5-2026-191/1/spectral_wcs_D1_spx_cal-swcs-v5-2026-191.fits (Caused by NameResolutionError(\"HTTPSConnection(host='nasa-irsa-spherex.s3.us-east-1.amazonaws.com', port=443): Failed to resolve 'nasa-irsa-spherex.s3.us-east-1.amazonaws.com' ([Errno 11001] getaddrinfo failed)\"))"
+          }
         }
       },
       "bundle_path": "dr1_calibration_check"
