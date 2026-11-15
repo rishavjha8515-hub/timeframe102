@@ -53,10 +53,13 @@ def query_epochs(target: str, epochs: list[dict], *, chunk_size: int = 50) -> Ta
     outputs = []
     for start in range(0, len(epochs), chunk_size):
         chunk = epochs[start:start + chunk_size]
-        strings = [item["epoch_utc"] for item in chunk]
+        # Astroquery passes list entries to Horizons' TLIST verbatim. Use JD
+        # numbers so ISO calendar strings do not require per-entry quoting.
+        epoch_jd_utc = [float(Time(item["epoch_utc"], scale="utc").jd) for item in chunk]
         print(f"HORIZONS_QUERY observer=500 target={target!r} refsystem=ICRF refraction=False "
-              f"time_scale=UTC n_epochs={len(strings)} first={strings[0]} last={strings[-1]}")
-        query = Horizons(id=target, id_type="smallbody", location="500", epochs=strings)
+              f"time_scale=UTC n_epochs={len(epoch_jd_utc)} first={chunk[0]['epoch_utc']} "
+              f"last={chunk[-1]['epoch_utc']}")
+        query = Horizons(id=target, id_type="smallbody", location="500", epochs=epoch_jd_utc)
         outputs.append(query.ephemerides(refsystem="ICRF", refraction=False, quantities="1,2"))
     return vstack(outputs, metadata_conflicts="silent") if len(outputs) > 1 else outputs[0]
 

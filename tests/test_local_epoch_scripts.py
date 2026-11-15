@@ -6,8 +6,9 @@ from unittest.mock import patch
 
 from astropy.table import Table
 from astropy.config.paths import get_cache_dir_path
+from astropy.time import Time
 
-from pipeline.compare_horizons_geocenter import midpoint_epochs, query_epochs_with_workspace_cache
+from pipeline.compare_horizons_geocenter import midpoint_epochs, query_epochs, query_epochs_with_workspace_cache
 from pipeline.fetch_cutouts import select_epoch_rows
 
 
@@ -46,6 +47,20 @@ class LocalEpochScriptTests(unittest.TestCase):
         with patch("pipeline.compare_horizons_geocenter.query_epochs", side_effect=inspect_cache):
             actual = query_epochs_with_workspace_cache("12", [], chunk_size=50)
         self.assertIs(actual, expected)
+
+    def test_horizons_tlist_uses_numeric_julian_dates(self):
+        epoch_rows = [{"epoch_utc": "2025-04-24T21:07:35.933",
+                       "mjd_midpoint": 60794.8805084838}]
+        expected = Table({"RA": [10.0]})
+        with patch("pipeline.compare_horizons_geocenter.Horizons") as horizons:
+            horizons.return_value.ephemerides.return_value = expected
+            actual = query_epochs("12", epoch_rows)
+        self.assertIs(actual, expected)
+        kwargs = horizons.call_args.kwargs
+        self.assertEqual(kwargs["location"], "500")
+        self.assertEqual(len(kwargs["epochs"]), 1)
+        self.assertIsInstance(kwargs["epochs"][0], float)
+        self.assertAlmostEqual(kwargs["epochs"][0], Time(epoch_rows[0]["epoch_utc"], scale="utc").jd, places=8)
 
 
 if __name__ == "__main__":
