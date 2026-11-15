@@ -71,11 +71,15 @@ def main() -> int:
         table = _query_sia(coord["ra_deg"], coord["dec_deg"])
         query_succeeded = True
         result["http_status"] = 200
+        result["query_status"] = "OK"
         result["sia_row_count"] = len(table)
         table.write(CACHE / "spherex_dr1_cal_sia.ecsv", format="ascii.ecsv", overwrite=True)
         observation, row = _matching_epoch(case, table)
         if observation is None:
-            result["reason"] = "No spherex_dr1_cal SIA row matched a usable case observation ID and detector."
+            result["reason"] = (
+                f"The advertised {COLLECTION} SIA query at CALIB={CALIB_LEVEL} returned {len(table)} rows, "
+                "but none matched a usable case observation ID and detector; no epoch was substituted."
+            )
         else:
             result["matched_observation"] = {
                 "observation_id": observation["observation_id"],
