@@ -196,7 +196,7 @@
       "value": {
         "status": "not applicable",
         "product": "spherex_dr1_cal CWAVE/CBAND maps",
-        "reason": "IRSA query, product retrieval, or product processing failed; no calibration comparison is asserted. Error: DALServiceError: 502 Server Error: Proxy Error for url: https://irsa.ipac.caltech.edu/SIA?POS=CIRCLE+269.77410473768515+66.46748335101324+0.001&COLLECTION=spherex_dr1_cal&MAXREC=10000",
+        "reason": "The SIA endpoint responded HTTP 200 with QUERY_STATUS=OK but returned zero rows. Its advertised collection values include spherex_dr1, spherex_dr1_cube, spherex_dr1_deep, spherex_qr3, and spherex_qr3_deep; spherex_dr1_cal is not an advertised SIA collection. No calibration comparison was made.",
         "comparison": null
       },
       "bundle_path": "dr1_calibration_check"
