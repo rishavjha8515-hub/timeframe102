@@ -81,4 +81,4 @@ The backend code was written with Codex (OpenAI); the viewer, slides, and
 documentation were prepared with Claude (Anthropic). The analysis rules and
 thresholds were set in advance, and the outputs were reviewed by the project
 author, who is responsible for the conclusions. No AI image generation was
-used; all plots and frames come from the data.
+used; all plots and frames come from the data. All the commits were done  by author using powershell
