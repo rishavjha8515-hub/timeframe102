@@ -37,6 +37,9 @@ ROOT = Path(__file__).resolve().parents[1]
 GAIA_PATH = ROOT / "pipeline/cache/control-star/gaia_north.ecsv"
 OUT_DIR = ROOT / "pipeline/cache/control-star/comparison_catalogs/vizier"
 CATALOGS = {"tmass": "II/246/out", "allwise": "II/328/allwise"}
+# CDS currently reports the Strasbourg primary service as degraded and lists
+# these public mirrors. Try Harvard first, then IDIA, without changing the cuts.
+VIZIER_SERVERS = ("vizier.cfa.harvard.edu", "vizier.idia.ac.za")
 
 
 def _find_column(table: Table, *names: str) -> str:
@@ -67,21 +70,29 @@ def normalize_allwise(table: Table) -> Table:
     })
 
 
-def _query_vizier(catalog: str, center: SkyCoord, radius_deg: float) -> Table:
-    client = Vizier(columns=["*"], row_limit=100000)
-    # The returned catalogs are persisted as ECSV below; avoid Astroquery's
-    # default cache under the user's home directory on restricted machines.
-    tables = client.query_region(center, radius=radius_deg * u.deg, catalog=catalog, cache=False)
-    if not tables or len(tables[0]) == 0:
-        raise RuntimeError(f"VizieR returned no rows for {catalog}")
-    return tables[0]
+def _query_vizier(catalog: str, center: SkyCoord, radius_deg: float) -> tuple[Table, str]:
+    failures = []
+    for server in VIZIER_SERVERS:
+        try:
+            client = Vizier(columns=["*"], row_limit=100000, vizier_server=server)
+            # The returned catalogs are persisted as ECSV below; avoid
+            # Astroquery's default cache under the user's home directory.
+            tables = client.query_region(center, radius=radius_deg * u.deg,
+                                         catalog=catalog, cache=False)
+            if not tables or len(tables[0]) == 0:
+                raise RuntimeError(f"VizieR returned no rows for {catalog}")
+            return tables[0], server
+        except Exception as exc:
+            failures.append(f"{server}: {type(exc).__name__}: {exc}")
+    raise RuntimeError("All configured VizieR mirrors failed for " + catalog + "; " + " | ".join(failures))
 
 
 def main() -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     result: dict[str, Any] = {
         "status": "failed",
-        "catalog_source": "CDS VizieR",
+        "catalog_source": "CDS VizieR public mirrors",
+        "mirror_attempt_order": list(VIZIER_SERVERS),
         "catalogs": CATALOGS,
         "target_gaia_source_id": TARGET_ID,
         "search_radius_deg": GAIA_SEARCH_RADIUS_DEG,
@@ -112,16 +123,16 @@ def main() -> int:
             f"{len(selected_ids)} at {GAIA_SEARCH_RADIUS_DEG:.2f} deg after unchanged fixed Gaia cuts."
         )
         center = SkyCoord(TARGET_RA_DEG * u.deg, TARGET_DEC_DEG * u.deg, frame="icrs")
-        raw_tmass = _query_vizier(CATALOGS["tmass"], center, GAIA_SEARCH_RADIUS_DEG)
-        raw_allwise = _query_vizier(CATALOGS["allwise"], center, GAIA_SEARCH_RADIUS_DEG)
+        raw_tmass, tmass_server = _query_vizier(CATALOGS["tmass"], center, GAIA_SEARCH_RADIUS_DEG)
+        raw_allwise, allwise_server = _query_vizier(CATALOGS["allwise"], center, GAIA_SEARCH_RADIUS_DEG)
         tmass_path = OUT_DIR / "2mass_psc_vizier.ecsv"
         allwise_path = OUT_DIR / "allwise_vizier.ecsv"
         raw_tmass.write(tmass_path, format="ascii.ecsv", overwrite=True)
         raw_allwise.write(allwise_path, format="ascii.ecsv", overwrite=True)
         result["raw_tables"] = {
-            "2mass": {"row_count": len(raw_tmass), "columns": raw_tmass.colnames,
+            "2mass": {"server": tmass_server, "row_count": len(raw_tmass), "columns": raw_tmass.colnames,
                       "path": tmass_path.relative_to(ROOT).as_posix()},
-            "allwise": {"row_count": len(raw_allwise), "columns": raw_allwise.colnames,
+            "allwise": {"server": allwise_server, "row_count": len(raw_allwise), "columns": raw_allwise.colnames,
                         "path": allwise_path.relative_to(ROOT).as_posix()},
         }
         candidates = vet_catalog_matches(
