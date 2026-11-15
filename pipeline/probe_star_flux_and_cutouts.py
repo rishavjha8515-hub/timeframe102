@@ -19,12 +19,14 @@ import hashlib
 import json
 from pathlib import Path
 import time
+from http.client import IncompleteRead
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
 import astropy.units as u
 import numpy as np
 import requests
+import urllib3
 from astropy.coordinates import SkyCoord
 from astropy.io import fits
 from astropy.table import Table
@@ -204,43 +206,46 @@ def _download(session: requests.Session, url: str, path: Path, *, max_bytes: int
                 time.sleep(wait if wait is not None else delays[attempt - 1])
                 continue
             raise CutoutDownloadError("GET returned non-success status", status=status, body=body)
-        break
-    content_length = response.headers.get("Content-Length")
-    if announce_length:
-        print(f"FULL_PRODUCT_RESPONSE HTTP={response.status_code} Content-Length={content_length or 'unknown'} url={url}")
-    if content_length and content_length.isdigit() and int(content_length) > max_bytes:
+        content_length = response.headers.get("Content-Length")
+        if announce_length:
+            print(f"FULL_PRODUCT_RESPONSE HTTP={response.status_code} Content-Length={content_length or 'unknown'} url={url}")
+        if content_length and content_length.isdigit() and int(content_length) > max_bytes:
+            response.close()
+            raise CutoutDownloadError(f"Content-Length {content_length} exceeds {max_bytes} byte cap",
+                                      status=response.status_code,
+                                      body=f"not read: Content-Length {content_length} exceeds configured cap")
+        digest, size = hashlib.sha256(), 0
+        try:
+            with path.open("wb") as stream:
+                for block in response.iter_content(1024 * 1024):
+                    if block:
+                        size += len(block)
+                        if size > max_bytes:
+                            raise CutoutDownloadError(f"streamed response exceeded {max_bytes} byte cap",
+                                                      status=response.status_code,
+                                                      body="aborted while streaming; no response error body")
+                        stream.write(block)
+                        digest.update(block)
+        except CutoutDownloadError:
+            path.unlink(missing_ok=True)
+            response.close()
+            raise
+        except (requests.RequestException, urllib3.exceptions.HTTPError, IncompleteRead, OSError) as exc:
+            path.unlink(missing_ok=True)
+            status = response.status_code
+            body = str(exc)
+            retry_after = _retry_after(response)
+            response.close()
+            if attempt <= len(delays):
+                time.sleep(retry_after if retry_after is not None else delays[attempt - 1])
+                continue
+            raise CutoutDownloadError("GET stream failed", status=status, body=body) from exc
+        except Exception:
+            path.unlink(missing_ok=True)
+            response.close()
+            raise
         response.close()
-        raise CutoutDownloadError(f"Content-Length {content_length} exceeds {max_bytes} byte cap",
-                                  status=response.status_code,
-                                  body=f"not read: Content-Length {content_length} exceeds configured cap")
-    digest, size = hashlib.sha256(), 0
-    try:
-        with path.open("wb") as stream:
-            for block in response.iter_content(1024 * 1024):
-                if block:
-                    size += len(block)
-                    if size > max_bytes:
-                        raise CutoutDownloadError(f"streamed response exceeded {max_bytes} byte cap",
-                                                  status=response.status_code,
-                                                  body="aborted while streaming; no response error body")
-                    stream.write(block)
-                    digest.update(block)
-    except CutoutDownloadError:
-        path.unlink(missing_ok=True)
-        response.close()
-        raise
-    except requests.RequestException as exc:
-        path.unlink(missing_ok=True)
-        status = response.status_code
-        body = response.text[:2000] if response.content else str(exc)
-        response.close()
-        raise CutoutDownloadError("GET stream failed", status=status, body=body) from exc
-    except Exception:
-        path.unlink(missing_ok=True)
-        response.close()
-        raise
-    response.close()
-    return size, digest.hexdigest(), response.status_code, int(content_length) if content_length and content_length.isdigit() else None
+        return size, digest.hexdigest(), response.status_code, int(content_length) if content_length and content_length.isdigit() else None
 
 
 def main(argv: list[str] | None = None) -> int:

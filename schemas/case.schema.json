@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:timeframe102:schemas:case:1.3.0",
+  "$id": "urn:timeframe102:schemas:case:1.5.0",
   "title": "TIMEFRAME/102 scientific case record",
   "description": "Versioned machine-readable record for one real or synthetic astronomical case. The example domain in $id is a stable project identifier, not a data endpoint.",
   "type": "object",
@@ -17,7 +17,7 @@
     "provenance"
   ],
   "properties": {
-    "schema_version": { "const": "1.3.0" },
+    "schema_version": { "const": "1.5.0" },
     "case_id": { "type": "string", "minLength": 1 },
     "is_synthetic": { "type": "boolean" },
     "time_definition": {
@@ -63,7 +63,7 @@
     "spectral_analysis": {
       "type": ["object", "null"],
       "additionalProperties": false,
-      "required": ["model", "parameters", "chi2", "dof", "per_observation"],
+        "required": ["model", "parameters", "chi2", "n_observations", "n_parameters", "dof", "reduced_chi2", "chi2_with_floor", "reduced_chi2_with_floor", "chi2_error_model", "per_observation"],
       "properties": {
         "model": { "type": "string" },
         "parameters": {
@@ -72,7 +72,28 @@
           "additionalProperties": { "type": ["number", "null"] }
         },
         "chi2": { "type": ["number", "null"], "minimum": 0 },
+        "n_observations": { "type": ["integer", "null"], "minimum": 0 },
+        "n_parameters": { "type": ["integer", "null"], "minimum": 0 },
         "dof": { "type": ["integer", "null"], "minimum": 0 },
+        "reduced_chi2": { "type": ["number", "null"], "minimum": 0 },
+        "chi2_with_floor": { "type": ["number", "null"], "minimum": 0 },
+        "reduced_chi2_with_floor": { "type": ["number", "null"], "minimum": 0 },
+        "chi2_error_model": { "type": "string", "minLength": 1 },
+        "constant_flux_test": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "statistic", "n_observations", "n_parameters", "dof", "p_value", "reason", "cannot_detect"],
+          "properties": {
+            "status": { "enum": ["computed", "skipped"] },
+            "statistic": { "type": ["number", "null"], "minimum": 0 },
+            "n_observations": { "type": ["integer", "null"], "minimum": 0 },
+            "n_parameters": { "type": ["integer", "null"], "minimum": 0 },
+            "dof": { "type": ["integer", "null"], "minimum": 0 },
+            "p_value": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+            "reason": { "type": ["string", "null"] },
+            "cannot_detect": { "type": "string", "minLength": 1 }
+          }
+        },
         "model_curve": {
           "type": "array",
           "description": "Optional model samples as [wavelength_um, flux] pairs.",
@@ -126,6 +147,18 @@
         }
       }
     },
+    "comparison_star_analysis": { "$ref": "#/$defs/comparisonStarAnalysis" },
+    "dr1_calibration_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "product", "reason", "comparison"],
+      "properties": {
+        "status": { "enum": ["pass", "fail", "not applicable"] },
+        "product": { "type": "string" },
+        "reason": { "type": "string" },
+        "comparison": { "type": ["object", "null"] }
+      }
+    },
     "verdict": {
       "type": "object",
       "additionalProperties": false,
@@ -152,7 +185,10 @@
           "required": [
             "id", "minimum_usable_epochs", "moving_significance_sigma",
             "minimum_displacement_uncertainty_ratio", "no_motion_confidence_level",
-            "no_motion_max_displacement_arcsec"
+            "no_motion_max_displacement_arcsec", "quality_flags_exclude",
+            "context_only_flags", "mad_residual_threshold_sigma", "spectral_fit_model",
+            "wavelength_bin_width_um", "minimum_comparison_stars", "minimum_floor_epochs",
+            "comparison_star_criteria"
           ],
           "properties": {
             "id": { "type": "string", "minLength": 1 },
@@ -160,7 +196,56 @@
             "moving_significance_sigma": { "type": "number", "exclusiveMinimum": 0 },
             "minimum_displacement_uncertainty_ratio": { "type": "number", "exclusiveMinimum": 0 },
             "no_motion_confidence_level": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
-            "no_motion_max_displacement_arcsec": { "type": "number", "exclusiveMinimum": 0 }
+            "no_motion_max_displacement_arcsec": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+            "quality_flags_exclude": {
+              "type": "array", "uniqueItems": true,
+              "items": { "enum": ["TRANSIENT", "SUR_ERROR", "NONFUNC", "OVERFLOW", "SATURATED"] }
+            },
+            "context_only_flags": {
+              "type": "array", "uniqueItems": true,
+              "items": { "enum": ["HALO", "PERSIST", "DICHROIC"] },
+              "description": "Recorded but not independently excluded; these flags require source-aperture impact evidence."
+            },
+            "mad_residual_threshold_sigma": { "type": "number", "exclusiveMinimum": 0 },
+            "spectral_fit_model": { "type": "string", "minLength": 1 },
+            "wavelength_bin_width_um": { "type": "number", "exclusiveMinimum": 0 },
+            "minimum_comparison_stars": { "type": "integer", "minimum": 1 },
+            "minimum_floor_epochs": { "type": "integer", "minimum": 2 },
+            "comparison_star_criteria": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["catalogs", "gaia_g_mag_range", "two_mass_match_max_arcsec", "two_mass_ph_qual",
+                "allwise_match_max_arcsec", "allwise_ph_qual_w1_w2", "allwise_cc_flags_w1_w2",
+                "allwise_ext_flg", "gaia_isolation_radius_arcsec", "maximum_total_proper_motion_mas_yr",
+                "maximum_ruwe", "exclude_phot_variable_flag", "allowed_phot_variable_flag_values",
+                "minimum_cutout_edge_margin_arcsec", "exclude_hard_source_flags", "minimum_stars_per_frame",
+                "maximum_stars_per_frame", "aperture_radius_px", "annulus_inner_px", "annulus_outer_px",
+                "photometric_floor_method", "astrometric_threshold_method"],
+              "properties": {
+                "catalogs": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+                "gaia_g_mag_range": { "type": "array", "prefixItems": [{"type":"number"},{"type":"number"}], "minItems": 2, "maxItems": 2 },
+                "two_mass_match_max_arcsec": { "type": "number", "exclusiveMinimum": 0 },
+                "two_mass_ph_qual": { "type": "string" },
+                "allwise_match_max_arcsec": { "type": "number", "exclusiveMinimum": 0 },
+                "allwise_ph_qual_w1_w2": { "type": "string" },
+                "allwise_cc_flags_w1_w2": { "type": "string" },
+                "allwise_ext_flg": { "type": "integer", "minimum": 0 },
+                "gaia_isolation_radius_arcsec": { "type": "number", "exclusiveMinimum": 0 },
+                "maximum_total_proper_motion_mas_yr": { "type": "number", "exclusiveMinimum": 0 },
+                "maximum_ruwe": { "type": "number", "exclusiveMinimum": 0 },
+                "exclude_phot_variable_flag": { "type": "boolean" },
+                "allowed_phot_variable_flag_values": { "type": "array", "items": {"type":"string"}, "minItems": 1 },
+                "minimum_cutout_edge_margin_arcsec": { "type": "number", "minimum": 0 },
+                "exclude_hard_source_flags": { "type": "array", "items": {"type":"string"}, "uniqueItems": true },
+                "minimum_stars_per_frame": { "type": "integer", "minimum": 1 },
+                "maximum_stars_per_frame": { "type": "integer", "minimum": 1 },
+                "aperture_radius_px": { "type": "number", "exclusiveMinimum": 0 },
+                "annulus_inner_px": { "type": "number", "exclusiveMinimum": 0 },
+                "annulus_outer_px": { "type": "number", "exclusiveMinimum": 0 },
+                "photometric_floor_method": { "type": "string", "minLength": 1 },
+                "astrometric_threshold_method": { "type": "string", "minLength": 1 }
+              }
+            }
           }
         }
       }
@@ -343,7 +428,8 @@
                 },
                 "pixel_scale_arcsec": { "type": "number", "exclusiveMinimum": 0 },
                 "source_xy": {
-                  "type": "array",
+                  "type": ["array", "null"],
+                  "description": "Measured source position on the common grid; null if no reliable centroid was measured.",
                   "prefixItems": [{ "type": "number" }, { "type": "number" }],
                   "minItems": 2,
                   "maxItems": 2
@@ -385,6 +471,76 @@
         "uncertainty_ra_arcsec": { "type": ["number", "null"], "minimum": 0 },
         "uncertainty_dec_arcsec": { "type": ["number", "null"], "minimum": 0 },
         "method": { "type": "string" }
+      }
+    },
+    "comparisonStarAnalysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selection_status", "selection_reason", "n_gaia_candidates", "gaia_candidate_source_ids", "n_catalog_matched", "n_stars_used", "stars_used", "per_frame_counts", "photometric_floor", "astrometric_calibration"],
+      "properties": {
+        "selection_status": { "enum": ["measured", "insufficient stars", "blocked", "not run"] },
+        "selection_reason": { "type": ["string", "null"] },
+        "n_gaia_candidates": { "type": ["integer", "null"], "minimum": 0 },
+        "gaia_candidate_source_ids": { "type": "array", "items": { "type": "string" } },
+        "n_catalog_matched": { "type": ["integer", "null"], "minimum": 0 },
+        "n_stars_used": { "type": "integer", "minimum": 0 },
+        "stars_used": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["source_id", "ra_deg", "dec_deg", "g_mag", "pm_total_mas_yr", "ruwe", "phot_variable_flag", "two_mass_designation", "allwise_designation"],
+            "properties": {
+              "source_id": { "type": "string" },
+              "ra_deg": { "type": "number", "minimum": 0, "exclusiveMaximum": 360 },
+              "dec_deg": { "type": "number", "minimum": -90, "maximum": 90 },
+              "g_mag": { "type": "number" },
+              "pm_total_mas_yr": { "type": "number", "minimum": 0 },
+              "ruwe": { "type": "number", "exclusiveMinimum": 0 },
+              "phot_variable_flag": { "type": ["string", "null"] },
+              "two_mass_designation": { "type": "string" },
+              "allwise_designation": { "type": "string" }
+            }
+          }
+        },
+        "per_frame_counts": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["observation_id", "detector", "n_stars", "reason"],
+            "properties": {
+              "observation_id": { "type": "string" },
+              "detector": { "type": "integer", "minimum": 1, "maximum": 6 },
+              "n_stars": { "type": ["integer", "null"], "minimum": 0 },
+              "reason": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "photometric_floor": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "method", "sample_size", "fractional_scatter", "floor_jy", "reason"],
+          "properties": {
+            "status": { "enum": ["measured", "insufficient sample", "unavailable"] },
+            "method": { "type": "string" },
+            "sample_size": { "type": "integer", "minimum": 0 },
+            "fractional_scatter": { "type": ["number", "null"], "minimum": 0 },
+            "floor_jy": { "type": ["number", "null"], "minimum": 0 },
+            "reason": { "type": ["string", "null"] }
+          }
+        },
+        "astrometric_calibration": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "method", "n_star_measurements", "common_offset_east_arcsec", "common_offset_north_arcsec", "residual_scatter_arcsec", "displacement_threshold_arcsec", "reason"],
+          "properties": {
+            "status": { "enum": ["measured", "insufficient sample", "unavailable"] },
+            "method": { "type": "string" },
+            "n_star_measurements": { "type": "integer", "minimum": 0 },
+            "common_offset_east_arcsec": { "type": ["number", "null"] },
+            "common_offset_north_arcsec": { "type": ["number", "null"] },
+            "residual_scatter_arcsec": { "type": ["number", "null"], "minimum": 0 },
+            "displacement_threshold_arcsec": { "type": ["number", "null"], "minimum": 0 },
+            "reason": { "type": ["string", "null"] }
+          }
+        }
       }
     }
   }

@@ -1,0 +1,209 @@
+{
+  "case_id": "control-star-1633306316700113024",
+  "figures": {
+    "planned_frames": {
+      "value": 80,
+      "bundle_path": "observations.length"
+    },
+    "usable_frames": {
+      "value": 61,
+      "bundle_path": "observations[*].usable"
+    },
+    "excluded_frames": {
+      "value": 19,
+      "bundle_path": "observations[*].usable"
+    },
+    "distinct_usable_utc_dates": {
+      "value": 52,
+      "dates": [
+        "2025-04-24",
+        "2025-04-25",
+        "2025-04-26",
+        "2025-05-16",
+        "2025-05-23",
+        "2025-05-27",
+        "2025-05-29",
+        "2025-06-12",
+        "2025-06-13",
+        "2025-06-16",
+        "2025-06-18",
+        "2025-06-28",
+        "2025-07-13",
+        "2025-07-14",
+        "2025-07-25",
+        "2025-07-31",
+        "2025-08-01",
+        "2025-08-17",
+        "2025-08-18",
+        "2025-08-24",
+        "2025-08-26",
+        "2025-09-02",
+        "2025-09-04",
+        "2025-09-13",
+        "2025-09-14",
+        "2025-09-18",
+        "2025-09-28",
+        "2025-09-30",
+        "2025-10-11",
+        "2025-10-12",
+        "2025-10-13",
+        "2026-05-15",
+        "2026-05-21",
+        "2026-05-24",
+        "2026-06-04",
+        "2026-06-07",
+        "2026-06-16",
+        "2026-06-21",
+        "2026-06-30",
+        "2026-07-01",
+        "2026-07-15",
+        "2026-07-25",
+        "2026-07-26",
+        "2026-07-27",
+        "2026-08-09",
+        "2026-08-18",
+        "2026-08-20",
+        "2026-09-01",
+        "2026-09-05",
+        "2026-09-08",
+        "2026-09-11",
+        "2026-10-04"
+      ],
+      "bundle_path": "observations[*].time_utc; count unique UTC calendar dates"
+    },
+    "wavelength_range_um": {
+      "value": [
+        0.7575185298919678,
+        4.986695289611816
+      ],
+      "bundle_path": "observations[*].effective_wavelength_um where usable=true"
+    },
+    "quality_flag_counts": {
+      "value": {
+        "SOURCE": 78,
+        "HALO": 14,
+        "TRANSIENT": 14,
+        "PERSIST": 4,
+        "NONFUNC": 5,
+        "STREAK": 1,
+        "SUR_ERROR": 10,
+        "COLD": 1,
+        "DICHROIC": 2
+      },
+      "bundle_path": "observations[*].quality_flags.flag_names"
+    },
+    "mad_residual_hits": {
+      "value": 3,
+      "frame_ids": [
+        "2025W17_4B_0165_1/D5",
+        "2025W32_2D_0603_4/D5",
+        "2026W33_2A_0208_3/D5"
+      ],
+      "bundle_path": "observations[*].exclusion_reason and spectral_analysis.per_observation[*].normalized_residual"
+    },
+    "chi2": {
+      "value": 20863.055759587594,
+      "bundle_path": "spectral_analysis.chi2"
+    },
+    "n_observations": {
+      "value": 61,
+      "bundle_path": "spectral_analysis.n_observations"
+    },
+    "n_parameters": {
+      "value": 3,
+      "bundle_path": "spectral_analysis.n_parameters"
+    },
+    "dof": {
+      "value": 58,
+      "bundle_path": "spectral_analysis.dof"
+    },
+    "reduced_chi2": {
+      "value": 359.70785792392405,
+      "bundle_path": "spectral_analysis.reduced_chi2"
+    },
+    "chi2_with_floor": {
+      "value": null,
+      "bundle_path": "spectral_analysis.chi2_with_floor"
+    },
+    "reduced_chi2_with_floor": {
+      "value": null,
+      "bundle_path": "spectral_analysis.reduced_chi2_with_floor"
+    },
+    "photometric_floor": {
+      "value": {
+        "status": "unavailable",
+        "method": "In each 0.1 um source-wavelength bin, calculate 1.4826 times the MAD of log(measured/catalog-interpolated flux ratios) across comparison stars. Convert the resulting fractional scatter to Jy using the control-star smooth-model flux at that wavelength, then add it in quadrature to the formal uncertainty.",
+        "sample_size": 0,
+        "fractional_scatter": null,
+        "floor_jy": null,
+        "reason": "No 2MASS/AllWISE matched comparison-star flux ratios were measured; IRSA TAP DNS lookup failed and the Gaia-only pre-screen is below the required sample size."
+      },
+      "bundle_path": "comparison_star_analysis.photometric_floor"
+    },
+    "astrometric_displacement_threshold_arcsec": {
+      "value": null,
+      "bundle_path": "comparison_star_analysis.astrometric_calibration.displacement_threshold_arcsec"
+    },
+    "comparison_stars_used": {
+      "value": 0,
+      "candidate_count": 14,
+      "bundle_path": "comparison_star_analysis.n_stars_used; comparison_star_analysis.n_gaia_candidates"
+    },
+    "comparison_star_criteria": {
+      "value": {
+        "catalogs": [
+          "Gaia DR3",
+          "2MASS PSC",
+          "AllWISE"
+        ],
+        "gaia_g_mag_range": [
+          11.12,
+          14.12
+        ],
+        "two_mass_match_max_arcsec": 1.0,
+        "two_mass_ph_qual": "AAA",
+        "allwise_match_max_arcsec": 1.0,
+        "allwise_ph_qual_w1_w2": "AA",
+        "allwise_cc_flags_w1_w2": "00",
+        "allwise_ext_flg": 0,
+        "gaia_isolation_radius_arcsec": 60.0,
+        "maximum_total_proper_motion_mas_yr": 10.0,
+        "maximum_ruwe": 1.4,
+        "exclude_phot_variable_flag": true,
+        "allowed_phot_variable_flag_values": [
+          "CONSTANT",
+          "NOT_AVAILABLE"
+        ],
+        "minimum_cutout_edge_margin_arcsec": 60.0,
+        "exclude_hard_source_flags": [
+          "TRANSIENT",
+          "SUR_ERROR",
+          "NONFUNC",
+          "OVERFLOW",
+          "SATURATED"
+        ],
+        "minimum_stars_per_frame": 20,
+        "maximum_stars_per_frame": 50,
+        "aperture_radius_px": 3.0,
+        "annulus_inner_px": 6.0,
+        "annulus_outer_px": 10.0,
+        "photometric_floor_method": "In each 0.1 um source-wavelength bin, calculate 1.4826 times the MAD of log(measured/catalog-interpolated flux ratios) across comparison stars. Convert the resulting fractional scatter to Jy using the control-star smooth-model flux at that wavelength, then add it in quadrature to the formal uncertainty.",
+        "astrometric_threshold_method": "Per frame, subtract the median east/north Gaia residual across selected comparison stars; set the displacement threshold to three times 1.4826 times the MAD of radial residuals after removing the common frame offset. Require at least 20 comparison stars in a frame."
+      },
+      "bundle_path": "verdict.threshold_policy.comparison_star_criteria"
+    },
+    "dr1_calibration_check": {
+      "value": {
+        "status": "not applicable",
+        "product": "spherex_dr1_cal CWAVE/CBAND maps",
+        "reason": "Not run: IRSA hostname resolution failed in this environment, so no calibration product could be queried or downloaded.",
+        "comparison": null
+      },
+      "bundle_path": "dr1_calibration_check"
+    },
+    "five_mad_exploratory_caveat": {
+      "value": "The 5-scaled-MAD policy was set after exploratory inspection.",
+      "bundle_path": "confirmed_versus_assumed.unverified"
+    }
+  }
+}

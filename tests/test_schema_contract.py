@@ -31,7 +31,7 @@ class CaseSchemaTests(unittest.TestCase):
         cls.index_validator = Draft202012Validator(cls.index_schema, format_checker=FormatChecker())
 
     def test_schema_is_versioned(self):
-        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.3.0")
+        self.assertEqual(self.schema["properties"]["schema_version"]["const"], "1.5.0")
 
     def test_index_is_versioned_and_valid(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
@@ -47,10 +47,36 @@ class CaseSchemaTests(unittest.TestCase):
 
     def test_all_exported_cases_validate(self):
         case_files = sorted(path for path in CASES_DIR.glob("*.json") if path.name != "index.json")
+        case_files += [ROOT / "outputs/control-star/case.json", ROOT / "outputs/control-star/case_bundle.json"]
         for case_path in case_files:
             with self.subTest(case=case_path.name):
                 instance = json.loads(case_path.read_text(encoding="utf-8"))
                 self.validator.validate(instance)
+                analysis = instance.get("spectral_analysis")
+                if isinstance(analysis, dict) and analysis["dof"] is not None:
+                    self.assertEqual(analysis["dof"], analysis["n_observations"] - analysis["n_parameters"])
+                    self.assertAlmostEqual(analysis["reduced_chi2"], analysis["chi2"] / analysis["dof"])
+
+    def test_control_bundle_is_self_contained_and_under_hosting_limit(self):
+        bundle = ROOT / "outputs/control-star/case_bundle.json"
+        self.assertLess(bundle.stat().st_size, 2 * 1024 * 1024)
+        case = json.loads(bundle.read_text(encoding="utf-8"))
+        self.assertFalse(case["is_synthetic"])
+        self.assertTrue(all(o["image"] is None or o["image"]["path"].startswith("data:image/png;base64,")
+                            for o in case["observations"]))
+
+    def test_control_analysis_keeps_unavailable_floor_and_skipped_test_explicit(self):
+        case = json.loads((ROOT / "outputs/control-star/case_bundle.json").read_text(encoding="utf-8"))
+        comparison = case["comparison_star_analysis"]
+        self.assertEqual(comparison["n_stars_used"], 0)
+        self.assertEqual(comparison["photometric_floor"]["status"], "unavailable")
+        self.assertIsNone(comparison["photometric_floor"]["floor_jy"])
+        self.assertTrue(comparison["photometric_floor"]["reason"])
+        test = case["spectral_analysis"]["constant_flux_test"]
+        self.assertEqual(test["status"], "skipped")
+        self.assertIsNone(test["p_value"])
+        self.assertTrue(test["reason"])
+        self.assertEqual(case["dr1_calibration_check"]["status"], "not applicable")
 
     def test_case_index_entries_resolve_to_matching_records(self):
         index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
@@ -81,7 +107,7 @@ class CaseSchemaTests(unittest.TestCase):
 
     def test_schema_rejects_a_case_without_provenance(self):
         invalid = {
-            "schema_version": "1.3.0",
+            "schema_version": "1.5.0",
             "case_id": "fixture",
             "is_synthetic": True,
             "time_definition": "midpoint",
@@ -102,6 +128,37 @@ class CaseSchemaTests(unittest.TestCase):
                     "minimum_displacement_uncertainty_ratio": 3,
                     "no_motion_confidence_level": 0.95,
                     "no_motion_max_displacement_arcsec": 6.15,
+                    "quality_flags_exclude": ["TRANSIENT", "SUR_ERROR", "NONFUNC", "OVERFLOW", "SATURATED"],
+                    "context_only_flags": ["HALO", "PERSIST", "DICHROIC"],
+                    "mad_residual_threshold_sigma": 5.0,
+                    "spectral_fit_model": "degree-2 robust log spectrum",
+                    "wavelength_bin_width_um": 0.1,
+                    "minimum_comparison_stars": 20,
+                    "minimum_floor_epochs": 3,
+                    "comparison_star_criteria": {
+                        "catalogs": ["Gaia DR3", "2MASS PSC", "AllWISE"],
+                        "gaia_g_mag_range": [11.12, 14.12],
+                        "two_mass_match_max_arcsec": 1.0,
+                        "two_mass_ph_qual": "AAA",
+                        "allwise_match_max_arcsec": 1.0,
+                        "allwise_ph_qual_w1_w2": "AA",
+                        "allwise_cc_flags_w1_w2": "00",
+                        "allwise_ext_flg": 0,
+                        "gaia_isolation_radius_arcsec": 60.0,
+                        "maximum_total_proper_motion_mas_yr": 10.0,
+                        "maximum_ruwe": 1.4,
+                        "exclude_phot_variable_flag": True,
+                        "allowed_phot_variable_flag_values": ["CONSTANT", "NOT_AVAILABLE"],
+                        "minimum_cutout_edge_margin_arcsec": 60.0,
+                        "exclude_hard_source_flags": ["TRANSIENT", "SUR_ERROR", "NONFUNC", "OVERFLOW", "SATURATED"],
+                        "minimum_stars_per_frame": 20,
+                        "maximum_stars_per_frame": 50,
+                        "aperture_radius_px": 3.0,
+                        "annulus_inner_px": 6.0,
+                        "annulus_outer_px": 10.0,
+                        "photometric_floor_method": "predeclared method",
+                        "astrometric_threshold_method": "predeclared method",
+                    },
                 },
             },
             "confirmed_versus_assumed": {"confirmed": [], "assumed": [], "unverified": []},

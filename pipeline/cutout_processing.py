@@ -334,12 +334,24 @@ def process_fits_product(
         flag_map = np.where(np.isfinite(flag_map), np.rint(flag_map), -1).astype(np.int64)
         flag_defs = decode_flag_definitions(flags_hdu.header)
         original_ix, original_iy = int(round(original_x)), int(round(original_y))
-        radius = 2
-        ys = slice(max(original_iy - radius, 0), min(original_iy + radius + 1, flags_hdu.data.shape[0]))
-        xs = slice(max(original_ix - radius, 0), min(original_ix + radius + 1, flags_hdu.data.shape[1]))
-        target_flag_values = np.asarray(flags_hdu.data[ys, xs], dtype=np.int64)
-        central_flag = int(flags_hdu.data[original_iy, original_ix])
-        decoded_flags = decode_flag_value(central_flag, flag_defs)
+        flag_ny, flag_nx = flags_hdu.data.shape
+        source_inside_input = 0 <= original_ix < flag_nx and 0 <= original_iy < flag_ny
+        full_annulus_inside_input = (
+            original_x >= 10.0 and original_y >= 10.0
+            and original_x <= flag_nx - 1 - 10.0
+            and original_y <= flag_ny - 1 - 10.0
+        )
+        if source_inside_input:
+            radius = 2
+            ys = slice(max(original_iy - radius, 0), min(original_iy + radius + 1, flag_ny))
+            xs = slice(max(original_ix - radius, 0), min(original_ix + radius + 1, flag_nx))
+            target_flag_values = np.asarray(flags_hdu.data[ys, xs], dtype=np.int64)
+            central_flag: int | None = int(flags_hdu.data[original_iy, original_ix])
+            decoded_flags = decode_flag_value(central_flag, flag_defs)
+        else:
+            target_flag_values = np.asarray([], dtype=np.int64)
+            central_flag = None
+            decoded_flags = []
         flags_in_aperture = sorted({item["name"] for raw in np.unique(target_flag_values)
                                     for item in decode_flag_value(int(raw), flag_defs)})
         overflow = any(item["name"] == "OVERFLOW" for item in decoded_flags)
@@ -366,10 +378,19 @@ def process_fits_product(
         wavelength = sample_wavelength_metadata(hdul, sample_x, sample_y)
         wavelength["wavelength_pixel_xy"] = [sample_x, sample_y]
         wavelength["wavelength_sample_basis"] = wavelength_basis
-        photometry = aperture_photometry_image_zodi(
-            np.asarray(image_hdu.data, float), np.asarray(zodi_hdu.data, float),
-            np.asarray(var_hdu.data, float), input_wcs, (sample_x, sample_y),
-        )
+        if full_annulus_inside_input:
+            try:
+                photometry = aperture_photometry_image_zodi(
+                    np.asarray(image_hdu.data, float), np.asarray(zodi_hdu.data, float),
+                    np.asarray(var_hdu.data, float), input_wcs, (sample_x, sample_y),
+                )
+                photometry_error = None
+            except ValueError as exc:
+                photometry = None
+                photometry_error = f"photometry unavailable: {exc}"
+        else:
+            photometry = None
+            photometry_error = "source or full 6-10 px background annulus lies outside the input cutout"
 
     reference_candidates = _reference_candidates(image, zodi, variance, expected_xy)
     if centroid["source_xy"] is not None and (overflow or overflow_aperture or saturated or saturated_aperture):
@@ -460,6 +481,9 @@ def process_fits_product(
         "uncertainty_ra_arcsec": uncertainty_ra_arcsec,
         "uncertainty_dec_arcsec": uncertainty_dec_arcsec,
         "association": centroid["association"],
+        "usable": bool(source_inside_input and full_annulus_inside_input and photometry is not None),
+        "exclusion_reason": (None if source_inside_input and full_annulus_inside_input and photometry is not None
+                             else photometry_error),
         "central_flag_raw_value": central_flag,
         "central_flag_decoded": decoded_flags,
         "flags_within_2_pixel_radius_box": flags_in_aperture,
@@ -467,8 +491,8 @@ def process_fits_product(
         "overflow_within_2_pixel_radius_box": overflow_aperture,
         "saturated_at_predicted_pixel": saturated,
         "saturated_within_2_pixel_radius_box": saturated_aperture,
-        "variance_at_predicted_pixel": float(variance[round(expected_xy[1]), round(expected_xy[0])]),
-        "zodi_at_predicted_pixel": float(zodi[round(expected_xy[1]), round(expected_xy[0])]),
+        "variance_at_predicted_pixel": float(variance[int(round(expected_xy[1])), int(round(expected_xy[0]))]),
+        "zodi_at_predicted_pixel": float(zodi[int(round(expected_xy[1])), int(round(expected_xy[0]))]),
         "photometry": photometry,
         **wavelength,
         "reference_source_candidates_unconfirmed": reference_candidates,

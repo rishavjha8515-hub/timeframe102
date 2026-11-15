@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3.0",
+  "schema_version": "1.5.0",
   "case_id": "synthetic-ui-demo",
   "is_synthetic": true,
   "time_definition": "midpoint",
@@ -26,10 +26,15 @@
       "effective_wavelength_um": 1.0,
       "wavelength_width_um": 0.04,
       "wavelength_source": "synthetic fixture value",
-      "wavelength_pixel_xy": [55.0, 64.0],
+      "wavelength_pixel_xy": [
+        55.0,
+        64.0
+      ],
       "quality_flags": {
         "raw_value": 0,
-        "flag_names": ["SYNTHETIC_ZERO_FLAGS"],
+        "flag_names": [
+          "SYNTHETIC_ZERO_FLAGS"
+        ],
         "accepted_for_science": true,
         "variance_value": 1.0,
         "variance_unit": "synthetic flux_unit^2"
@@ -48,7 +53,10 @@
         "uncertainty_dec_arcsec": 0.1,
         "method": "synthetic prediction fixture; not Horizons output"
       },
-      "position_residual_arcsec": [1.7, 0.0],
+      "position_residual_arcsec": [
+        1.7,
+        0.0
+      ],
       "flux": {
         "value": 100.0,
         "uncertainty": 5.0,
@@ -59,10 +67,20 @@
         "path": "images/synthetic-epoch-001.png",
         "width_px": 128,
         "height_px": 128,
-        "stretch": { "type": "linear", "vmin": 0.0, "vmax": 255.0 },
+        "stretch": {
+          "type": "linear",
+          "vmin": 0.0,
+          "vmax": 255.0
+        },
         "pixel_scale_arcsec": 6.15,
-        "source_xy": [55.0, 64.0],
-        "predicted_xy": [53.0, 64.0]
+        "source_xy": [
+          55.0,
+          64.0
+        ],
+        "predicted_xy": [
+          53.0,
+          64.0
+        ]
       },
       "registration": {
         "n_reference_stars": 12,
@@ -81,10 +99,15 @@
       "effective_wavelength_um": 2.0,
       "wavelength_width_um": 0.06,
       "wavelength_source": "synthetic fixture value",
-      "wavelength_pixel_xy": [64.0, 64.0],
+      "wavelength_pixel_xy": [
+        64.0,
+        64.0
+      ],
       "quality_flags": {
         "raw_value": 0,
-        "flag_names": ["SYNTHETIC_ZERO_FLAGS"],
+        "flag_names": [
+          "SYNTHETIC_ZERO_FLAGS"
+        ],
         "accepted_for_science": true,
         "variance_value": 1.0,
         "variance_unit": "synthetic flux_unit^2"
@@ -103,7 +126,10 @@
         "uncertainty_dec_arcsec": 0.1,
         "method": "synthetic prediction fixture; not Horizons output"
       },
-      "position_residual_arcsec": [1.7, 0.0],
+      "position_residual_arcsec": [
+        1.7,
+        0.0
+      ],
       "flux": {
         "value": 98.0,
         "uncertainty": 5.0,
@@ -114,10 +140,20 @@
         "path": "images/synthetic-epoch-002.png",
         "width_px": 128,
         "height_px": 128,
-        "stretch": { "type": "linear", "vmin": 0.0, "vmax": 255.0 },
+        "stretch": {
+          "type": "linear",
+          "vmin": 0.0,
+          "vmax": 255.0
+        },
         "pixel_scale_arcsec": 6.15,
-        "source_xy": [64.0, 64.0],
-        "predicted_xy": [62.0, 64.0]
+        "source_xy": [
+          64.0,
+          64.0
+        ],
+        "predicted_xy": [
+          62.0,
+          64.0
+        ]
       },
       "registration": {
         "n_reference_stars": 12,
@@ -136,10 +172,15 @@
       "effective_wavelength_um": 3.0,
       "wavelength_width_um": 0.08,
       "wavelength_source": "synthetic fixture value",
-      "wavelength_pixel_xy": [73.0, 64.0],
+      "wavelength_pixel_xy": [
+        73.0,
+        64.0
+      ],
       "quality_flags": {
         "raw_value": 0,
-        "flag_names": ["SYNTHETIC_ZERO_FLAGS"],
+        "flag_names": [
+          "SYNTHETIC_ZERO_FLAGS"
+        ],
         "accepted_for_science": true,
         "variance_value": 1.0,
         "variance_unit": "synthetic flux_unit^2"
@@ -158,7 +199,10 @@
         "uncertainty_dec_arcsec": 0.1,
         "method": "synthetic prediction fixture; not Horizons output"
       },
-      "position_residual_arcsec": [1.7, 0.0],
+      "position_residual_arcsec": [
+        1.7,
+        0.0
+      ],
       "flux": {
         "value": 101.0,
         "uncertainty": 5.0,
@@ -169,10 +213,20 @@
         "path": "images/synthetic-epoch-003.png",
         "width_px": 128,
         "height_px": 128,
-        "stretch": { "type": "linear", "vmin": 0.0, "vmax": 255.0 },
+        "stretch": {
+          "type": "linear",
+          "vmin": 0.0,
+          "vmax": 255.0
+        },
         "pixel_scale_arcsec": 6.15,
-        "source_xy": [73.0, 64.0],
-        "predicted_xy": [71.0, 64.0]
+        "source_xy": [
+          73.0,
+          64.0
+        ],
+        "predicted_xy": [
+          71.0,
+          64.0
+        ]
       },
       "registration": {
         "n_reference_stars": 12,
@@ -185,15 +239,44 @@
   ],
   "spectral_analysis": {
     "model": "constant",
-    "parameters": { "flux": 99.67 },
+    "parameters": {
+      "flux": 99.67
+    },
     "chi2": 0.2,
     "dof": 2,
-    "model_curve": [[0.75, 99.67], [5.0, 99.67]],
+    "model_curve": [
+      [
+        0.75,
+        99.67
+      ],
+      [
+        5.0,
+        99.67
+      ]
+    ],
     "per_observation": [
-      { "observation_id": "synthetic-epoch-001", "model_flux": 99.67, "normalized_residual": 0.066 },
-      { "observation_id": "synthetic-epoch-002", "model_flux": 99.67, "normalized_residual": -0.334 },
-      { "observation_id": "synthetic-epoch-003", "model_flux": 99.67, "normalized_residual": 0.266 }
-    ]
+      {
+        "observation_id": "synthetic-epoch-001",
+        "model_flux": 99.67,
+        "normalized_residual": 0.066
+      },
+      {
+        "observation_id": "synthetic-epoch-002",
+        "model_flux": 99.67,
+        "normalized_residual": -0.334
+      },
+      {
+        "observation_id": "synthetic-epoch-003",
+        "model_flux": 99.67,
+        "normalized_residual": 0.266
+      }
+    ],
+    "n_observations": 3,
+    "n_parameters": 1,
+    "reduced_chi2": 0.1,
+    "chi2_with_floor": null,
+    "reduced_chi2_with_floor": null,
+    "chi2_error_model": "Synthetic demonstration only."
   },
   "spectral_verdict": {
     "label": "insufficient evidence",
@@ -201,8 +284,13 @@
       "summary": "Synthetic UI fixture only; no astrophysical conclusion is represented.",
       "n_observations": 3,
       "n_usable": 3,
-      "wavelength_range_um": [1.0, 3.0],
-      "reasons": ["All values in this case are generated for interface development."]
+      "wavelength_range_um": [
+        1.0,
+        3.0
+      ],
+      "reasons": [
+        "All values in this case are generated for interface development."
+      ]
     }
   },
   "verdict": {
@@ -214,7 +302,9 @@
       "baseline_days": 2.0,
       "residual_rms_arcsec": null,
       "motion_significance_sigma": null,
-      "reasons": ["Positions and uncertainties are generated fixture values, not astronomical measurements."]
+      "reasons": [
+        "Positions and uncertainties are generated fixture values, not astronomical measurements."
+      ]
     },
     "threshold_policy": {
       "id": "demo-motion-policy-v1",
@@ -222,13 +312,76 @@
       "moving_significance_sigma": 5.0,
       "minimum_displacement_uncertainty_ratio": 3.0,
       "no_motion_confidence_level": 0.95,
-      "no_motion_max_displacement_arcsec": 6.15
+      "no_motion_max_displacement_arcsec": 6.15,
+      "quality_flags_exclude": [
+        "TRANSIENT",
+        "SUR_ERROR",
+        "NONFUNC",
+        "OVERFLOW",
+        "SATURATED"
+      ],
+      "context_only_flags": [
+        "HALO",
+        "PERSIST",
+        "DICHROIC"
+      ],
+      "mad_residual_threshold_sigma": 5.0,
+      "spectral_fit_model": "degree-2 polynomial of log(flux_Jy) versus centered log(wavelength_um), robust soft-L1 loss",
+      "wavelength_bin_width_um": 0.1,
+      "minimum_comparison_stars": 20,
+      "minimum_floor_epochs": 3,
+      "comparison_star_criteria": {
+        "catalogs": [
+          "Gaia DR3",
+          "2MASS PSC",
+          "AllWISE"
+        ],
+        "gaia_g_mag_range": [
+          11.12,
+          14.12
+        ],
+        "two_mass_match_max_arcsec": 1.0,
+        "two_mass_ph_qual": "AAA",
+        "allwise_match_max_arcsec": 1.0,
+        "allwise_ph_qual_w1_w2": "AA",
+        "allwise_cc_flags_w1_w2": "00",
+        "allwise_ext_flg": 0,
+        "gaia_isolation_radius_arcsec": 60.0,
+        "maximum_total_proper_motion_mas_yr": 10.0,
+        "maximum_ruwe": 1.4,
+        "exclude_phot_variable_flag": true,
+        "allowed_phot_variable_flag_values": [
+          "CONSTANT",
+          "NOT_AVAILABLE"
+        ],
+        "minimum_cutout_edge_margin_arcsec": 60.0,
+        "exclude_hard_source_flags": [
+          "TRANSIENT",
+          "SUR_ERROR",
+          "NONFUNC",
+          "OVERFLOW",
+          "SATURATED"
+        ],
+        "minimum_stars_per_frame": 20,
+        "maximum_stars_per_frame": 50,
+        "aperture_radius_px": 3.0,
+        "annulus_inner_px": 6.0,
+        "annulus_outer_px": 10.0,
+        "photometric_floor_method": "In each 0.1 um source-wavelength bin, calculate 1.4826 times the MAD of log(measured/catalog-interpolated flux ratios) across comparison stars. Convert the resulting fractional scatter to Jy using the control-star smooth-model flux at that wavelength, then add it in quadrature to the formal uncertainty.",
+        "astrometric_threshold_method": "Per frame, subtract the median east/north Gaia residual across selected comparison stars; set the displacement threshold to three times 1.4826 times the MAD of radial residuals after removing the common frame offset. Require at least 20 comparison stars in a frame."
+      }
     }
   },
   "confirmed_versus_assumed": {
-    "confirmed": ["is_synthetic is true; all example values and preview images are generated."],
-    "assumed": ["The fixture demonstrates a point-source record with three synthetic epochs."],
-    "unverified": ["No IRSA or Horizons data are used by this case."]
+    "confirmed": [
+      "is_synthetic is true; all example values and preview images are generated."
+    ],
+    "assumed": [
+      "The fixture demonstrates a point-source record with three synthetic epochs."
+    ],
+    "unverified": [
+      "No IRSA or Horizons data are used by this case."
+    ]
   },
   "provenance": {
     "products": [],

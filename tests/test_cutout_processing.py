@@ -168,6 +168,21 @@ class CutoutProcessingTests(unittest.TestCase):
                 self.assertEqual([h.name for h in output], ["PRIMARY", "IMAGE", "FLAGS", "VARIANCE", "ZODI", "EPSF_SRC", "WAVE_SRC"])
                 self.assertEqual(output["IMAGE"].data.shape, (32, 32))
 
+    def test_source_near_cutout_edge_returns_unusable_instead_of_index_error(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "edge-mef.fits"
+            outdir = Path(tmp) / "out"
+            synthetic_mef(source)
+            edge_coord = WCS(fits.getheader(source, "IMAGE")).pixel_to_world(1.0, 1.0)
+            result = process_fits_product(
+                source, output_dir=outdir, ra_deg=float(edge_coord.ra.deg),
+                dec_deg=float(edge_coord.dec.deg), observation_id="edge-obs",
+                target_name="synthetic edge", detector=2, shape=(32, 32),
+            )
+            self.assertFalse(result["usable"])
+            self.assertIsNone(result["photometry"])
+            self.assertIn("outside the input cutout", result["exclusion_reason"])
+
 
 if __name__ == "__main__":
     unittest.main()

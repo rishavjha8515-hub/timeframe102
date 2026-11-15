@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import Mock
 from unittest.mock import patch
 
+import requests
 from astropy.io import fits
 from astropy.table import Table
 
@@ -126,6 +127,22 @@ class StarObservationPlanTests(unittest.TestCase):
             self.assertEqual(status, 200)
             self.assertEqual(length, 4)
             sleep.assert_called_once_with(7.0)
+
+    def test_download_retries_incomplete_stream_read(self):
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "stream-retry.fits"
+            interrupted = Mock(ok=True, status_code=200, headers={"Content-Length": "4"})
+            interrupted.iter_content.side_effect = requests.exceptions.ChunkedEncodingError("IncompleteRead")
+            success = Mock(ok=True, status_code=200, headers={"Content-Length": "4"})
+            success.iter_content.return_value = [b"fits"]
+            session = Mock()
+            session.get.side_effect = [interrupted, success]
+            with patch("pipeline.probe_star_flux_and_cutouts.time.sleep") as sleep:
+                size, digest, status, length = _download(session, "https://irsa.ipac.caltech.edu/cutout", path)
+            self.assertEqual((size, status, length), (4, 200, 4))
+            self.assertEqual(path.read_bytes(), b"fits")
+            self.assertEqual(session.get.call_count, 2)
+            sleep.assert_called_once_with(5)
 
 
 if __name__ == "__main__":

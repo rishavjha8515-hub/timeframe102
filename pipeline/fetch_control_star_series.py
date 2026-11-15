@@ -101,6 +101,8 @@ def fetch_series(count: int, size_deg: float, cache_dir: Path, output_dir: Path)
                     "wavelength_width_um": result["wavelength_width_um"],
                     "wavelength_uncertainty_um": result["wavelength_uncertainty_um"],
                     "flux": result["photometry"],
+                    "usable": result["usable"],
+                    "exclusion_reason": result["exclusion_reason"],
                     "flags_at_star_pixel": result["central_flag_decoded"],
                     "flags_5x5": result["flags_within_2_pixel_radius_box"],
                     "measured_position": result["measured_world"],
@@ -109,7 +111,8 @@ def fetch_series(count: int, size_deg: float, cache_dir: Path, output_dir: Path)
                 })
                 print(f"SERIES {index}/{count} {obs_id} D{detector} night={row['utc_night']} "
                       f"status={status} bytes={size} wavelength_um={result['effective_wavelength_um']} "
-                      f"flux_jy={result['photometry']['flux_jy']} flags={result['central_flag_decoded']}")
+                      f"flux_jy={None if result['photometry'] is None else result['photometry']['flux_jy']} "
+                      f"usable={result['usable']} flags={result['central_flag_decoded']}")
             except Exception as exc:
                 status_code = getattr(exc, "status", None) or getattr(getattr(exc, "response", None), "status_code", None)
                 body = getattr(exc, "body", str(exc))
