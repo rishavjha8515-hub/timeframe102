@@ -1,11 +1,23 @@
 import unittest
+from unittest.mock import patch
 
 from astropy.table import Table
 
-from pipeline.check_dr1_calibration import _matching_epoch
+from pipeline.check_dr1_calibration import CALIB_LEVEL, COLLECTION, _matching_epoch, _query_sia
 
 
 class Dr1CalibrationTests(unittest.TestCase):
+    @patch("pipeline.check_dr1_calibration.Irsa.query_sia")
+    def test_query_uses_advertised_dr1_collection_and_calibration_level(self, query_sia):
+        query_sia.return_value = Table()
+        _query_sia(269.7, 66.4)
+        query_sia.assert_called_once_with(
+            pos=(269.7, 66.4, 0.001), collection="spherex_dr1",
+            calib_level=2, maxrec=10000,
+        )
+        self.assertEqual(COLLECTION, "spherex_dr1")
+        self.assertEqual(CALIB_LEVEL, 2)
+
     def test_selects_same_usable_observation_and_detector(self):
         case = {"observations": [
             {"observation_id": "obs-a", "detector": 1, "usable": True},

@@ -1,12 +1,12 @@
-"""Compare a DR1-calibrated cutout wavelength map with the case's DR1 value.
+"""Compare a DR1 calibrated-level cutout wavelength map with the case value.
 
 Run from the repository root where IRSA is reachable:
     python -m pipeline.check_dr1_calibration
 
-The script queries the target position, selects the first usable case epoch
-available at the same observation ID and detector, and inspects the sampled
-EPSF.CWAVE/CBAND and WCS-WAVE values. It records failures without substituting
-another epoch or inventing a comparison.
+The script queries the advertised ``spherex_dr1`` SIA collection at calibration
+level 2, selects the first usable case epoch available at the same observation
+ID and detector, and inspects EPSF.CWAVE/CBAND and WCS-WAVE. It does not use the
+unadvertised ``spherex_dr1_cal`` collection name or substitute another epoch.
 """
 
 from __future__ import annotations
@@ -28,7 +28,13 @@ from .probe_star_flux_and_cutouts import _download
 ROOT = Path(__file__).resolve().parents[1]
 CASE_PATH = ROOT / "outputs/control-star/case.json"
 CACHE = ROOT / "pipeline/cache/control-star/dr1-cal-check"
-COLLECTION = "spherex_dr1_cal"
+COLLECTION = "spherex_dr1"
+CALIB_LEVEL = 2
+
+
+def _query_sia(ra_deg: float, dec_deg: float) -> Table:
+    return Irsa.query_sia(pos=(ra_deg, dec_deg, 0.001), collection=COLLECTION,
+                          calib_level=CALIB_LEVEL, maxrec=10000)
 
 
 def _matching_epoch(case: dict[str, Any], table: Table) -> tuple[dict[str, Any] | None, Any | None]:
@@ -55,15 +61,17 @@ def main() -> int:
     case = json.loads(CASE_PATH.read_text(encoding="utf-8"))
     coord = case["target"]["coordinates"]
     result: dict[str, Any] = {
-        "status": "not applicable", "collection": COLLECTION,
+        "status": "not applicable", "collection": COLLECTION, "calib_level": CALIB_LEVEL,
         "case_path": "outputs/control-star/case.json", "matched_observation": None,
         "comparison": None, "error": None,
+        "http_status": None, "query_status": None, "sia_row_count": None,
     }
     query_succeeded = False
     try:
-        table = Irsa.query_sia(pos=(coord["ra_deg"], coord["dec_deg"], 0.001),
-                               collection=COLLECTION, maxrec=10000)
+        table = _query_sia(coord["ra_deg"], coord["dec_deg"])
         query_succeeded = True
+        result["http_status"] = 200
+        result["sia_row_count"] = len(table)
         table.write(CACHE / "spherex_dr1_cal_sia.ecsv", format="ascii.ecsv", overwrite=True)
         observation, row = _matching_epoch(case, table)
         if observation is None:
